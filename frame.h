@@ -42,7 +42,7 @@ class Frame {
         
         }
 
-        int xval() const{
+          int xval() const{
             return extractedVal1;
            }
     
