@@ -8,7 +8,6 @@ int main(){
     DrawFrame drawframe;
     LoopFrame loopframe;
     drawframe.drawTheFrame();
-    loopframe.LoopingFrameByRobot();
     
     return 0;
 }
