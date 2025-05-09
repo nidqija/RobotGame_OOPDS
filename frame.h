@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "robot.h"
 
 using namespace std;
 
@@ -61,7 +62,6 @@ class DrawFrame : public Frame {
     public:
     void drawTheFrame() {
       FindFrame(); 
-
       int xValue = xval();
       int yValue = yval();
 
