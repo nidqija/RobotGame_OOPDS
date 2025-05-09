@@ -13,6 +13,7 @@ class Frame {
       
 
     public:
+      friend class LoopFrame;
 
        void FindFrame(){
           ifstream inputFile("input.txt");
@@ -39,6 +40,8 @@ class Frame {
             }  
               
           }
+
+          inputFile.close();
         
         }
 
@@ -84,6 +87,40 @@ class DrawFrame : public Frame {
 
 
         };
+
+
+class LoopFrame :public DrawFrame{
+
+     private:
+       string line;
+       int RobotAmount;
+
+     public:
+       
+       void LoopingFrameByRobot(){
+          ifstream InputFile("input.txt");
+          while(getline(InputFile , line)){
+               if(line.find("robots:") != string::npos){
+                   size_t StartPos = line.find(":");
+                   string Robotsnum = line.substr(StartPos + 1);
+                   RobotAmount = stoi(Robotsnum);
+                   cout << "Amount of Robots: " << RobotAmount << endl;
+                   
+               }
+
+          }
+
+          for (int i = 0 ; i < RobotAmount ; i++){
+             drawTheFrame();
+          }
+       }
+
+       
+
+       
+      
+        
+};
     
 
 
