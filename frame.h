@@ -58,32 +58,38 @@ class Frame {
 };
 
 
+
+
+
 class DrawFrame : public Frame {
     public:
-    void drawTheFrame() {
-      FindFrame(); 
-      int xValue = xval();
-      int yValue = yval();
+   void drawTheFrame(const Robot& robot) {
+    FindFrame(); 
+    int xValue = xval();
+    int yValue = yval();
+    string word = robot.returnRobot() ;
+    int wordLength = word.length();
+    int midRow = yValue / 2;
+    int midColStart = (xValue - wordLength) / 2;
 
-
-      for (int column = 0; column < xValue; ++column) {
-          cout << "*";
-      }
-      cout << "\n";
-
-      for (int row = 0; row < yValue - 2; ++row) {  // Exclude top and bottom rows
-          cout << "*";
-          for (int column = 0; column < xValue - 2; ++column) {
-              cout << " ";
-          }
-          cout << "*\n";
-      }
-
-      for (int column = 0; column < xValue; ++column) {
-          cout << "*";
-      }
-      cout << "\n";
-  }
+    for (int row = 0; row < yValue; ++row) {
+        for (int col = 0; col < xValue; ++col) {
+            if (row == 0 || row == yValue - 1) {
+                cout << "*";
+            }
+            else if (col == 0 || col == xValue - 1) {
+                cout << "*";
+            }
+            else if (row == midRow && col >= midColStart && col < midColStart + wordLength) {
+                cout << word[col - midColStart];
+            }
+            else {
+                cout << " ";
+            }
+        }
+        cout << "\n";
+    }
+}
 
 
         };
@@ -111,7 +117,8 @@ class LoopFrame :public DrawFrame{
           }
 
           for (int i = 0 ; i < RobotAmount ; i++){
-             drawTheFrame();
+             Robot robot;
+             drawTheFrame(robot);
           }
        }
 

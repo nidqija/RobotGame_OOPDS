@@ -2,28 +2,20 @@
 #include <string>
 using namespace std;
 
-class Robot : public Frame{
+class Robot{
     private:
-     string robot = "$";
-     int xValue = xval();
-     int yValue = yval();
+     string word = "$";
+     
+
     
 
     public:
+       
+      string returnRobot() const{
+        return word;
+      }
       
-      void Move(){
-
-      }
-
-
-      void Think(){
-
-      }
-
-
-      void Fire(){
-
-      }
+   
 };
 
 
