@@ -5,9 +5,9 @@ using namespace std;
 
 int main(){
     Robot robot;
-    DrawFrame drawframe;
+    GenericRobot generic;
     LoopFrame loopframe;
-    drawframe.drawTheFrame(robot);
-    
+    loopframe.LoopingFrameByRobot();
+    generic.Move();
     return 0;
 }
