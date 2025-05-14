@@ -1,85 +1,29 @@
-#include <iostream>
+#ifndef ROBOT_H
+#define ROBOT_H
+
 #include <string>
-#include <fstream>
-#include <vector>
-#include <sstream>
-using namespace std;
+#include <cstdlib>
 
-class Robot{
-    private:
-     string word = "$";
-
-    public:
-       
-      string returnRobot() const{
-        return word;
-      }
-      
-   
+class Robot {
+public:
+    std::string returnRobot() const {
+        return "A"; // or any string like "BOT"
+    }
 };
 
+class MovingBot : public Robot {
+private:
+    int posX = 1;
+    int posY = 1;
 
+public:
+    void Move(int frameWidth, int frameHeight, int wordLength) {
+        posX = rand() % (frameWidth - wordLength - 2) + 1;
+        posY = rand() % (frameHeight - 2) + 1;
+    }
 
-class GenericRobot : public Robot{
-    private:
-      int robotPositionX , robotPositionY;
-      string line;
-      string RobotName;
-      string label;
-      
-
-    public:
-      void Think(){
-
-      }
-
-
-      void Fire(){
-
-      }
-
-
-      int Move(){
-          ifstream inputFile("input.txt");
-          
-          if(!inputFile){
-            cout << "Cannot open file" << endl;
-            return 1;
-          }
-
-
-          while(getline(inputFile , line)){
-            if(line.find("GenericRobot")!= string::npos ){
-              istringstream GetPosFromLine(line);
-              int PosX , PosY;
-              GetPosFromLine >> label >> RobotName >> PosX >> PosY;
-
-              robotPositionX = PosX;
-              robotPositionY = PosY;
-
-            cout << "Name:" << RobotName << " " << endl;
-            cout << "X:" << robotPositionX << " " << endl;
-            cout << "Y:" << robotPositionY << " " << endl;
-
-
-
-              
-
-            
-            }
-          }  
-      }
-
-
-      int ReturnPosX(){
-        return robotPositionX;
-      }
-
-      int ReturnPosY(){
-        return robotPositionY;
-      }
-       
+    int ReturnPosX() const { return posX; }
+    int ReturnPosY() const { return posY; }
 };
 
-
-
+#endif
