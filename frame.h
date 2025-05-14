@@ -3,17 +3,18 @@
 #include <string>
 #include <thread>
 #include <chrono>
-#include <cstdlib> 
+#include <cstdlib>
 #include <ctime>
 #include "robot.h"
 
 using namespace std;
 
+
+
 void delay(int milliseconds) {
     for (int i = 0; i < milliseconds * 2000; ++i) {
     }
 }
-
 
 void slowPrint(const string& text, int delayMs = 2000) {
     for (char ch : text) {
@@ -21,9 +22,6 @@ void slowPrint(const string& text, int delayMs = 2000) {
         delay(delayMs);
     }
 }
-
-
-
 
 class Frame {
 private:
@@ -42,9 +40,9 @@ public:
         }
 
         while (getline(inputFile, line)) {
-            if (line.find("20 20") != string::npos) {
-                size_t StartPosition = line.find("20");
-                size_t EndPosition = line.find("20");
+            if (line.find("50 70") != string::npos) {  // Change this to your required frame size
+                size_t StartPosition = line.find("70");
+                size_t EndPosition = line.find("50");
                 string val1 = line.substr(StartPosition, 2);
                 string val2 = line.substr(EndPosition, 2);
 
@@ -66,6 +64,8 @@ public:
     }
 };
 
+
+
 class DrawFrame : public Frame {
 public:
     void drawTheFrame(const Robot& robot, int posX, int posY) {
@@ -78,13 +78,13 @@ public:
         for (int row = 0; row < yValue; ++row) {
             for (int col = 0; col < xValue; ++col) {
                 if (row == 0 || row == yValue - 1 || col == 0 || col == xValue - 1) {
-                    slowPrint("*");
+                    cout << "*";
                 }
-                else if (row == posY && col >= posX && col < posX + wordLength) {
-                    slowPrint(string(1, word[col - posX]));
+                else if (row == posY && col == posX) {
+                    cout << word;  
                 }
                 else {
-                    cout << " ";
+                    cout << "*";
                 }
             }
             cout << "\n";
@@ -99,7 +99,6 @@ private:
 
 public:
     void LoopingFrameByRobot() {
-
         ifstream InputFile("input.txt");
         while (getline(InputFile, line)) {
             if (line.find("robots:") != string::npos) {
@@ -118,13 +117,17 @@ public:
         int frameHeight = yval();
         int wordLength = robot.returnRobot().length();
 
-        while(true){
-            movingBot.Move(frameWidth,frameHeight,wordLength);
+        while (true) {
+            movingBot.Move(frameWidth, frameHeight, wordLength); 
             int posX = movingBot.ReturnPosX();
             int posY = movingBot.ReturnPosY();
-            drawTheFrame(robot, posX, posY);
-            srand(time(0)); // Seed for random positions
+            cout << endl;
+            cout << endl;
+            cout << endl;
+            cout << endl;
+
+            drawTheFrame(robot, posX, posY);  
+            delay(500);  
         }
-     
     }
 };

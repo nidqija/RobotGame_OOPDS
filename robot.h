@@ -4,26 +4,37 @@
 #include <string>
 #include <cstdlib>
 
+using namespace std;
+
 class Robot {
 public:
-    std::string returnRobot() const {
-        return "A"; // or any string like "BOT"
+    string returnRobot() const {
+        return "A"; 
     }
 };
 
-class MovingBot : public Robot {
+class MovingBot {
 private:
     int posX = 1;
     int posY = 1;
 
 public:
     void Move(int frameWidth, int frameHeight, int wordLength) {
-        posX = rand() % (frameWidth - wordLength - 2) + 1;
-        posY = rand() % (frameHeight - 2) + 1;
+        posX = rand() % (frameWidth - wordLength - 2) + 1;  
+        posY = rand() % (frameHeight - 2) + 1; 
     }
 
-    int ReturnPosX() const { return posX; }
-    int ReturnPosY() const { return posY; }
+    int ReturnPosX() const {
+        return posX;
+    }
+
+    int ReturnPosY() const {
+        return posY;
+    }
 };
+
+
+
+
 
 #endif
