@@ -96,6 +96,7 @@ class LoopFrame : public DrawFrame {
 private:
     string line;
     int RobotAmount;
+    friend class LoopingRobotByPlayers;
 
 public:
     void LoopingFrameByRobot() {
@@ -112,22 +113,26 @@ public:
         InputFile.close();
 
         MovingBot movingBot;
+        LoopingRobotByPlayers nameRobot;
+        nameRobot.getRobotNames();  // ✅ Important: load names from input.txt
         Robot robot;
         int frameWidth = xval();
         int frameHeight = yval();
         int wordLength = robot.returnRobot().length();
+        vector<string> robotNames = nameRobot.ReturnRobotNames();
 
-        while (true) {
-            movingBot.Move(frameWidth, frameHeight, wordLength); 
-            int posX = movingBot.ReturnPosX();
-            int posY = movingBot.ReturnPosY();
-            cout << endl;
-            cout << endl;
-            cout << endl;
-            cout << endl;
+     while (true) {
+    for (int i = 0; i < robotNames.size(); i++) {  // ✅ fixed condition
+        movingBot.Move(frameWidth, frameHeight, wordLength); 
+        cout << robotNames[i] << endl;  // print name
 
-            drawTheFrame(robot, posX, posY);  
-            delay(500);  
-        }
+        int posX = movingBot.ReturnPosX();
+        int posY = movingBot.ReturnPosY();
+
+        cout << "\n\n\n\n";
+        drawTheFrame(robot, posX, posY);  
+        delay(500); 
+    }
+}
     }
 };

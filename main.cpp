@@ -13,6 +13,8 @@ using namespace std;
 
 int main() {
     LoopFrame loopFrame;
+    LoopingRobotByPlayers NameRobot;
     loopFrame.LoopingFrameByRobot();
+    NameRobot.getRobotNames();
     return 0;
 }
