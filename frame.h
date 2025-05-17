@@ -97,8 +97,33 @@ private:
     string line;
     int RobotAmount;
     friend class LoopingRobotByPlayers;
+    int numberofSteps;
+    int NumFrame;
 
 public:
+
+
+    void NumberOfFrames(){
+         ifstream InputFile("input.txt");
+        while (getline(InputFile, line)) {
+            if (line.find("steps:") != string::npos) {
+                size_t StartPos = line.find(":");
+                string FrameNum = line.substr(StartPos + 1);
+                NumFrame = stoi(FrameNum);
+                cout << "Number of Steps: " << NumFrame << endl;
+                break;
+            }
+        }
+        InputFile.close();
+
+       
+};
+
+  int ReturnNumberofFrames() const{
+    return NumFrame;
+  }
+
+  
     void LoopingFrameByRobot() {
         ifstream InputFile("input.txt");
         while (getline(InputFile, line)) {
@@ -122,17 +147,23 @@ public:
         vector<string> robotNames = nameRobot.ReturnRobotNames();
 
      while (true) {
-    for (int i = 0; i < robotNames.size(); i++) {  // ✅ fixed condition
+    for (int i = 0; i < NumFrame; i++) {  // ✅ fixed condition
         movingBot.Move(frameWidth, frameHeight, wordLength); 
-        cout << robotNames[i] << endl;  // print name
-
+        NumberOfFrames();
         int posX = movingBot.ReturnPosX();
         int posY = movingBot.ReturnPosY();
-
+        cout << robotNames[i] << endl;  // print name
         cout << "\n\n\n\n";
         drawTheFrame(robot, posX, posY);  
         delay(500); 
     }
 }
-    }
+    };
+
+
+
+
 };
+
+
+

@@ -1,6 +1,11 @@
 M by N : 50 70
+<<<<<<< HEAD
 steps: 300
 robots: 5
+=======
+steps: 500
+robots: 4
+>>>>>>> 4f4c5ea009bea28f496da335e1d98f9ae49261c5
 GenericRobot Kidd 3 6
 GenericRobot Jet 12 1
 GenericRobot Alpha 35 20
