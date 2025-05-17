@@ -101,29 +101,6 @@ private:
     int NumFrame;
 
 public:
-
-
-    void NumberOfFrames(){
-         ifstream InputFile("input.txt");
-        while (getline(InputFile, line)) {
-            if (line.find("steps:") != string::npos) {
-                size_t StartPos = line.find(":");
-                string FrameNum = line.substr(StartPos + 1);
-                NumFrame = stoi(FrameNum);
-                cout << "Number of Steps: " << NumFrame << endl;
-                break;
-            }
-        }
-        InputFile.close();
-
-       
-};
-
-  int ReturnNumberofFrames() const{
-    return NumFrame;
-  }
-
-  
     void LoopingFrameByRobot() {
         ifstream InputFile("input.txt");
         while (getline(InputFile, line)) {
@@ -161,8 +138,25 @@ public:
     };
 
 
+    void NumberOfFrames(){
+         ifstream InputFile("input.txt");
+        while (getline(InputFile, line)) {
+            if (line.find("steps:") != string::npos) {
+                size_t StartPos = line.find(":");
+                string FrameNum = line.substr(StartPos + 1);
+                NumFrame = stoi(FrameNum);
+                cout << "Number of Steps: " << NumFrame << endl;
+                break;
+            }
+        }
+        InputFile.close();
 
+       
+};
 
+  int ReturnNumberofFrames() const{
+    return NumFrame;
+  }
 };
 
 
