@@ -11,7 +11,7 @@ using namespace std;
 class Robot {
 public:
     // Returns a single-character symbol representing the robot
-    string returnRobot() const {
+    virtual string returnRobot() const {
         return "A"; 
     }
 };
