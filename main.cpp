@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "frame.h"
+#include "shootingbot.h"
 
 using namespace std;
 
