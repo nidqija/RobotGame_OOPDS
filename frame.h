@@ -27,6 +27,7 @@ class Frame {
 private:
     string line;
     int extractedVal1 = 0, extractedVal2 = 0;
+    
 
 public:
     friend class LoopFrame;
@@ -68,29 +69,35 @@ public:
 
 class DrawFrame : public Frame {
 public:
-    void drawTheFrame(const Robot& robot, int posX, int posY) {
+    // Draw frame with multiple robot icons at given positions
+    void drawTheFrame(const vector<string>& robotIcons, const vector<int>& posX, const vector<int>& posY) {
         FindFrame();
         int xValue = xval();
         int yValue = yval();
-        string word = robot.returnRobot();
-        int wordLength = word.length();
 
         for (int row = 0; row < yValue; ++row) {
             for (int col = 0; col < xValue; ++col) {
                 if (row == 0 || row == yValue - 1 || col == 0 || col == xValue - 1) {
-                    cout << "*";
-                }
-                else if (row == posY && col == posX) {
-                    cout << word;  
-                }
-                else {
-                    cout << "*";
+                    cout << "*";  // Frame border
+                } else {
+                    bool printed = false;
+                    for (size_t i = 0; i < robotIcons.size(); ++i) {
+                        if (posX[i] == col && posY[i] == row) {
+                            cout << robotIcons[i];
+                            printed = true;
+                            break;
+                        }
+                    }
+                    if (!printed) {
+                        cout << " ";  // Empty inside frame
+                    }
                 }
             }
             cout << "\n";
         }
     }
 };
+
 
 class LoopFrame : public DrawFrame {
 private:
@@ -101,41 +108,50 @@ private:
     int NumFrame;
 
 public:
-    void LoopingFrameByRobot() {
-        ifstream InputFile("input.txt");
-        while (getline(InputFile, line)) {
-            if (line.find("robots:") != string::npos) {
-                size_t StartPos = line.find(":");
-                string Robotsnum = line.substr(StartPos + 1);
-                RobotAmount = stoi(Robotsnum);
-                cout << "Amount of Robots: " << RobotAmount << endl;
-                break;
-            }
+   void LoopingFrameByRobot() {
+    ifstream InputFile("input.txt");
+    while (getline(InputFile, line)) {
+        if (line.find("robots:") != string::npos) {
+            size_t StartPos = line.find(":");
+            string Robotsnum = line.substr(StartPos + 1);
+            RobotAmount = stoi(Robotsnum);
+            cout << "Amount of Robots: " << RobotAmount << endl;
+            break;
         }
-        InputFile.close();
+    }
+    InputFile.close();
 
-        MovingBot movingBot;
-        LoopingRobotByPlayers nameRobot;
-        nameRobot.getRobotNames();  // ✅ Important: load names from input.txt
-        Robot robot;
-        int frameWidth = xval();
-        int frameHeight = yval();
-        int wordLength = robot.returnRobot().length();
-        vector<string> robotNames = nameRobot.ReturnRobotNames();
+    NumberOfFrames();
 
-     while (true) {
-    for (int i = 0; i < NumFrame; i++) {  // ✅ fixed condition
-        movingBot.Move(frameWidth, frameHeight, wordLength); 
-        NumberOfFrames();
-        int posX = movingBot.ReturnPosX();
-        int posY = movingBot.ReturnPosY();
-        cout << robotNames[i] << endl;  // print name
-        cout << "\n\n\n\n";
-        drawTheFrame(robot, posX, posY);  
-        delay(500); 
+    LoopingRobotByPlayers nameRobot;
+    nameRobot.getRobotNames();
+    vector<string> robotNames = nameRobot.ReturnRobotNames();
+    vector<string> robotIcons = nameRobot.ReturnRobotInit();
+
+    MovingBot movingBot;
+    int frameWidth = xval();
+    int frameHeight = yval();
+
+    vector<int> posXList(robotNames.size());
+    vector<int> posYList(robotNames.size());
+
+    for (int step = 0; step < NumFrame; ++step) {
+        // Move each robot to a new random position
+        for (size_t i = 0; i < robotNames.size(); ++i) {
+            movingBot.Move(frameWidth, frameHeight, 1);  // wordLength = 1 for icon
+            posXList[i] = movingBot.ReturnPosX();
+            posYList[i] = movingBot.ReturnPosY();
+        }
+
+        // Draw frame with all robots at their positions
+        drawTheFrame(robotIcons, posXList, posYList);
+
+        // Delay for animation
+
+   
     }
 }
-    };
+
 
 
     void NumberOfFrames(){
@@ -152,7 +168,7 @@ public:
         InputFile.close();
 
        
-};
+};  
 
   int ReturnNumberofFrames() const{
     return NumFrame;
