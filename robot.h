@@ -45,6 +45,7 @@ class LoopingRobotByPlayers {
 private:
     string line;                   // To store each line read from file
     vector<string> RobotNames;     // Stores robot names from input file
+    vector<string> RobotIcon;
     string name;                   // Unused, could be removed
 
 public:
@@ -66,14 +67,18 @@ public:
                 // Create stream from substring starting from "GenericRobot"
                 istringstream iss(line.substr(StartPos));
                 
-                string tag, robotName;
+                string tag, robotName , robotInitial;
                 int x, y;
+
 
                 // Extract: tag (e.g., "GenericRobot"), name, and two coordinates
                 iss >> tag >> robotName >> x >> y;
-
+                robotInitial = robotName.substr(0,1);
+  
                 // Add robot name to the list
                 RobotNames.push_back(robotName);
+                RobotIcon.push_back(robotInitial);
+                
 
                 // Print robot name (can be removed for silent loading)
                 cout << robotName << endl;
@@ -86,5 +91,10 @@ public:
     // Return the list of robot names
     vector<string> ReturnRobotNames() const {
         return RobotNames;
+    }
+
+
+    vector <string> ReturnRobotInit() const{
+        return RobotIcon;
     }
 };

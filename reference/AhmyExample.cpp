@@ -132,59 +132,7 @@ public:
     GenericRobot(int x, int y, string n, Battlefield* bf) 
         : Robot(x, y, n, bf) {}
 
-    void think() override {
-        cout << name << " is thinking..." << endl;
-    }
-
-    vector<CellInfo> look(int x, int y) override {
-        vector<CellInfo> info;
-        for (int dy = -1; dy <= 1; dy++) {
-            for (int dx = -1; dx <= 1; dx++) {
-                int lookX = posX + x + dx;
-                int lookY = posY + y + dy;
-                info.push_back(battlefield->getCellInfo(lookX, lookY));
-            }
-        }
-        return info;
-    }
-
-    bool fire(int x, int y) override {
-        if (shells <= 0) {
-            cout << name << " is out of shells!" << endl;
-            return false;
-        }
-
-        if (x == 0 && y == 0) {
-            cout << name << " refuses to commit suicide!" << endl;
-            return false;
-        }
-
-        int targetX = posX + x;
-        int targetY = posY + y;
-        
-        if (!battlefield->hasRobot(targetX, targetY)) {
-            cout << name << " fired at (" << targetX << "," << targetY << ") but missed!" << endl;
-            shells--;
-            return false;
-        }
-
-        if (rand() % 100 < 70) {
-            cout << name << " scored a hit at (" << targetX << "," << targetY << ")!" << endl;
-            for (auto& robot : battlefield->getRobots()) {
-                if (robot->getX() == targetX && robot->getY() == targetY) {
-                    robot->takeDamage();
-                    if (robot->getLives() <= 0) {
-                        cout << robot->getName() << " was destroyed!" << endl;
-                    }
-                    break;
-                }
-            }
-        } else {
-            cout << name << " fired at (" << targetX << "," << targetY << ") but missed!" << endl;
-        }
-        shells--;
-        return true;
-    }
+   
 
     bool move(int dx, int dy) override {
         int newX = posX + dx;
