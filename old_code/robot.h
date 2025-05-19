@@ -10,14 +10,11 @@ using namespace std;
 // Base Robot class with a function to return the robot's symbol
 class Robot {
 public:
-    // Returns a single-character symbol representing the robot
-    virtual string returnRobot() const {
-        return "A"; 
-    }
+  
 };
 
 // Inherits from Robot and adds movement functionality
-class MovingBot : public Robot {
+class MovingBot : public Robot {    
 private:
     int posX = 1;  // X position in the frame
     int posY = 1;  // Y position in the frame
