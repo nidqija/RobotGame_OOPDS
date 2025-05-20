@@ -11,12 +11,19 @@
 
 using namespace std;
 
+
+
+
     int main() {
     Battlefield bf;
     MovingBot movingbot;
+    Robot Rrobot;
+    
     bf.PrintBattlefield();
     movingbot.randomNumbers();
     movingbot.MovetheBot();
+
+
     return 0;
 
 

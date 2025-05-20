@@ -5,26 +5,71 @@
     #include <sstream>
     #include <ctime>
     #include <iostream>
+    #include <vector>
 
     using namespace std;
 
 class Robot {
 private:
     string symbol;
-
+    string line;
+    
+    vector<vector<int>>robotAmount;
+    
 public:
     int x, y;
     Robot() {
-        x = 1; // default to frame
+        x = 1; 
         y = 1;
         symbol = "R";
     }
+
+      Robot(const Robot& robot) {
+        x = robot.x;
+        y = robot.y;
+        symbol = robot.symbol;
+    }
+
+     
+
+
+      
 
     int getX() const { return x; }
     int getY() const { return y; }
     void setX(int x_) { x = x_; }
     void setY(int y_) { y = y_; }
     string ReturnRobot() const { return symbol; }
+
+
+    string DetectRobot(){
+      ifstream inputFile("input.txt");
+
+       while (getline(inputFile, line)) {
+            // Process only lines that contain "GenericRobot"
+            if (line.find("GenericRobot") != string::npos) {
+                size_t StartPos = line.find("GenericRobot");
+                
+                // Create stream from substring starting from "GenericRobot"
+                istringstream iss(line.substr(StartPos));
+                
+                string tag, robotName , robotInitial;
+                int x, y;
+
+
+                // Extract: tag (e.g., "GenericRobot"), name, and two coordinates
+                iss >> tag >> robotName >> x >> y;
+                robotInitial = robotName.substr(0,1);
+
+  
+                
+
+                // Print robot name (can be removed for silent loading)
+                cout << robotName << endl;
+            }
+        }
+
+    }
 };
 
 
@@ -35,10 +80,25 @@ public:
         int robotChoice;
 
         public:
+
         friend class Battlefield;
         int randomNumbers(){
             cout << robotChoice << endl;
         };
+
+
+        MovingBot() : Robot(){
+            robotChoice = 0;
+        }
+
+
+        MovingBot(const MovingBot& other ) : Robot(other){
+            this-> robotChoice = other.robotChoice;
+        }
+
+
+
+       
 
 
      void MovetheBot() {
@@ -70,3 +130,10 @@ public:
 
         
     };
+
+
+
+
+
+
+
