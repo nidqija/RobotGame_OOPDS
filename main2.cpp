@@ -13,7 +13,7 @@ using namespace std;
 
 
 
-//test2
+
 int main() {
     Battlefield game;
     game.PrintBattlefield();
