@@ -5,5 +5,5 @@ GenericRobot Kidd 3 6
 GenericRobot Jet 12 1
 GenericRobot Alpha 35 20
 GenericRobot Beta 20 37
-GenericRobot Star 10 40
+GenericRobot Ftar 10 40
 
