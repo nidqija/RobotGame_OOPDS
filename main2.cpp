@@ -14,17 +14,9 @@ using namespace std;
 
 
 
-    int main() {
-    Battlefield bf;
-    MovingBot movingbot;
-    Robot Rrobot;
+int main() {
+    Battlefield game;
+    game.PrintBattlefield();
     
-    bf.PrintBattlefield();
-    movingbot.randomNumbers();
-    movingbot.MovetheBot();
-
-
     return 0;
-
-
 }

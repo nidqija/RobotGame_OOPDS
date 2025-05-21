@@ -1,9 +1,8 @@
 #include <iostream>
-#include <fstream>
-#include <string>
+#include <vector>
 #include <cstdlib>
 #include <ctime>
-#include <vector>
+#include <string>
 #include "robot2.h"
 using namespace std;
 
@@ -11,22 +10,33 @@ class Battlefield {
 private:
     vector<MovingBot> bots;
     vector<vector<string>> Grid;
-    int extractedVal1 = 70, extractedVal2 = 50; // Use defaults or extract from file
+    int extractedVal1 = 70, extractedVal2 = 30;
+
+    void delay(int milliseconds) {
+        clock_t start_time = clock();
+        while (clock() < start_time + milliseconds * (CLOCKS_PER_SEC / 1000)) {
+            // busy wait
+        }
+    }
 
 public:
+    Robot robot;
+    vector<string> robotInitial;
 
-void delay(int milliseconds) {
-    clock_t start_time = clock();
-    while (clock() < start_time + milliseconds * (CLOCKS_PER_SEC / 1000)) {
-        // busy wait
-    }
-}
     Battlefield() {
-        srand(time(0)); // Seed RNG
+        srand(time(0));
+        robot.DetectRobot();
+        robotInitial = robot.ReturnVectorRobotInitial();
+
         for (int i = 0; i < 5; ++i) {
             MovingBot bot;
-            bot.setX(1 + i); 
-            bot.setY(1 + i);
+            bot.setX(2 + i);
+            bot.setY(2 + i);
+            if (i < robotInitial.size()) {
+                bot.setIcon(robotInitial[i]);
+            } else {
+                bot.setIcon("?");
+            }
             bots.push_back(bot);
         }
     }
@@ -45,19 +55,21 @@ void delay(int milliseconds) {
                 bot.MovetheBot();
                 int x = max(1, min(bot.getX(), extractedVal1 - 2));
                 int y = max(1, min(bot.getY(), extractedVal2 - 2));
-                bot.setX(x); bot.setY(y);
-                Grid[y][x] = "R";
+                bot.setX(x);
+                bot.setY(y);
+                Grid[y][x] = bot.getIcon();
             }
 
             // Draw grid
-            delay(2000); // Delay for 1 second (1000 milliseconds)
-            system("cls"); // Use "CLS" on Windows
+            delay(1200); // half-second delay
+            system("cls"); // for Windows
             for (const auto& row : Grid) {
                 for (const auto& cell : row)
                     cout << cell;
                 cout << endl;
             }
-
         }
     }
 };
+
+
