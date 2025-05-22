@@ -20,6 +20,8 @@ public:
         this->symbol = robot.symbol;
     }
 
+    virtual ~Robot() {}
+
     int getX() const {
          return x; 
         
@@ -93,5 +95,43 @@ public:
 
     string getIcon() const {
         return icon;
+    }
+};
+
+class ThinkingBot : public Robot {
+private:
+    string decision;
+    int thinkMode;
+
+public:
+    ThinkingBot() : decision("none"), thinkMode(0) {}
+
+    ThinkingBot(const ThinkingBot& other)
+        : Robot(other), decision(other.decision), thinkMode(other.thinkMode) {}
+
+    void ThinkAction() {
+        thinkMode = rand() % 3; // 0 = move, 1 = fire, 2 = look
+
+        switch (thinkMode) {
+            case 0:
+                decision = "move";
+                break;
+            case 1:
+                decision = "fire";
+                break;
+            case 2:
+                decision = "look";
+                break;
+        }
+
+        cout << "[THINK] " << getSymbol() << " decided to " << decision << endl;
+    }
+
+    string getDecision() const {
+        return decision;
+    }
+
+    void setDecision(const string& d) {
+        decision = d;
     }
 };
