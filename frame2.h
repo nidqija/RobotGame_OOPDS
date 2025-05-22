@@ -1,3 +1,6 @@
+#ifndef FRAME2_H
+#define FRAME2_H
+
 #include <iostream>
 #include <vector>
 #include <cstdlib>
@@ -8,7 +11,7 @@ using namespace std;
 
 class Battlefield {
 private:
-    vector<MovingBot> bots;
+    vector<Robot*> bots;
     vector<vector<string>> Grid;
     int extractedVal1 = 70, extractedVal2 = 30;
 
@@ -29,15 +32,22 @@ public:
         robotInitial = robot.ReturnVectorRobotInitial();
 
         for (int i = 0; i < 5; ++i) {
-            MovingBot bot;
-            bot.setX(2 + i);
-            bot.setY(2 + i);
-            if (i < robotInitial.size()) {
-                bot.setIcon(robotInitial[i]);
-            } else {
-                bot.setIcon("?");
+            if (i % 2 == 0) { // Even index → ThinkingBot
+                ThinkingBot* tbot = new ThinkingBot();
+                tbot->setX(2 + i);
+                tbot->setY(2 + i);
+                bots.push_back(tbot);
+            } else { // Odd index → MovingBot
+                MovingBot* mbot = new MovingBot();
+                mbot->setX(2 + i);
+                mbot->setY(2 + i);
+                if (i < robotInitial.size()) {
+                    mbot->setIcon(robotInitial[i]);
+                } else {
+                    mbot->setIcon("?");
+                }
+                bots.push_back(mbot);
             }
-            bots.push_back(bot);
         }
     }
 
@@ -51,18 +61,35 @@ public:
                     Grid[y][x] = ((y == 0 || y == extractedVal2 - 1 || x == 0 || x == extractedVal1 - 1) ? "*" : " ");
 
             // Move and place each bot
-            for (auto& bot : bots) {
-                bot.MovetheBot();
-                int x = max(1, min(bot.getX(), extractedVal1 - 2));
-                int y = max(1, min(bot.getY(), extractedVal2 - 2));
-                bot.setX(x);
-                bot.setY(y);
-                Grid[y][x] = bot.getIcon();
+            for (Robot* bot : bots) {
+                // ThinkingBot logic
+                if (ThinkingBot* tbot = dynamic_cast<ThinkingBot*>(bot)) {
+                    tbot->ThinkAction();
+                }
+
+                // MovingBot logic
+                if (MovingBot* mbot = dynamic_cast<MovingBot*>(bot)) {
+                    mbot->MovetheBot();
+                }
+
+                int x = max(1, min(bot->getX(), extractedVal1 - 2));
+                int y = max(1, min(bot->getY(), extractedVal2 - 2));
+                bot->setX(x);
+                bot->setY(y);
+
+                string icon = "?";
+                if (MovingBot* mbot = dynamic_cast<MovingBot*>(bot)) {
+                    icon = mbot->getIcon();
+                } else if (ThinkingBot* tbot = dynamic_cast<ThinkingBot*>(bot)) {
+                    icon = "T";
+                }
+
+                Grid[y][x] = icon;
             }
 
             // Draw grid
-            delay(1200); // half-second delay
-            system("cls"); // for Windows
+            delay(1200); // adjust if needed
+            system("cls"); // use "clear" for Linux/macOS
             for (const auto& row : Grid) {
                 for (const auto& cell : row)
                     cout << cell;
@@ -70,6 +97,12 @@ public:
             }
         }
     }
+
+    ~Battlefield() {
+        for (Robot* bot : bots) {
+            delete bot;
+        }
+    }
 };
 
-
+#endif // FRAME2_H
