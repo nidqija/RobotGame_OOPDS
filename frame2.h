@@ -88,7 +88,7 @@ public:
             }
 
             // Draw grid
-            delay(1200); // adjust if needed
+            delay(2500); // adjust if needed
             system("cls"); // use "clear" for Linux/macOS
             for (const auto& row : Grid) {
                 for (const auto& cell : row)
