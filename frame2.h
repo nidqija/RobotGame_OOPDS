@@ -36,17 +36,12 @@ public:
                 ThinkingBot* tbot = new ThinkingBot();
                 tbot->setX(2 + i);
                 tbot->setY(2 + i);
-                bots.push_back(tbot);
-            } else { // Odd index → MovingBot
-                MovingBot* mbot = new MovingBot();
-                mbot->setX(2 + i);
-                mbot->setY(2 + i);
                 if (i < robotInitial.size()) {
-                    mbot->setIcon(robotInitial[i]);
+                    tbot->setIcon(robotInitial[i]);
                 } else {
-                    mbot->setIcon("?");
+                    tbot->setIcon("?");
                 }
-                bots.push_back(mbot);
+                bots.push_back(tbot);
             }
         }
     }
@@ -77,14 +72,7 @@ public:
                 bot->setX(x);
                 bot->setY(y);
 
-                string icon = "?";
-                if (MovingBot* mbot = dynamic_cast<MovingBot*>(bot)) {
-                    icon = mbot->getIcon();
-                } else if (ThinkingBot* tbot = dynamic_cast<ThinkingBot*>(bot)) {
-                    icon = "T";
-                }
-
-                Grid[y][x] = icon;
+               Grid[y][x] = bot->getSymbol() ;
             }
 
             // Draw grid

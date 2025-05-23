@@ -43,6 +43,10 @@ public:
          return symbol; 
         }
 
+    void setSymbol(const string& s) { 
+    symbol = s; 
+    }
+
     void DetectRobot() {
         ifstream inputFile("input.txt");
         string line;
@@ -68,12 +72,12 @@ public:
 class MovingBot : public Robot {
 private:
     int robotChoice;
-    string icon;
+
 
 public:
     MovingBot() : robotChoice(0) {}
 
-    MovingBot(const MovingBot& other) : Robot(other), robotChoice(other.robotChoice), icon(other.icon) {}
+    MovingBot(const MovingBot& other) : Robot(other), robotChoice(other.robotChoice) {}
 
     void MovetheBot() {
         robotChoice = rand() % 8;
@@ -87,14 +91,6 @@ public:
             case 6: x += 1; y += 1; break; // Bottom-right
             case 7: x -= 1; y += 1; break; // Bottom-left
         }
-    }
-
-    void setIcon(const string& icon_) {
-        icon = icon_;
-    }
-
-    string getIcon() const {
-        return icon;
     }
 };
 
