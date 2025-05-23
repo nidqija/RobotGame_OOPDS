@@ -135,3 +135,12 @@ public:
         decision = d;
     }
 };
+
+class LookingBot : public Robot {
+    public:
+    void LookAction(){
+        DetectRobot();
+        
+    }
+
+};
