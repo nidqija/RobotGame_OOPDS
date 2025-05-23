@@ -52,6 +52,14 @@ public:
          return symbol; 
         }
 
+    void setSymbol(const string& s) { 
+    symbol = s; 
+    }
+
+    void setSymbol(const string& s) { 
+    symbol = s; 
+    }
+
     void DetectRobot() {
         ifstream inputFile("input.txt");
         string line;
@@ -78,6 +86,7 @@ class MovingBot : public Robot {
 private:
     int robotChoice;
 
+
 public:
     MovingBot() : robotChoice(0) {}
 
@@ -96,11 +105,9 @@ public:
             case 7: x -= 1; y += 1; break; // Bottom-left
         }
     }
-
-   
 };
 
-class ThinkingBot : public Robot {
+class ThinkingBot : public MovingBot {
 private:
     string decision;
     int thinkMode;
@@ -110,7 +117,7 @@ public:
     ThinkingBot() : decision("none"), thinkMode(0) {}
 
     ThinkingBot(const ThinkingBot& other)
-        : Robot(other), decision(other.decision), thinkMode(other.thinkMode){}
+        : MovingBot(other), decision(other.decision), thinkMode(other.thinkMode){}
 
     void ThinkAction() {
         thinkMode = rand() % 3; // 0 = move, 1 = fire, 2 = look
