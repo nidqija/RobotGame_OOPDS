@@ -33,10 +33,11 @@ public:
 
         for (int i = 0; i < 5; ++i) {
             if (i % 2 == 0) { // Even index → ThinkingBot
-                ThinkingBot* tbot = new ThinkingBot();
-                tbot->setX(2 + i);
-                tbot->setY(2 + i);
-                bots.push_back(tbot);
+               ThinkingBot* tbot = new ThinkingBot();
+               tbot->setX(2 + i);
+               tbot->setY(2 + i);
+               bots.push_back(tbot);
+               
             } else { // Odd index → MovingBot
                 MovingBot* mbot = new MovingBot();
                 mbot->setX(2 + i);
