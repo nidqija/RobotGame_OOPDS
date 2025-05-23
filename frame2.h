@@ -35,6 +35,7 @@ public:
                 ThinkingBot* tbot = new ThinkingBot();
                 tbot->setX(2 + i);
                 tbot->setY(2 + i);
+                tbot->setSymbol(robotInitial[i]);
                 bots.push_back(tbot);
         }
     }
