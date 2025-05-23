@@ -98,7 +98,7 @@ public:
     }
 };
 
-class ThinkingBot : public Robot {
+class ThinkingBot : public MovingBot {
 private:
     string decision;
     int thinkMode;
@@ -107,7 +107,7 @@ public:
     ThinkingBot() : decision("none"), thinkMode(0) {}
 
     ThinkingBot(const ThinkingBot& other)
-        : Robot(other), decision(other.decision), thinkMode(other.thinkMode) {}
+        : MovingBot(other), decision(other.decision), thinkMode(other.thinkMode) {}
 
     void ThinkAction() {
         thinkMode = rand() % 3; // 0 = move, 1 = fire, 2 = look
