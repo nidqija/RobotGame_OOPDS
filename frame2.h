@@ -32,17 +32,10 @@ public:
         robotInitial = robot.ReturnVectorRobotInitial();
 
         for (int i = 0; i < 5; ++i) {
-            if (i % 2 == 0) { // Even index → ThinkingBot
                 ThinkingBot* tbot = new ThinkingBot();
                 tbot->setX(2 + i);
                 tbot->setY(2 + i);
-                if (i < robotInitial.size()) {
-                    tbot->setIcon(robotInitial[i]);
-                } else {
-                    tbot->setIcon("?");
-                }
                 bots.push_back(tbot);
-            }
         }
     }
 
@@ -60,11 +53,7 @@ public:
                 // ThinkingBot logic
                 if (ThinkingBot* tbot = dynamic_cast<ThinkingBot*>(bot)) {
                     tbot->ThinkAction();
-                }
-
-                // MovingBot logic
-                if (MovingBot* mbot = dynamic_cast<MovingBot*>(bot)) {
-                    mbot->MovetheBot();
+                    tbot->MovetheBot();
                 }
 
                 int x = max(1, min(bot->getX(), extractedVal1 - 2));
