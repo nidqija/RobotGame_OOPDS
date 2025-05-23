@@ -19,6 +19,8 @@ using namespace std;
 int main() {
     Battlefield game;
     game.PrintBattlefield();
+    game.delay(2000);
+
 
     return 0;
 }

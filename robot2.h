@@ -1,3 +1,6 @@
+#ifndef ROBOT2_H
+#define ROBOT2_H
+
 #include <string>
 #include <fstream>
 #include <vector>
@@ -10,17 +13,17 @@ protected:
     int x, y;
     string symbol;
     vector<string> robotInitialLineup;
-    string icon; 
-
+    string icon;
 
 public:
- void setIcon(const string& icon_) {
-        icon = icon_;
-    }
+    struct RobotInfo {
+        string nameInitial;
+        int PosInitX;
+        int PosIntY;
+    };
 
-    string getIcon() const {
-        return icon;
-    }
+    vector<RobotInfo> detectedRobot;
+
     Robot() : x(1), y(1), symbol("R") {}
 
     Robot(const Robot& robot) {
@@ -31,48 +34,33 @@ public:
 
     virtual ~Robot() {}
 
-    int getX() const {
-         return x; 
-        
-    }
+    void setIcon(const string& icon_) { icon = icon_; }
+    string getIcon() const { return icon; }
 
-    int getY() const {
-         return y; 
-        }
+    int getX() const { return x; }
+    int getY() const { return y; }
 
-    void setX(int x_) {
-         x = x_; 
-        }
+    void setX(int x_) { x = x_; }
+    void setY(int y_) { y = y_; }
 
-    void setY(int y_) {
-         y = y_; 
-        }
-
-    string getSymbol() const {
-         return symbol; 
-        }
-
-    void setSymbol(const string& s) { 
-    symbol = s; 
-    }
-
-    void setSymbol(const string& s) { 
-    symbol = s; 
-    }
+    string getSymbol() const { return symbol; }
+    void setSymbol(const string& s) { symbol = s; }
 
     void DetectRobot() {
         ifstream inputFile("input.txt");
         string line;
         robotInitialLineup.clear();
+        detectedRobot.clear();
 
         while (getline(inputFile, line)) {
             if (line.find("GenericRobot") != string::npos) {
                 istringstream iss(line);
                 string tag, robotName;
-                int x, y;
-                iss >> tag >> robotName >> x >> y;
+                int posinitx, posinity;
+                iss >> tag >> robotName >> posinitx >> posinity;
                 string initial = robotName.substr(0, 1);
                 robotInitialLineup.push_back(initial);
+                detectedRobot.push_back({initial, posinitx, posinity});
             }
         }
     }
@@ -80,16 +68,18 @@ public:
     vector<string> ReturnVectorRobotInitial() const {
         return robotInitialLineup;
     }
+
+    vector<RobotInfo> ReturnRobotDetecteds() const {
+        return detectedRobot;
+    }
 };
 
 class MovingBot : public Robot {
 private:
     int robotChoice;
 
-
 public:
     MovingBot() : robotChoice(0) {}
-
     MovingBot(const MovingBot& other) : Robot(other), robotChoice(other.robotChoice) {}
 
     void MovetheBot() {
@@ -111,37 +101,27 @@ class ThinkingBot : public MovingBot {
 private:
     string decision;
     int thinkMode;
-    MovingBot movingbot;
 
 public:
     ThinkingBot() : decision("none"), thinkMode(0) {}
-
     ThinkingBot(const ThinkingBot& other)
-        : MovingBot(other), decision(other.decision), thinkMode(other.thinkMode){}
+        : MovingBot(other), decision(other.decision), thinkMode(other.thinkMode) {}
 
     void ThinkAction() {
         thinkMode = rand() % 3; // 0 = move, 1 = fire, 2 = look
 
         switch (thinkMode) {
-            case 0:
-                decision = "move";
-                break;
-            case 1:
-                decision = "fire";
-                break;
-            case 2:
-                decision = "look";
-                break;
+            case 0: decision = "move"; break;
+            case 1: decision = "fire"; break;
+            case 2: decision = "look"; break;
         }
 
-        cout << "[THINK] " << getSymbol() << " decided to " << decision << endl;
+        cout << "[THINK] " << getSymbol() << " decided to " << decision
+             << " at " << getX() << ", " << getY() << endl;
     }
 
-    string getDecision() const {
-        return decision;
-    }
-
-    void setDecision(const string& d) {
-        decision = d;
-    }
+    string getDecision() const { return decision; }
+    void setDecision(const string& d) { decision = d; }
 };
+
+#endif // ROBOT2_H
