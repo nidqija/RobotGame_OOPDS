@@ -15,7 +15,7 @@ using namespace std;
 
 
 
-//a
+
 int main() {
     Battlefield game;
     game.PrintBattlefield();
