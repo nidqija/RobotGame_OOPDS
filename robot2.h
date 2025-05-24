@@ -19,7 +19,7 @@ public:
     struct RobotInfo {
         string nameInitial;
         int PosInitX;
-        int PosIntY;
+        int PosInitY;
     };
 
     vector<RobotInfo> detectedRobot;
@@ -74,7 +74,7 @@ public:
     }
 };
 
-class MovingBot : public Robot {
+class MovingBot : virtual public Robot {
 private:
     int robotChoice;
 
@@ -97,7 +97,7 @@ public:
     }
 };
 
-class ThinkingBot : public MovingBot {
+class ThinkingBot : public MovingBot, public LookingBot{
 private:
     string decision;
     int thinkMode;
@@ -105,7 +105,7 @@ private:
 public:
     ThinkingBot() : decision("none"), thinkMode(0) {}
     ThinkingBot(const ThinkingBot& other)
-        : MovingBot(other), decision(other.decision), thinkMode(other.thinkMode) {}
+        : MovingBot(other), LookingBot(other), decision(other.decision), thinkMode(other.thinkMode) {}
 
     void ThinkAction() {
         thinkMode = rand() % 3; // 0 = move, 1 = fire, 2 = look
@@ -122,6 +122,40 @@ public:
 
     string getDecision() const { return decision; }
     void setDecision(const string& d) { decision = d; }
+};
+
+class LookingBot : virtual public Robot {
+    public:
+    void LookAction(){
+        DetectRobot();
+
+        int coordx = getX();
+        int coordy = getY();
+
+        cout << "[LOOKING] Looking around (" << coordx << "," << coordy << ")" << endl;
+
+        for (int dy = -1; dy <= 1; ++dy){
+            for (int dx = -1; dx <= 1; ++dx){
+                int viewx = coordx + dx;
+                int viewy = coordy + dy;
+
+                if (dx == 0 && dy == 0){
+                    cout << getSymbol() << "stands here at coordinates (" << coordx << "," << coordy << ")." << endl;
+                    continue;
+                }
+
+                bool present = false;
+                for (const auto& r : ReturnRobotDetecteds()){
+                    if (r.PosInitX == viewx && r.PosInitY == viewy){
+                        cout << "Enemy Robot spotted at (" << viewx << "," << viewy << ")." << endl;
+                        present = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
 };
 
 #endif // ROBOT2_H
