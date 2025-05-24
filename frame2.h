@@ -57,17 +57,6 @@ public:
                     Grid[y][x] = ((y == 0 || y == extractedVal2 - 1 || x == 0 || x == extractedVal1 - 1) ? "*" : " ");
 
             for (Robot* bot : bots) {
-<<<<<<< HEAD
-                ThinkingBot* tbot = dynamic_cast<ThinkingBot*>(bot); // No need for dynamic_cast if all bots are ThinkingBot
-
-                tbot->ThinkAction();
-                string decision = tbot->getDecision();
-
-                if (decision == "move") {
-                    tbot->MovetheBot();
-                } else if (decision == "look") {
-                    tbot->LookAction();
-=======
                 if (ThinkingBot* tbot = dynamic_cast<ThinkingBot*>(bot)) {
                     tbot->ThinkAction();
                     //tbot->MovetheBot();
@@ -90,7 +79,6 @@ public:
                     
 
 
->>>>>>> dell
                 }
 
                 int x = max(1, min(bot->getX(), extractedVal1 - 2));
