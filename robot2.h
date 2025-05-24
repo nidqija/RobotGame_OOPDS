@@ -19,7 +19,12 @@ public:
     struct RobotInfo {
         string nameInitial;
         int PosInitX;
+<<<<<<< HEAD
         int PosInitY;
+=======
+        int PosIntY;
+        int lives;
+>>>>>>> dell
     };
 
     vector<RobotInfo> detectedRobot;
@@ -63,6 +68,8 @@ public:
                 detectedRobot.push_back({initial, posinitx, posinity});
             }
         }
+
+        inputFile.close();
     }
 
     vector<string> ReturnVectorRobotInitial() const {
@@ -124,6 +131,7 @@ public:
     void setDecision(const string& d) { decision = d; }
 };
 
+<<<<<<< HEAD
 class LookingBot : virtual public Robot {
     public:
     void LookAction(){
@@ -159,3 +167,30 @@ class LookingBot : virtual public Robot {
 };
 
 #endif // ROBOT2_H
+=======
+
+
+class Hidebot : public MovingBot {
+    private:
+
+
+
+    public:
+
+
+
+};
+
+
+
+
+class JumpBot : public MovingBot {
+   private:
+
+
+
+    public:
+
+};
+#endif // ROBOT2_H
+>>>>>>> dell

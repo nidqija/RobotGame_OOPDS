@@ -7,6 +7,7 @@
 #include <ctime>
 #include <string>
 #include "robot2.h"
+#include "shootingRobot.h"
 using namespace std;
 
 class Battlefield {
@@ -14,20 +15,19 @@ private:
     vector<Robot*> bots;
     vector<vector<string>> Grid;
     int extractedVal1 = 70, extractedVal2 = 30;
-
-   
+    ShootingBot shooter; //shooting bot instance
 
 public:
     Robot robot;
 
      void delay(int milliseconds) {
         clock_t start_time = clock();
-        while (clock() < start_time + milliseconds * (CLOCKS_PER_SEC / 700)) {
+        while (clock() < start_time + milliseconds * (CLOCKS_PER_SEC / 100)) {
         }
     }
 
     Battlefield() {
-        srand(time(0));
+          srand(time(0));
         robot.DetectRobot();
         vector<Robot::RobotInfo> detected = robot.ReturnRobotDetecteds();
 
@@ -36,8 +36,16 @@ public:
             tbot->setX(info.PosInitX);
             tbot->setY(info.PosInitY);
             tbot->setSymbol(info.nameInitial);
+            // Initialize lives for each robot
+            for (auto& robotInfo : robot.detectedRobot) {
+                if (robotInfo.nameInitial == info.nameInitial) {
+                    robotInfo.lives = 3; // Set initial lives to 3
+                    break;
+                }
+            }
             bots.push_back(tbot);
         }
+        shooter.loadTargetsFromFile("input.txt");
     }
 
     void PrintBattlefield() {
@@ -49,6 +57,7 @@ public:
                     Grid[y][x] = ((y == 0 || y == extractedVal2 - 1 || x == 0 || x == extractedVal1 - 1) ? "*" : " ");
 
             for (Robot* bot : bots) {
+<<<<<<< HEAD
                 ThinkingBot* tbot = dynamic_cast<ThinkingBot*>(bot); // No need for dynamic_cast if all bots are ThinkingBot
 
                 tbot->ThinkAction();
@@ -58,6 +67,30 @@ public:
                     tbot->MovetheBot();
                 } else if (decision == "look") {
                     tbot->LookAction();
+=======
+                if (ThinkingBot* tbot = dynamic_cast<ThinkingBot*>(bot)) {
+                    tbot->ThinkAction();
+                    //tbot->MovetheBot();
+
+                    string decision = tbot->getDecision();
+                    if (decision == "fire") {
+                        cout << " — ";
+                        shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot);
+
+                        // No movement this step if firing
+                   }  
+                   else if (decision == "move") {
+                       tbot->MovetheBot();
+                        // Optionally print move info here if needed
+                   }
+                    else if (decision == "look") {
+                    // Optionally print look info if desired
+                   }
+
+                    
+
+
+>>>>>>> dell
                 }
 
                 int x = max(1, min(bot->getX(), extractedVal1 - 2));
@@ -77,6 +110,29 @@ public:
             }
         }
     }
+     
+    void simulateShooting() {
+        for (Robot* bot : bots) {
+            if (ThinkingBot* tbot = dynamic_cast<ThinkingBot*>(bot)) {
+                // Call the ThinkAction method to decide what to do
+                tbot->ThinkAction();
+                
+                // Get the decision made by the ThinkingBot
+                string decision = tbot->getDecision();
+                cout << "[THINK] " << tbot->getSymbol() << " decided to " << decision
+                     << " at (" << tbot->getX() << "," << tbot->getY() << ")";
+                if (decision == "fire") {
+                    cout << " — ";
+                    // Call the shooting method and pass the target coordinates
+                    shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot);
+
+                } else {
+                    cout << ", no fire." << endl;
+                }
+                cout << "-----" << endl;
+            }
+        }
+    }
 
     ~Battlefield() {
         for (Robot* bot : bots)
@@ -85,3 +141,5 @@ public:
 };
 
 #endif // FRAME2_H
+
+
