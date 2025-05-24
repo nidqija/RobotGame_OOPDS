@@ -20,6 +20,7 @@ public:
         string nameInitial;
         int PosInitX;
         int PosIntY;
+        int lives;
     };
 
     vector<RobotInfo> detectedRobot;
@@ -63,6 +64,8 @@ public:
                 detectedRobot.push_back({initial, posinitx, posinity});
             }
         }
+
+        inputFile.close();
     }
 
     vector<string> ReturnVectorRobotInitial() const {

@@ -36,10 +36,16 @@ public:
             tbot->setX(info.PosInitX);
             tbot->setY(info.PosIntY);
             tbot->setSymbol(info.nameInitial);
+            // Initialize lives for each robot
+            for (auto& robotInfo : robot.detectedRobot) {
+                if (robotInfo.nameInitial == info.nameInitial) {
+                    robotInfo.lives = 3; // Set initial lives to 3
+                    break;
+                }
+            }
             bots.push_back(tbot);
         }
-
-        shooter.loadTargetsFromFile("input.txt"); 
+        shooter.loadTargetsFromFile("input.txt");
     }
 
     void PrintBattlefield() {
@@ -58,7 +64,8 @@ public:
                     string decision = tbot->getDecision();
                     if (decision == "fire") {
                         cout << " — ";
-                        shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol());
+                        shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot);
+
                         // No movement this step if firing
                    }  
                    else if (decision == "move") {
@@ -105,7 +112,8 @@ public:
                 if (decision == "fire") {
                     cout << " — ";
                     // Call the shooting method and pass the target coordinates
-                    shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol());
+                    shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot);
+
                 } else {
                     cout << ", no fire." << endl;
                 }

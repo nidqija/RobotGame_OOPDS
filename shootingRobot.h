@@ -50,16 +50,28 @@ public:
         inputFile.close();
     }
 
-    void startShooting(int targetX, int targetY, const string& targetName) {
-        int roll = rand() % 10; // 0 to 9
-        bool hit = (roll <= 6); // 70% chance to hit
-        cout << "[THINK] Shot " << targetName << " at (" << targetX << "," << targetY << ") ";
-        if (hit) {
-            cout << "got shot! HIT" << endl;
-        } else {
-            cout << "MISSED" << endl;
+    void startShooting(int targetX, int targetY, const string& targetName, vector<Robot::RobotInfo>& detectedRobots) {
+    int roll = rand() % 10; // 0 to 9
+    bool hit = (roll <= 6); // 70% chance to hit
+
+    cout << "[THINK] Shot " << targetName << " at (" << targetX << "," << targetY << ") ";
+    if (hit) {
+        // Find the robot in detectedRobots and decrement lives
+        for (auto& robot : detectedRobots) {
+            if (robot.nameInitial == targetName) {
+                robot.lives--; // Decrement lives
+                cout << "got shot! HIT! Lives left: " << robot.lives << endl;
+                if (robot.lives <= 0) {
+                    cout << targetName << " is destroyed!" << endl;
+                }
+                break;
+            }
         }
+    } else {
+        cout << "MISSED" << endl;
     }
+ }
+
 };
 
 #endif // SHOOTING_ROBOT_H
