@@ -74,7 +74,7 @@ public:
     }
 };
 
-class MovingBot : public Robot {
+class MovingBot : virtual public Robot {
 private:
     int robotChoice;
 
@@ -97,7 +97,7 @@ public:
     }
 };
 
-class ThinkingBot : public MovingBot {
+class ThinkingBot : public MovingBot, public LookingBot{
 private:
     string decision;
     int thinkMode;
@@ -105,7 +105,7 @@ private:
 public:
     ThinkingBot() : decision("none"), thinkMode(0) {}
     ThinkingBot(const ThinkingBot& other)
-        : MovingBot(other), decision(other.decision), thinkMode(other.thinkMode) {}
+        : MovingBot(other), LookingBot(other), decision(other.decision), thinkMode(other.thinkMode) {}
 
     void ThinkAction() {
         thinkMode = rand() % 3; // 0 = move, 1 = fire, 2 = look
@@ -124,7 +124,7 @@ public:
     void setDecision(const string& d) { decision = d; }
 };
 
-class LookingBot : public Robot {
+class LookingBot : virtual public Robot {
     public:
     void LookAction(){
         DetectRobot();
