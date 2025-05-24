@@ -124,4 +124,28 @@ public:
     void setDecision(const string& d) { decision = d; }
 };
 
+
+
+class Hidebot : public MovingBot {
+    private:
+
+
+
+    public:
+
+
+
+};
+
+
+
+
+class JumpBot : public MovingBot {
+   private:
+
+
+
+    public:
+
+};
 #endif // ROBOT2_H
