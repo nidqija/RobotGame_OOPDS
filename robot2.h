@@ -1,3 +1,6 @@
+#ifndef ROBOT2_H
+#define ROBOT2_H
+
 #include <string>
 #include <fstream>
 #include <vector>
@@ -10,8 +13,17 @@ protected:
     int x, y;
     string symbol;
     vector<string> robotInitialLineup;
+    string icon;
 
 public:
+    struct RobotInfo {
+        string nameInitial;
+        int PosInitX;
+        int PosInitY;
+    };
+
+    vector<RobotInfo> detectedRobot;
+
     Robot() : x(1), y(1), symbol("R") {}
 
     Robot(const Robot& robot) {
@@ -22,40 +34,33 @@ public:
 
     virtual ~Robot() {}
 
-    int getX() const {
-         return x; 
-        
-    }
+    void setIcon(const string& icon_) { icon = icon_; }
+    string getIcon() const { return icon; }
 
-    int getY() const {
-         return y; 
-        }
+    int getX() const { return x; }
+    int getY() const { return y; }
 
-    void setX(int x_) {
-         x = x_; 
-        }
+    void setX(int x_) { x = x_; }
+    void setY(int y_) { y = y_; }
 
-    void setY(int y_) {
-         y = y_; 
-        }
-
-    string getSymbol() const {
-         return symbol; 
-        }
+    string getSymbol() const { return symbol; }
+    void setSymbol(const string& s) { symbol = s; }
 
     void DetectRobot() {
         ifstream inputFile("input.txt");
         string line;
         robotInitialLineup.clear();
+        detectedRobot.clear();
 
         while (getline(inputFile, line)) {
             if (line.find("GenericRobot") != string::npos) {
                 istringstream iss(line);
                 string tag, robotName;
-                int x, y;
-                iss >> tag >> robotName >> x >> y;
+                int posinitx, posinity;
+                iss >> tag >> robotName >> posinitx >> posinity;
                 string initial = robotName.substr(0, 1);
                 robotInitialLineup.push_back(initial);
+                detectedRobot.push_back({initial, posinitx, posinity});
             }
         }
     }
@@ -63,17 +68,19 @@ public:
     vector<string> ReturnVectorRobotInitial() const {
         return robotInitialLineup;
     }
+
+    vector<RobotInfo> ReturnRobotDetecteds() const {
+        return detectedRobot;
+    }
 };
 
 class MovingBot : public Robot {
 private:
     int robotChoice;
-    string icon;
 
 public:
     MovingBot() : robotChoice(0) {}
-
-    MovingBot(const MovingBot& other) : Robot(other), robotChoice(other.robotChoice), icon(other.icon) {}
+    MovingBot(const MovingBot& other) : Robot(other), robotChoice(other.robotChoice) {}
 
     void MovetheBot() {
         robotChoice = rand() % 8;
@@ -88,52 +95,33 @@ public:
             case 7: x -= 1; y += 1; break; // Bottom-left
         }
     }
-
-    void setIcon(const string& icon_) {
-        icon = icon_;
-    }
-
-    string getIcon() const {
-        return icon;
-    }
 };
 
-class ThinkingBot : public Robot {
+class ThinkingBot : public MovingBot {
 private:
     string decision;
     int thinkMode;
 
 public:
     ThinkingBot() : decision("none"), thinkMode(0) {}
-
     ThinkingBot(const ThinkingBot& other)
-        : Robot(other), decision(other.decision), thinkMode(other.thinkMode) {}
+        : MovingBot(other), decision(other.decision), thinkMode(other.thinkMode) {}
 
     void ThinkAction() {
         thinkMode = rand() % 3; // 0 = move, 1 = fire, 2 = look
 
         switch (thinkMode) {
-            case 0:
-                decision = "move";
-                break;
-            case 1:
-                decision = "fire";
-                break;
-            case 2:
-                decision = "look";
-                break;
+            case 0: decision = "move"; break;
+            case 1: decision = "fire"; break;
+            case 2: decision = "look"; break;
         }
 
-        cout << "[THINK] " << getSymbol() << " decided to " << decision << endl;
+        cout << "[THINK] " << getSymbol() << " decided to " << decision
+             << " at " << getX() << ", " << getY() << endl;
     }
 
-    string getDecision() const {
-        return decision;
-    }
-
-    void setDecision(const string& d) {
-        decision = d;
-    }
+    string getDecision() const { return decision; }
+    void setDecision(const string& d) { decision = d; }
 };
 
 class LookingBot : public Robot {
@@ -157,15 +145,17 @@ class LookingBot : public Robot {
                 }
 
                 bool present = false;
-                /*for (const auto& r : ReturnVectorRobotInitial()){
-                    if (r.x == viewx && r.y == viewy){
+                for (const auto& r : ReturnRobotDetecteds()){
+                    if (r.PosInitX == viewx && r.PosInitY == viewy){
                         cout << "Enemy Robot spotted at (" << viewx << "," << viewy << ")." << endl;
                         present = true;
                         break;
                     }
-                }*/
+                }
             }
         }
     }
 
 };
+
+#endif // ROBOT2_H
