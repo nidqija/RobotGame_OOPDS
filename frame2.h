@@ -34,7 +34,7 @@ public:
         for (const auto& info : detected) {
             ThinkingBot* tbot = new ThinkingBot();
             tbot->setX(info.PosInitX);
-            tbot->setY(info.PosInitY);
+            tbot->setY(info.PosIntY);
             tbot->setSymbol(info.nameInitial);
             // Initialize lives for each robot
             for (auto& robotInfo : robot.detectedRobot) {
@@ -129,5 +129,3 @@ public:
 };
 
 #endif // FRAME2_H
-
-

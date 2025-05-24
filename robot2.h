@@ -19,12 +19,8 @@ public:
     struct RobotInfo {
         string nameInitial;
         int PosInitX;
-<<<<<<< HEAD
-        int PosInitY;
-=======
         int PosIntY;
         int lives;
->>>>>>> dell
     };
 
     vector<RobotInfo> detectedRobot;
@@ -81,7 +77,7 @@ public:
     }
 };
 
-class MovingBot : virtual public Robot {
+class MovingBot : public Robot {
 private:
     int robotChoice;
 
@@ -104,7 +100,7 @@ public:
     }
 };
 
-class ThinkingBot : public MovingBot, public LookingBot{
+class ThinkingBot : public MovingBot {
 private:
     string decision;
     int thinkMode;
@@ -112,7 +108,7 @@ private:
 public:
     ThinkingBot() : decision("none"), thinkMode(0) {}
     ThinkingBot(const ThinkingBot& other)
-        : MovingBot(other), LookingBot(other), decision(other.decision), thinkMode(other.thinkMode) {}
+        : MovingBot(other), decision(other.decision), thinkMode(other.thinkMode) {}
 
     void ThinkAction() {
         thinkMode = rand() % 3; // 0 = move, 1 = fire, 2 = look
@@ -131,43 +127,6 @@ public:
     void setDecision(const string& d) { decision = d; }
 };
 
-<<<<<<< HEAD
-class LookingBot : virtual public Robot {
-    public:
-    void LookAction(){
-        DetectRobot();
-
-        int coordx = getX();
-        int coordy = getY();
-
-        cout << "[LOOKING] Looking around (" << coordx << "," << coordy << ")" << endl;
-
-        for (int dy = -1; dy <= 1; ++dy){
-            for (int dx = -1; dx <= 1; ++dx){
-                int viewx = coordx + dx;
-                int viewy = coordy + dy;
-
-                if (dx == 0 && dy == 0){
-                    cout << getSymbol() << "stands here at coordinates (" << coordx << "," << coordy << ")." << endl;
-                    continue;
-                }
-
-                bool present = false;
-                for (const auto& r : ReturnRobotDetecteds()){
-                    if (r.PosInitX == viewx && r.PosInitY == viewy){
-                        cout << "Enemy Robot spotted at (" << viewx << "," << viewy << ")." << endl;
-                        present = true;
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
-};
-
-#endif // ROBOT2_H
-=======
 
 
 class Hidebot : public MovingBot {
@@ -193,4 +152,3 @@ class JumpBot : public MovingBot {
 
 };
 #endif // ROBOT2_H
->>>>>>> dell

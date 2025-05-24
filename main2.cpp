@@ -19,12 +19,6 @@ int main() {
     Battlefield game;
     game.PrintBattlefield();
     game.delay(2000);
-<<<<<<< HEAD
-// g++ main2.cpp -o main2.exe
-// .\main2.exe
-=======
     game.simulateShooting(); // Call the shooting simulation
->>>>>>> dell
 
     return 0;
-}
