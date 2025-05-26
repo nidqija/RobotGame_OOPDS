@@ -22,3 +22,4 @@ int main() {
     game.simulateShooting(); // Call the shooting simulation
 
     return 0;
+}
