@@ -127,7 +127,39 @@ public:
     void setDecision(const string& d) { decision = d; }
 };
 
+/*class LookingBot : virtual public Robot {
+    public:
+    void LookAction(){
+        DetectRobot();
 
+        int coordx = getX();
+        int coordy = getY();
+
+        cout << "[LOOKING] Looking around (" << coordx << "," << coordy << ")" << endl;
+
+        for (int dy = -1; dy <= 1; ++dy){
+            for (int dx = -1; dx <= 1; ++dx){
+                int viewx = coordx + dx;
+                int viewy = coordy + dy;
+
+                if (dx == 0 && dy == 0){
+                    cout << getSymbol() << "stands here at coordinates (" << coordx << "," << coordy << ")." << endl;
+                    continue;
+                }
+
+                bool present = false;
+                for (const auto& r : ReturnRobotDetecteds()){
+                    if (r.PosInitX == viewx && r.PosIntY == viewy){
+                        cout << "Enemy Robot spotted at (" << viewx << "," << viewy << ")." << endl;
+                        present = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+}; */
 
 class Hidebot : public MovingBot {
     private:

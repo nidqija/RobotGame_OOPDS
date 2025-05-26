@@ -9,6 +9,7 @@
 #include <algorithm>
 #include "frame2.h"
 #include "shootingRobot.h"
+#include "lookingRobot.h"
 #include "robot2.h"
 
 
@@ -22,3 +23,4 @@ int main() {
     game.simulateShooting(); // Call the shooting simulation
 
     return 0;
+}

@@ -8,6 +8,7 @@
 #include <string>
 #include "robot2.h"
 #include "shootingRobot.h"
+#include "lookingRobot.h"
 using namespace std;
 
 class Battlefield {
@@ -16,6 +17,7 @@ private:
     vector<vector<string>> Grid;
     int extractedVal1 = 70, extractedVal2 = 30;
     ShootingBot shooter; //shooting bot instance
+    LookingBot looker; // looking bot
 
 public:
     Robot robot;
@@ -73,6 +75,7 @@ public:
                         // Optionally print move info here if needed
                    }
                     else if (decision == "look") {
+                        looker.LookAction(tbot, robot.detectedRobot);
                     // Optionally print look info if desired
                    }
 
