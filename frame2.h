@@ -53,10 +53,11 @@ public:
     void PrintBattlefield() {
         Grid.resize(extractedVal2, vector<string>(extractedVal1, " "));
 
-        for (int step = 0; step < 100; ++step) {
+        for (int step = -1; step < 100; ++step) {
             for (int y = 0; y < extractedVal2; ++y)
                 for (int x = 0; x < extractedVal1; ++x)
                     Grid[y][x] = ((y == 0 || y == extractedVal2 - 1 || x == 0 || x == extractedVal1 - 1) ? "*" : " ");
+
 
             for (Robot* bot : bots) {
                 if (ThinkingBot* tbot = dynamic_cast<ThinkingBot*>(bot)) {
