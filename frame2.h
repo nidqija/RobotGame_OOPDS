@@ -7,6 +7,8 @@
 #include <ctime>
 #include <string>
 #include "robot2.h"
+#include "shootingRobot.h"
+#include "lookingRobot.h"
 using namespace std;
 
 class Battlefield {
@@ -14,47 +16,72 @@ private:
     vector<Robot*> bots;
     vector<vector<string>> Grid;
     int extractedVal1 = 70, extractedVal2 = 30;
-
-    void delay(int milliseconds) {
-        clock_t start_time = clock();
-        while (clock() < start_time + milliseconds * (CLOCKS_PER_SEC / 1000)) {
-            // busy wait
-        }
-    }
+    ShootingBot shooter; //shooting bot instance
+    LookingBot looker; // looking bot
 
 public:
     Robot robot;
-    vector<string> robotInitial;
+
+     void delay(int milliseconds) {
+        clock_t start_time = clock();
+        while (clock() < start_time + milliseconds * (CLOCKS_PER_SEC / 100)) {
+        }
+    }
 
     Battlefield() {
-        srand(time(0));
+          srand(time(0));
         robot.DetectRobot();
-        robotInitial = robot.ReturnVectorRobotInitial();
+        vector<Robot::RobotInfo> detected = robot.ReturnRobotDetecteds();
 
-        for (int i = 0; i < 5; ++i) {
-                ThinkingBot* tbot = new ThinkingBot();
-                tbot->setX(2 + i);
-                tbot->setY(2 + i);
-                tbot->setSymbol(robotInitial[i]);
-                bots.push_back(tbot);
+        for (const auto& info : detected) {
+            ThinkingBot* tbot = new ThinkingBot();
+            tbot->setX(info.PosInitX);
+            tbot->setY(info.PosIntY);
+            tbot->setSymbol(info.nameInitial);
+            // Initialize lives for each robot
+            for (auto& robotInfo : robot.detectedRobot) {
+                if (robotInfo.nameInitial == info.nameInitial) {
+                    robotInfo.lives = 3; // Set initial lives to 3
+                    break;
+                }
+            }
+            bots.push_back(tbot);
         }
+        shooter.loadTargetsFromFile("input.txt");
     }
 
     void PrintBattlefield() {
         Grid.resize(extractedVal2, vector<string>(extractedVal1, " "));
 
-        for (int step = 0; step < 100; ++step) {
-            // Clear grid
+        for (int step = -1; step < 100; ++step) {
             for (int y = 0; y < extractedVal2; ++y)
                 for (int x = 0; x < extractedVal1; ++x)
                     Grid[y][x] = ((y == 0 || y == extractedVal2 - 1 || x == 0 || x == extractedVal1 - 1) ? "*" : " ");
 
-            // Move and place each bot
+
             for (Robot* bot : bots) {
-                // ThinkingBot logic
                 if (ThinkingBot* tbot = dynamic_cast<ThinkingBot*>(bot)) {
                     tbot->ThinkAction();
-                    tbot->MovetheBot();
+                    //tbot->MovetheBot();
+
+                    string decision = tbot->getDecision();
+                    if (decision == "fire") {
+                        cout << " — ";
+                        shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot ,tbot->getSymbol());
+                        // No movement this step if firing
+                   }  
+                   else if (decision == "move") {
+                       tbot->MovetheBot();
+                        // Optionally print move info here if needed
+                   }
+                    else if (decision == "look") {
+                        looker.LookAction(tbot, robot.detectedRobot);
+                    // Optionally print look info if desired
+                   }
+
+                    
+
+
                 }
 
                 int x = max(1, min(bot->getX(), extractedVal1 - 2));
@@ -62,12 +89,11 @@ public:
                 bot->setX(x);
                 bot->setY(y);
 
-               Grid[y][x] = bot->getSymbol() ;
+                Grid[y][x] = bot->getSymbol();
             }
 
-            // Draw grid
-            delay(2500); // adjust if needed
-            system("cls"); // use "clear" for Linux/macOS
+            delay(250); // reduced for better speed
+            system("cls"); // use "clear" on Linux/macOS
             for (const auto& row : Grid) {
                 for (const auto& cell : row)
                     cout << cell;
@@ -75,11 +101,33 @@ public:
             }
         }
     }
+     
+    void simulateShooting() {
+        for (Robot* bot : bots) {
+            if (ThinkingBot* tbot = dynamic_cast<ThinkingBot*>(bot)) {
+                // Call the ThinkAction method to decide what to do
+                tbot->ThinkAction();
+                
+                // Get the decision made by the ThinkingBot
+                string decision = tbot->getDecision();
+                cout << "[THINK] " << tbot->getSymbol() << " decided to " << decision
+                     << " at (" << tbot->getX() << "," << tbot->getY() << ")";
+                if (decision == "fire") {
+                    cout << " — ";
+                    // Call the shooting method and pass the target coordinates
+                    shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot,tbot->getSymbol());
+
+                } else {
+                    cout << ", no fire." << endl;
+                }
+                cout << "-----" << endl;
+            }
+        }
+    }
 
     ~Battlefield() {
-        for (Robot* bot : bots) {
+        for (Robot* bot : bots)
             delete bot;
-        }
     }
 };
 
