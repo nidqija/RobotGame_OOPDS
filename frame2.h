@@ -53,10 +53,11 @@ public:
     void PrintBattlefield() {
         Grid.resize(extractedVal2, vector<string>(extractedVal1, " "));
 
-        for (int step = 0; step < 100; ++step) {
+        for (int step = -1; step < 100; ++step) {
             for (int y = 0; y < extractedVal2; ++y)
                 for (int x = 0; x < extractedVal1; ++x)
                     Grid[y][x] = ((y == 0 || y == extractedVal2 - 1 || x == 0 || x == extractedVal1 - 1) ? "*" : " ");
+
 
             for (Robot* bot : bots) {
                 if (ThinkingBot* tbot = dynamic_cast<ThinkingBot*>(bot)) {
@@ -66,8 +67,7 @@ public:
                     string decision = tbot->getDecision();
                     if (decision == "fire") {
                         cout << " — ";
-                        shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot);
-
+                        shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot ,tbot->getSymbol());
                         // No movement this step if firing
                    }  
                    else if (decision == "move") {
@@ -115,7 +115,7 @@ public:
                 if (decision == "fire") {
                     cout << " — ";
                     // Call the shooting method and pass the target coordinates
-                    shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot);
+                    shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot,tbot->getSymbol());
 
                 } else {
                     cout << ", no fire." << endl;

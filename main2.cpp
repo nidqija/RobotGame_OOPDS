@@ -10,7 +10,6 @@
 #include "frame2.h"
 #include "shootingRobot.h"
 #include "lookingRobot.h"
-#include "robot2.h"
 
 
 using namespace std;
