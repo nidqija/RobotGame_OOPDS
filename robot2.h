@@ -1,3 +1,4 @@
+
 #ifndef ROBOT2_H
 #define ROBOT2_H
 
@@ -98,6 +99,15 @@ public:
             case 7: x -= 1; y += 1; break; // Bottom-left
         }
     }
+
+    void HideBot(){
+        
+    }
+
+
+    void JumpBot(){
+
+    }
 };
 
 class ThinkingBot : public MovingBot {
@@ -161,12 +171,65 @@ public:
 
 }; */
 
-class Hidebot : public MovingBot {
-    private:
 
 
 
-    public:
+class RobotUpgrades : public MovingBot {
+     private:
+        int robotSelection2;
+        string robotChoices;
+        Robot robot;
+
+
+     public:
+       RobotUpgrades() : robotChoices("none"), robotSelection2(0) {}
+        RobotUpgrades(const RobotUpgrades& other)
+        : MovingBot(other), robotChoices(other.robotChoices), robotSelection2(other.robotSelection2) {}
+
+        void RobotUpgradeRandomizer(const string& robotInitial) {
+            robotSelection2 = rand() % 7;
+            switch ( robotSelection2) {
+                case 0:
+                   robotChoices = "HideBot" ;
+                   HideBot();
+                    break;
+                case 1:
+                   robotChoices = "JumpBot"; 
+                   JumpBot();
+                   break;
+                case 2 :
+                   robotChoices = "LongShotBot"; break;
+
+                case 3:
+                   robotChoices = "SemiAutoBot"; break;
+
+                case 4:
+                   robotChoices = "ThirtyShotBot"; break;
+
+                case 5:
+                   robotChoices = "ScoutBot"; break;
+                
+                case 6:
+                   robotChoices = "TrackBot";break;
+            }
+
+            cout << "Robot " << getSymbol() << robotChoices << " !"<< endl;
+            cout << "Robot " << getSymbol() << "becomes " << robotChoices << " !" << endl;
+            
+         
+            
+        };
+
+
+        string getRobotChoices() const {
+            return robotChoices;
+        };
+
+
+
+        void setRobotChoices(const string& rbc) {
+          robotChoices = rbc;
+        };
 
 
 
@@ -175,12 +238,5 @@ class Hidebot : public MovingBot {
 
 
 
-class JumpBot : public MovingBot {
-   private:
 
-
-
-    public:
-
-};
-#endif // ROBOT2_H
+#endif

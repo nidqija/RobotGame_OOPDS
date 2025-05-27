@@ -66,8 +66,7 @@ public:
                     string decision = tbot->getDecision();
                     if (decision == "fire") {
                         cout << " — ";
-                        shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot);
-
+                        shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot ,tbot->getSymbol());
                         // No movement this step if firing
                    }  
                    else if (decision == "move") {
@@ -115,7 +114,7 @@ public:
                 if (decision == "fire") {
                     cout << " — ";
                     // Call the shooting method and pass the target coordinates
-                    shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot);
+                    shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot,tbot->getSymbol());
 
                 } else {
                     cout << ", no fire." << endl;

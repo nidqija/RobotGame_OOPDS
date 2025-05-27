@@ -22,6 +22,9 @@ struct TargetInfo {
 class ShootingBot {
 private:
     vector<TargetInfo> robotTargets;
+    RobotUpgrades robotupgrades;
+    int robotSelection2;
+    string robotChoices;
 
 public:
     ShootingBot() {}
@@ -50,7 +53,7 @@ public:
         inputFile.close();
     }
 
-    void startShooting(int targetX, int targetY, const string& targetName, vector<Robot::RobotInfo>& detectedRobots) {
+    void startShooting(int targetX, int targetY, const string& targetName, vector<Robot::RobotInfo>& detectedRobots , const string& ShooterInitial) {
     int roll = rand() % 10; // 0 to 9
     bool hit = (roll <= 6); // 70% chance to hit
 
@@ -61,8 +64,39 @@ public:
             if (robot.nameInitial == targetName) {
                 robot.lives--; // Decrement lives
                 cout << "got shot! HIT! Lives left: " << robot.lives << endl;
+                robotSelection2 = rand() % 7;
+
+                switch (robotSelection2){
+                      case 0:
+                         robotChoices = "HideBot" ;
+                         break;
+                      case 1:
+                         robotChoices = "JumpBot"; 
+                         break;
+                       case 2 :
+                         robotChoices = "LongShotBot"; 
+                         break;
+                       case 3:
+                         robotChoices = "SemiAutoBot"; 
+                         break;
+                       case 4:
+                         robotChoices = "ThirtyShotBot"; 
+                         break;
+                       case 5:
+                         robotChoices = "ScoutBot"; 
+                         break;
+                       case 6:
+                          robotChoices = "TrackBot";
+                          break;
+                   };
+                      cout << "Robot " << robot.nameInitial << " choosing 1 Upgrades..." << endl;
+                      cout << "Robot " << robot.nameInitial << " becomes " << robotChoices << " !" << endl;
+            
+         
+
                 if (robot.lives <= 0) {
-                    cout << targetName << " is destroyed!" << endl;
+                    cout << targetName << " is destroyed! " << endl;
+
                 }
                 break;
             }
