@@ -19,7 +19,6 @@ int main() {
     Battlefield game;
     game.PrintBattlefield();
     game.delay(2000);
-    game.simulateShooting(); // Call the shooting simulation
 
     return 0;
 }
