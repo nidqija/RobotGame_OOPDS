@@ -1,4 +1,3 @@
-
 #ifndef ROBOT2_H
 #define ROBOT2_H
 
@@ -14,7 +13,7 @@ protected:
     int x, y;
     string symbol;
     vector<string> robotInitialLineup;
-    string icon;
+    bool isHidden = false;
 
 public:
     struct RobotInfo {
@@ -22,31 +21,26 @@ public:
         int PosInitX;
         int PosIntY;
         int lives;
+        bool isHidden = false;
+        int hidesLeft = 3;
+        int hideTimer = 0; // NEW: for tracking hide duration
     };
 
-    vector<RobotInfo> detectedRobot;
-
     Robot() : x(1), y(1), symbol("R") {}
-
-    Robot(const Robot& robot) {
-        this->x = robot.x;
-        this->y = robot.y;
-        this->symbol = robot.symbol;
-    }
-
     virtual ~Robot() {}
-
-    void setIcon(const string& icon_) { icon = icon_; }
-    string getIcon() const { return icon; }
 
     int getX() const { return x; }
     int getY() const { return y; }
-
     void setX(int x_) { x = x_; }
     void setY(int y_) { y = y_; }
 
     string getSymbol() const { return symbol; }
     void setSymbol(const string& s) { symbol = s; }
+
+    void setHidden(bool hidden) { isHidden = hidden; }
+    bool getHidden() const { return isHidden; }
+
+    vector<RobotInfo> detectedRobot;
 
     void DetectRobot() {
         ifstream inputFile("input.txt");
@@ -62,181 +56,101 @@ public:
                 iss >> tag >> robotName >> posinitx >> posinity;
                 string initial = robotName.substr(0, 1);
                 robotInitialLineup.push_back(initial);
-                detectedRobot.push_back({initial, posinitx, posinity});
+                detectedRobot.push_back({initial, posinitx, posinity, 3, false, 3, 0});
             }
         }
-
-        inputFile.close();
     }
 
-    vector<string> ReturnVectorRobotInitial() const {
-        return robotInitialLineup;
-    }
-
-    vector<RobotInfo> ReturnRobotDetecteds() const {
-        return detectedRobot;
-    }
+    vector<string> ReturnVectorRobotInitial() const { return robotInitialLineup; }
+    vector<RobotInfo> ReturnRobotDetecteds() const { return detectedRobot; }
 };
 
 class MovingBot : public Robot {
-private:
+protected:
     int robotChoice;
 
 public:
     MovingBot() : robotChoice(0) {}
-    MovingBot(const MovingBot& other) : Robot(other), robotChoice(other.robotChoice) {}
 
     void MovetheBot() {
         robotChoice = rand() % 8;
         switch (robotChoice) {
-            case 0: x -= 1; break; // Left
-            case 1: x += 1; break; // Right
-            case 2: y -= 1; break; // Up
-            case 3: y += 1; break; // Down
-            case 4: x += 1; y -= 1; break; // Top-right
-            case 5: x -= 1; y -= 1; break; // Top-left
-            case 6: x += 1; y += 1; break; // Bottom-right
-            case 7: x -= 1; y += 1; break; // Bottom-left
+            case 0: x -= 1; break;
+            case 1: x += 1; break;
+            case 2: y -= 1; break;
+            case 3: y += 1; break;
+            case 4: x += 1; y -= 1; break;
+            case 5: x -= 1; y -= 1; break;
+            case 6: x += 1; y += 1; break;
+            case 7: x -= 1; y += 1; break;
         }
     }
 
-    void HideBot(){
-        
-    }
-
-
-    void JumpBot(){
-
+    void JumpBot() {
+        cout << "[JUMP] " << getSymbol() << " jumps to a new location!" << endl;
+        x = rand() % 68 + 1;
+        y = rand() % 28 + 1;
     }
 };
 
 class ThinkingBot : public MovingBot {
 private:
     string decision;
-    int thinkMode;
+    int hideTimer = 0; // NEW: local timer
 
 public:
-    ThinkingBot() : decision("none"), thinkMode(0) {}
-    ThinkingBot(const ThinkingBot& other)
-        : MovingBot(other), decision(other.decision), thinkMode(other.thinkMode) {}
+    ThinkingBot() : decision("none") {}
 
     void ThinkAction() {
-        thinkMode = rand() % 3; // 0 = move, 1 = fire, 2 = look
-
+        int thinkMode = rand() % 4;
         switch (thinkMode) {
             case 0: decision = "move"; break;
             case 1: decision = "fire"; break;
             case 2: decision = "look"; break;
         }
-
-        cout << "[THINK] " << getSymbol() << " decided to " << decision
-             << " at " << getX() << ", " << getY() << endl;
+        cout << "[THINK] " << getSymbol() << " decided to " << decision << " at " << getX() << ", " << getY() << endl;
     }
 
     string getDecision() const { return decision; }
-    void setDecision(const string& d) { decision = d; }
-};
 
-/*class LookingBot : virtual public Robot {
-    public:
-    void LookAction(){
-        DetectRobot();
+    string HideAction(vector<RobotInfo>& robots, const string& symbol) {
+        for (auto& r : robots) {
+            if (r.nameInitial == symbol) {
+                if (r.isHidden) return "Already hidden.";
+                if (r.hidesLeft <= 0) return "No hides left.";
+                r.isHidden = true;
+                r.hidesLeft--;
+                r.hideTimer = 3; // NEW: set duration
+                this->setHidden(true);
+                hideTimer = 3;
+                return "Now hiding for 3 turns.";
+            }
+        }
+        return "Robot not found.";
+    }
 
-        int coordx = getX();
-        int coordy = getY();
-
-        cout << "[LOOKING] Looking around (" << coordx << "," << coordy << ")" << endl;
-
-        for (int dy = -1; dy <= 1; ++dy){
-            for (int dx = -1; dx <= 1; ++dx){
-                int viewx = coordx + dx;
-                int viewy = coordy + dy;
-
-                if (dx == 0 && dy == 0){
-                    cout << getSymbol() << "stands here at coordinates (" << coordx << "," << coordy << ")." << endl;
-                    continue;
-                }
-
-                bool present = false;
-                for (const auto& r : ReturnRobotDetecteds()){
-                    if (r.PosInitX == viewx && r.PosIntY == viewy){
-                        cout << "Enemy Robot spotted at (" << viewx << "," << viewy << ")." << endl;
-                        present = true;
+    void UpdateHideStatus(vector<RobotInfo>& robots) {
+        if (hideTimer > 0) {
+            hideTimer--;
+            if (hideTimer == 0) {
+                setHidden(false);
+                for (auto& r : robots) {
+                    if (r.nameInitial == getSymbol()) {
+                        r.isHidden = false;
+                        r.hideTimer = 0;
                         break;
                     }
                 }
+                cout << "[REVEAL] " << getSymbol() << " is now visible again!" << endl;
             }
         }
     }
-
-}; */
-
-
-
-
-class RobotUpgrades : public MovingBot {
-     private:
-        int robotSelection2;
-        string robotChoices;
-        Robot robot;
-
-
-     public:
-       RobotUpgrades() : robotChoices("none"), robotSelection2(0) {}
-        RobotUpgrades(const RobotUpgrades& other)
-        : MovingBot(other), robotChoices(other.robotChoices), robotSelection2(other.robotSelection2) {}
-
-        void RobotUpgradeRandomizer(const string& robotInitial) {
-            robotSelection2 = rand() % 7;
-            switch ( robotSelection2) {
-                case 0:
-                   robotChoices = "HideBot" ;
-                   HideBot();
-                    break;
-                case 1:
-                   robotChoices = "JumpBot"; 
-                   JumpBot();
-                   break;
-                case 2 :
-                   robotChoices = "LongShotBot"; break;
-
-                case 3:
-                   robotChoices = "SemiAutoBot"; break;
-
-                case 4:
-                   robotChoices = "ThirtyShotBot"; break;
-
-                case 5:
-                   robotChoices = "ScoutBot"; break;
-                
-                case 6:
-                   robotChoices = "TrackBot";break;
-            }
-
-            cout << "Robot " << getSymbol() << robotChoices << " !"<< endl;
-            cout << "Robot " << getSymbol() << "becomes " << robotChoices << " !" << endl;
-            
-         
-            
-        };
-
-
-        string getRobotChoices() const {
-            return robotChoices;
-        };
-
-
-
-        void setRobotChoices(const string& rbc) {
-          robotChoices = rbc;
-        };
-
-
-
 };
 
 
+class JumpBot{
+    private: 
+      
+};
 
-
-
-#endif
+#endif // ROBOT2_H
