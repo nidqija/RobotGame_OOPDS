@@ -8,7 +8,6 @@
 #include <vector>
 #include <sstream>
 #include <cstdlib>
-#include <ctime>
 
 using namespace std;
 
@@ -18,19 +17,20 @@ struct TargetInfo {
     int y;
 };
 
-// ShootingBot simply reads targets and shoots
 class ShootingBot {
 private:
     vector<TargetInfo> robotTargets;
+    int robotSelection2;
+    string robotChoices;
 
 public:
     ShootingBot() {}
 
     void loadTargetsFromFile(const string& filename) {
         ifstream inputFile(filename);
-          string line;
+        string line;
 
-          if (!inputFile) {
+        if (!inputFile) {
             cout << "[ERROR] Could not open " << filename << endl;
             return;
         }
@@ -40,7 +40,6 @@ public:
                 istringstream iss(line);
                 string tag, name;
                 int rx, ry;
-
                 iss >> tag >> name >> rx >> ry;
                 robotTargets.push_back({name, rx, ry});
                 cout << "[LOAD] Target: " << name << " at (" << rx << "," << ry << ")\n";
@@ -50,28 +49,58 @@ public:
         inputFile.close();
     }
 
-    void startShooting(int targetX, int targetY, const string& targetName, vector<Robot::RobotInfo>& detectedRobots) {
-    int roll = rand() % 10; // 0 to 9
-    bool hit = (roll <= 6); // 70% chance to hit
+    void startShooting(int targetX, int targetY, const string& targetName, vector<Robot::RobotInfo>& detectedRobots, const string& shooterInitial) {
+        int roll = rand() % 10;
+        bool hit = (roll <= 6);
 
-    cout << "[THINK] Shot " << targetName << " at (" << targetX << "," << targetY << ") ";
-    if (hit) {
-        // Find the robot in detectedRobots and decrement lives
+        cout << "[THINK] Shot " << targetName << " at (" << targetX << "," << targetY << ") ";
+
         for (auto& robot : detectedRobots) {
             if (robot.nameInitial == targetName) {
-                robot.lives--; // Decrement lives
-                cout << "got shot! HIT! Lives left: " << robot.lives << endl;
-                if (robot.lives <= 0) {
-                    cout << targetName << " is destroyed!" << endl;
+                if (robot.isHidden) {
+                    cout << "FAILED. Robot is hidden. Shot ignored.\n";
+                    return;
+                }
+
+                if (hit) {
+                    robot.lives--;
+                    cout << "HIT! Lives left: " << robot.lives << endl;
+
+                    if (robot.lives > 0) {
+                        robotSelection2 = rand() % 7;
+                        switch (robotSelection2) {
+                            case 0: robotChoices = "HideBot"; break;
+                            case 1: robotChoices = "JumpBot"; break;
+                            case 2: robotChoices = "LongShotBot"; break;
+                            case 3: robotChoices = "SemiAutoBot"; break;
+                            case 4: robotChoices = "ThirtyShotBot"; break;
+                            case 5: robotChoices = "ScoutBot"; break;
+                            case 6: robotChoices = "TrackBot"; break;
+                        }
+
+                        cout << "Robot " << robot.nameInitial << " chooses upgrade: " << robotChoices << "!\n";
+
+                        if (robotChoices == "HideBot") {
+                            robot.isHidden = true;
+                            robot.hidesLeft = max(0, robot.hidesLeft - 1);
+                            cout << "Robot " << robot.nameInitial << " activates HideBot. Remaining hides: " << robot.hidesLeft << "\n";
+                        }
+
+                    } else {
+                        cout << "[DESTROYED] " << targetName << " is destroyed!\n";
+                    }
+
+                } else {
+                    cout << "MISSED\n";
                 }
                 break;
             }
         }
-    } else {
-        cout << "MISSED" << endl;
     }
- }
 
+    string returnRobotChoices() const {
+        return robotChoices;
+    }
 };
 
 #endif // SHOOTING_ROBOT_H
