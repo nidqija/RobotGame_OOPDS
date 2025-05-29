@@ -68,7 +68,7 @@ public:
                     if (decision == "fire") {
                         shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot, tbot->getSymbol());
 
-                        int robotSelection2 = rand() % 7;
+                        int robotSelection2 = rand() % 8;
                         switch (robotSelection2) {
                             case 0: robotChoices = "HideBot"; break;
                             case 1: robotChoices = "JumpBot"; break;
@@ -77,6 +77,7 @@ public:
                             case 4: robotChoices = "ThirtyShotBot"; break;
                             case 5: robotChoices = "ScoutBot"; break;
                             case 6: robotChoices = "TrackBot"; break;
+                            case 7: robotChoices = "AvoiderBot"; break;
                         }
 
                         cout << "Robot " << tbot->getSymbol() << " chooses upgrade: " << robotChoices << "!\n";
