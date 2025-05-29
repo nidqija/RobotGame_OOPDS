@@ -65,28 +65,7 @@ public:
                 if (hit) {
                     robot.lives--;
                     cout << "HIT! Lives left: " << robot.lives << endl;
-
-                    if (robot.lives > 0) {
-                        robotSelection2 = rand() % 7;
-                        switch (robotSelection2) {
-                            case 0: robotChoices = "HideBot"; break;
-                            case 1: robotChoices = "JumpBot"; break;
-                            case 2: robotChoices = "LongShotBot"; break;
-                            case 3: robotChoices = "SemiAutoBot"; break;
-                            case 4: robotChoices = "ThirtyShotBot"; break;
-                            case 5: robotChoices = "ScoutBot"; break;
-                            case 6: robotChoices = "TrackBot"; break;
-                        }
-
-                        cout << "Robot " << robot.nameInitial << " chooses upgrade: " << robotChoices << "!\n";
-
-                        if (robotChoices == "HideBot") {
-                            robot.isHidden = true;
-                            robot.hidesLeft = max(0, robot.hidesLeft - 1);
-                            cout << "Robot " << robot.nameInitial << " activates HideBot. Remaining hides: " << robot.hidesLeft << "\n";
-                        }
-
-                    } else {
+                    if (robot.lives == 0) {
                         cout << "[DESTROYED] " << targetName << " is destroyed!\n";
                     }
 
