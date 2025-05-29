@@ -1,6 +1,5 @@
 #ifndef FRAME2_H
 #define FRAME2_H
-
 #include <iostream>
 #include <vector>
 #include <cstdlib>
