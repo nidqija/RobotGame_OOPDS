@@ -82,9 +82,28 @@ public:
                         cout << "Robot " << tbot->getSymbol() << " chooses upgrade: " << robotChoices << "!\n";
 
                         if (robotChoices == "HideBot") {
+
                             string result = tbot->HideAction(robot.detectedRobot, tbot->getSymbol());
                             cout << "[HIDE] " << tbot->getSymbol() << ": " << result << endl;
-                        }
+
+                        } 
+                        else if ( robotChoices == "JumpBot"){
+                            cout << tbot->getSymbol() << " becomes JumpBot!" << endl; 
+                            JumpBot* jbot = new JumpBot();
+                            jbot -> setX(tbot->getX());
+                            jbot-> setY(tbot->getY());
+                            jbot -> setSymbol(tbot->getSymbol());
+
+                              auto it = std::find(bots.begin(), bots.end(), tbot);
+                              if (it != bots.end()) {
+                                 delete *it;
+                                  *it = jbot;
+                                }
+
+                                 string jumpResult = jbot->JumpAction(robot.detectedRobot, jbot->getSymbol());
+                                 cout << "[JUMP] " << jbot->getSymbol() << ": " << jumpResult << endl;
+                                 continue;
+                            }
                     } else if (decision == "move") {
                         tbot->MovetheBot();
                     } else if (decision == "look") {
@@ -111,10 +130,11 @@ public:
         }
     }
 
+
     ~Battlefield() {
         for (Robot* bot : bots)
             delete bot;
-    }
+    };
 };
 
 #endif // FRAME2_H
