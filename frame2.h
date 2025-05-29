@@ -16,20 +16,20 @@ private:
     vector<Robot*> bots;
     vector<vector<string>> Grid;
     int extractedVal1 = 70, extractedVal2 = 30;
-    ShootingBot shooter; //shooting bot instance
-    LookingBot looker; // looking bot
+    ShootingBot shooter;
+    LookingBot looker;
+    string robotChoices;
 
 public:
     Robot robot;
 
-     void delay(int milliseconds) {
+    void delay(int milliseconds) {
         clock_t start_time = clock();
-        while (clock() < start_time + milliseconds * (CLOCKS_PER_SEC / 100)) {
-        }
+        while (clock() < start_time + milliseconds * (CLOCKS_PER_SEC / 100)) {}
     }
 
     Battlefield() {
-          srand(time(0));
+        srand(time(0));
         robot.DetectRobot();
         vector<Robot::RobotInfo> detected = robot.ReturnRobotDetecteds();
 
@@ -38,62 +38,90 @@ public:
             tbot->setX(info.PosInitX);
             tbot->setY(info.PosIntY);
             tbot->setSymbol(info.nameInitial);
-            // Initialize lives for each robot
-            for (auto& robotInfo : robot.detectedRobot) {
-                if (robotInfo.nameInitial == info.nameInitial) {
-                    robotInfo.lives = 3; // Set initial lives to 3
-                    break;
-                }
-            }
             bots.push_back(tbot);
         }
+
         shooter.loadTargetsFromFile("input.txt");
     }
 
     void PrintBattlefield() {
         Grid.resize(extractedVal2, vector<string>(extractedVal1, " "));
 
-        for (int step = -1; step < 100; ++step) {
+        for (int step = 0; step < 100; ++step) {
+            // Reset battlefield
             for (int y = 0; y < extractedVal2; ++y)
                 for (int x = 0; x < extractedVal1; ++x)
                     Grid[y][x] = ((y == 0 || y == extractedVal2 - 1 || x == 0 || x == extractedVal1 - 1) ? "*" : " ");
 
-
             for (Robot* bot : bots) {
                 if (ThinkingBot* tbot = dynamic_cast<ThinkingBot*>(bot)) {
+                    // Check hide status every turn
+                    tbot->UpdateHideStatus(robot.detectedRobot);
+
+                    // If still hidden, skip rendering and actions
+                    if (tbot->getHidden()) continue;
+
+                    // Decide and act
                     tbot->ThinkAction();
-                    //tbot->MovetheBot();
-
                     string decision = tbot->getDecision();
+
                     if (decision == "fire") {
-                        cout << " — ";
-                        shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot ,tbot->getSymbol());
-                        // No movement this step if firing
-                   }  
-                   else if (decision == "move") {
-                       tbot->MovetheBot();
-                        // Optionally print move info here if needed
-                   }
-                    else if (decision == "look") {
+                        shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot, tbot->getSymbol());
+
+                        int robotSelection2 = rand() % 7;
+                        switch (robotSelection2) {
+                            case 0: robotChoices = "HideBot"; break;
+                            case 1: robotChoices = "JumpBot"; break;
+                            case 2: robotChoices = "LongShotBot"; break;
+                            case 3: robotChoices = "SemiAutoBot"; break;
+                            case 4: robotChoices = "ThirtyShotBot"; break;
+                            case 5: robotChoices = "ScoutBot"; break;
+                            case 6: robotChoices = "TrackBot"; break;
+                        }
+
+                        cout << "Robot " << tbot->getSymbol() << " chooses upgrade: " << robotChoices << "!\n";
+
+                        if (robotChoices == "HideBot") {
+
+                            string result = tbot->HideAction(robot.detectedRobot, tbot->getSymbol());
+                            cout << "[HIDE] " << tbot->getSymbol() << ": " << result << endl;
+
+                        } 
+                        else if ( robotChoices == "JumpBot"){
+                            cout << tbot->getSymbol() << " becomes JumpBot!" << endl; 
+                            JumpBot* jbot = new JumpBot();
+                            jbot -> setX(tbot->getX());
+                            jbot-> setY(tbot->getY());
+                            jbot -> setSymbol(tbot->getSymbol());
+
+                              auto it = std::find(bots.begin(), bots.end(), tbot);
+                              if (it != bots.end()) {
+                                 delete *it;
+                                  *it = jbot;
+                                }
+
+                                 string jumpResult = jbot->JumpAction(robot.detectedRobot, jbot->getSymbol());
+                                 cout << "[JUMP] " << jbot->getSymbol() << ": " << jumpResult << endl;
+                                 continue;
+                            }
+                    } else if (decision == "move") {
+                        tbot->MovetheBot();
+                    } else if (decision == "look") {
                         looker.LookAction(tbot, robot.detectedRobot);
-                    // Optionally print look info if desired
-                   }
-
-                    
-
-
+                    }
                 }
 
+                // Clamp position and place on grid if not hidden
                 int x = max(1, min(bot->getX(), extractedVal1 - 2));
                 int y = max(1, min(bot->getY(), extractedVal2 - 2));
                 bot->setX(x);
                 bot->setY(y);
-
-                Grid[y][x] = bot->getSymbol();
+                if (!bot->getHidden())
+                    Grid[y][x] = bot->getSymbol();
             }
 
-            delay(250); // reduced for better speed
-            system("cls"); // use "clear" on Linux/macOS
+            delay(250);
+            system("cls"); // Use "clear" on macOS/Linux
             for (const auto& row : Grid) {
                 for (const auto& cell : row)
                     cout << cell;
@@ -101,34 +129,12 @@ public:
             }
         }
     }
-     
-    void simulateShooting() {
-        for (Robot* bot : bots) {
-            if (ThinkingBot* tbot = dynamic_cast<ThinkingBot*>(bot)) {
-                // Call the ThinkAction method to decide what to do
-                tbot->ThinkAction();
-                
-                // Get the decision made by the ThinkingBot
-                string decision = tbot->getDecision();
-                cout << "[THINK] " << tbot->getSymbol() << " decided to " << decision
-                     << " at (" << tbot->getX() << "," << tbot->getY() << ")";
-                if (decision == "fire") {
-                    cout << " — ";
-                    // Call the shooting method and pass the target coordinates
-                    shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot,tbot->getSymbol());
 
-                } else {
-                    cout << ", no fire." << endl;
-                }
-                cout << "-----" << endl;
-            }
-        }
-    }
 
     ~Battlefield() {
         for (Robot* bot : bots)
             delete bot;
-    }
+    };
 };
 
 #endif // FRAME2_H
