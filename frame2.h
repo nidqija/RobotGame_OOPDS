@@ -104,6 +104,23 @@ public:
                                  cout << "[JUMP] " << jbot->getSymbol() << ": " << jumpResult << endl;
                                  continue;
                             }
+                        else if (robotChoices == "AvoiderBot") {
+                            cout << tbot->getSymbol() << " becomes AvoiderBot!" << endl;
+                            AvoiderBot* abot = new AvoiderBot();
+                            abot->setX(tbot->getX());
+                            abot->setY(tbot->getY());
+                            abot->setSymbol(tbot->getSymbol());
+
+                            auto it = std::find(bots.begin(), bots.end(), tbot);
+                            if (it != bots.end()) {
+                                delete *it;
+                                *it = abot;
+                             }
+                             string avoidResult = abot->AvoidAction(robot.detectedRobot, abot->getSymbol());
+                             cout << "[AVOID] " << abot->getSymbol() << ": " << avoidResult << endl;
+                             continue;
+                        }
+
                     } else if (decision == "move") {
                         tbot->MovetheBot();
                     } else if (decision == "look") {

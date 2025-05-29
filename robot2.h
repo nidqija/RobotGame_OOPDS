@@ -201,4 +201,35 @@ class JumpBot : public ThinkingBot{
 };
 };
 
+class AvoiderBot : public MovingBot {
+public:
+    AvoiderBot() {
+        setSymbol("A");  // Symbol for AvoiderBot
+    }
+
+    string AvoidAction(vector<RobotInfo>& robots, const string& symbol) {
+        for (const auto& r : robots) {
+            if (r.nameInitial != symbol) {
+                int dx = r.x - getX();
+                int dy = r.y - getY();
+
+                if (abs(dx) <= 2 && abs(dy) <= 2) {
+                    if (abs(dx) > abs(dy)) {
+                        if (dx > 0) setX(getX() - 1);  // move left
+                        else setX(getX() + 1);         // move right
+                    } else {
+                        if (dy > 0) setY(getY() - 1);  // move up
+                        else setY(getY() + 1);         // move down
+                    }
+                    return "Avoided nearby robot.";
+                }
+            }
+        }
+
+        MovetheBot();  // fallback
+        return "No nearby bot, moved randomly.";
+    }
+};
+
+
 #endif // ROBOT2_H
