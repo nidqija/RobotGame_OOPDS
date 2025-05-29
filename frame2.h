@@ -1,6 +1,5 @@
 #ifndef FRAME2_H
 #define FRAME2_H
-
 #include <iostream>
 #include <vector>
 #include <cstdlib>
@@ -68,7 +67,7 @@ public:
                     if (decision == "fire") {
                         shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot, tbot->getSymbol());
 
-                        int robotSelection2 = rand() % 8;
+                        int robotSelection2 = rand() % 9;
                         switch (robotSelection2) {
                             case 0: robotChoices = "HideBot"; break;
                             case 1: robotChoices = "JumpBot"; break;
@@ -78,6 +77,7 @@ public:
                             case 5: robotChoices = "ScoutBot"; break;
                             case 6: robotChoices = "TrackBot"; break;
                             case 7: robotChoices = "AvoiderBot"; break;
+                            case 8: robotChoices = "RegenBot"; break;
                         }
 
                         cout << "Robot " << tbot->getSymbol() << " chooses upgrade: " << robotChoices << "!\n";
@@ -119,6 +119,21 @@ public:
                              }
                              string avoidResult = abot->AvoidAction(robot.detectedRobot, abot->getSymbol());
                              cout << "[AVOID] " << abot->getSymbol() << ": " << avoidResult << endl;
+                             continue;
+                        } else if (robotChoices == "RegenBot"){
+                            cout << tbot->getSymbol() << " becomes RegenBot!" << endl;
+                            RegenBot* rbot = new RegenBot();
+                            rbot -> setX(tbot->getX());
+                            rbot -> setY(tbot->getY());
+                            rbot-> setSymbol(tbot->getSymbol());
+                            auto it = std::find(bots.begin(), bots.end(), tbot);
+                            if (it != bots.end()) {
+                                delete *it;
+                                *it = rbot;
+                             }
+
+                             string regenResult = rbot->generateHealthRobot(robot.detectedRobot,rbot->getSymbol());
+                             cout << "[REGEN] " << rbot->getSymbol() << ": " << regenResult << endl;
                              continue;
                         }
 
