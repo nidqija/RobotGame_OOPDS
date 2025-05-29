@@ -68,7 +68,7 @@ public:
                     if (decision == "fire") {
                         shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot, tbot->getSymbol());
 
-                        int robotSelection2 = rand() % 7;
+                        int robotSelection2 = rand() % 8;
                         switch (robotSelection2) {
                             case 0: robotChoices = "HideBot"; break;
                             case 1: robotChoices = "JumpBot"; break;
@@ -77,6 +77,7 @@ public:
                             case 4: robotChoices = "ThirtyShotBot"; break;
                             case 5: robotChoices = "ScoutBot"; break;
                             case 6: robotChoices = "TrackBot"; break;
+                            case 7: robotChoices = "AvoiderBot"; break;
                         }
 
                         cout << "Robot " << tbot->getSymbol() << " chooses upgrade: " << robotChoices << "!\n";
@@ -104,6 +105,23 @@ public:
                                  cout << "[JUMP] " << jbot->getSymbol() << ": " << jumpResult << endl;
                                  continue;
                             }
+                        else if (robotChoices == "AvoiderBot") {
+                            cout << tbot->getSymbol() << " becomes AvoiderBot!" << endl;
+                            AvoiderBot* abot = new AvoiderBot();
+                            abot->setX(tbot->getX());
+                            abot->setY(tbot->getY());
+                            abot->setSymbol(tbot->getSymbol());
+
+                            auto it = std::find(bots.begin(), bots.end(), tbot);
+                            if (it != bots.end()) {
+                                delete *it;
+                                *it = abot;
+                             }
+                             string avoidResult = abot->AvoidAction(robot.detectedRobot, abot->getSymbol());
+                             cout << "[AVOID] " << abot->getSymbol() << ": " << avoidResult << endl;
+                             continue;
+                        }
+
                     } else if (decision == "move") {
                         tbot->MovetheBot();
                     } else if (decision == "look") {
