@@ -143,23 +143,29 @@ public:
                         }
 
                         else if (robotChoices == "ScoutBot"){
-                            //scouter.ScoutAction(tbot, robot.detectedRobot);
+                            ScoutBot* sbot = dynamic_cast<ScoutBot*>(tbot);
+                            if (dynamic_cast<ScoutBot*>(tbot)) {
+                                cout << tbot->getSymbol() << " is already a ScoutBot!" << endl;
+                                sbot->ScoutAction(robot.detectedRobot);
+                            } else {
                                 cout << tbot->getSymbol() << " becomes ScoutBot!" << endl;
-                                ScoutBot* sbot = new ScoutBot();
-                                sbot->setX(tbot->getX());
-                                sbot->setY(tbot->getY());
-                                sbot->setSymbol(tbot->getSymbol());
+                                ScoutBot* newSbot = new ScoutBot();  
+                                newSbot->setX(tbot->getX());
+                                newSbot->setY(tbot->getY());
+                                newSbot->setSymbol(tbot->getSymbol());
 
-                                auto it = std::find(bots.begin(), bots.end(), tbot);
+                                auto it = find(bots.begin(), bots.end(), tbot);
                                 if (it != bots.end()) {
                                     delete *it;
-                                    *it = sbot;
+                                    *it = newSbot;
                                 }
 
-                                sbot->ScoutAction(sbot, robot.detectedRobot);
-                                
+                                newSbot->ScoutAction(robot.detectedRobot); 
+                            }
+
                             continue;
                         }
+
 
                     } else if (decision == "move") {
                         tbot->MovetheBot();
