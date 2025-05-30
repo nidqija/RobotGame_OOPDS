@@ -66,7 +66,8 @@ public:
 
                     if (decision == "fire") {
                         shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot, tbot->getSymbol());
-
+                        
+                   
                         int robotSelection2 = rand() % 9;
                         switch (robotSelection2) {
                             case 0: robotChoices = "HideBot"; break;
