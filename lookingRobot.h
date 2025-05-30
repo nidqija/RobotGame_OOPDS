@@ -34,12 +34,16 @@ public:
     }
 };
 
-class ScoutBot {
+class ScoutBot : public ThinkingBot {
 private:
     int scanNum = 3;
+    string decision;
 
 public:
-    void ScoutAction(Robot* self, const vector<Robot::RobotInfo>& detectedRobot) {
+
+    ScoutBot() : scanNum(3) {}
+
+    void ScoutAction( const vector<Robot::RobotInfo>& detectedRobot) {
 
         if (scanNum <= 0) {
             cout << "[SCOUT] No scans remaining." << endl;
@@ -48,7 +52,7 @@ public:
 
         scanNum--;
 
-        cout << "[SCOUT] Full battlefield scan initiated by " << self->getSymbol() << "." << endl;
+        cout << "[SCOUT] Full battlefield scan initiated by " << getSymbol() << "." << endl;
 
         for (const auto& r : detectedRobot) {
             cout << "Enemy: " << r.nameInitial << " at (" << r.PosInitX << ", " << r.PosIntY << ")." << endl;
@@ -56,8 +60,8 @@ public:
 
         cout << "Remaining number of scans: " << scanNum << "." << endl;
     }
-};
 
+};
 
 
 #endif // LOOKING_ROBOT_H
