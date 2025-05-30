@@ -143,11 +143,15 @@ public:
                         }
 
                         else if (robotChoices == "ScoutBot"){
+
                             ScoutBot* sbot = dynamic_cast<ScoutBot*>(tbot);
+                            
                             if (dynamic_cast<ScoutBot*>(tbot)) {
                                 cout << tbot->getSymbol() << " is already a ScoutBot!" << endl;
                                 sbot->ScoutAction(robot.detectedRobot);
-                            } else {
+                            } 
+                            
+                            else {
                                 cout << tbot->getSymbol() << " becomes ScoutBot!" << endl;
                                 ScoutBot* newSbot = new ScoutBot();  
                                 newSbot->setX(tbot->getX());
