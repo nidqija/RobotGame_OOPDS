@@ -41,22 +41,20 @@ private:
 public:
     void ScoutAction(Robot* self, const vector<Robot::RobotInfo>& detectedRobot) {
 
-        int scanDeterminer = rand() % 2;
-        if (scanDeterminer == 0) {
-            cout << "[SCOUT] Scan did NOT activate this turn." << endl;
-            return; // don't use up a scan
-        }
-
         if (scanNum <= 0) {
             cout << "[SCOUT] No scans remaining." << endl;
             return;
         }
+
         scanNum--;
 
         cout << "[SCOUT] Full battlefield scan initiated by " << self->getSymbol() << "." << endl;
+
         for (const auto& r : detectedRobot) {
             cout << "Enemy: " << r.nameInitial << " at (" << r.PosInitX << ", " << r.PosIntY << ")." << endl;
         }
+
+        cout << "Remaining number of scans: " << scanNum << "." << endl;
     }
 };
 

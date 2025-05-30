@@ -131,7 +131,7 @@ public:
                             rbot -> setX(tbot->getX());
                             rbot -> setY(tbot->getY());
                             rbot-> setSymbol(tbot->getSymbol());
-                            auto it = std::find(bots.begin(), bots.end(), tbot);
+                            auto it = find(bots.begin(), bots.end(), tbot);
                             if (it != bots.end()) {
                                 delete *it;
                                 *it = rbot;
@@ -144,6 +144,7 @@ public:
 
                         else if (robotChoices == "ScoutBot"){
                             scouter.ScoutAction(tbot, robot.detectedRobot);
+                            continue;
                         }
 
                     } else if (decision == "move") {
