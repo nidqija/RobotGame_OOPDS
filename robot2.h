@@ -6,6 +6,7 @@
 #include <vector>
 #include <sstream>
 #include <iostream>
+
 using namespace std;
 
 class Robot {
@@ -228,6 +229,26 @@ public:
 
         MovetheBot();  // fallback
         return "No nearby bot, moved randomly.";
+    }
+};
+
+
+class RegenBot : public ThinkingBot {
+public:
+    string generateHealthRobot(vector<Robot::RobotInfo>& robots, const string& symbol) {
+        for (auto& robot : robots) {
+            if (robot.nameInitial == symbol) {
+                robot.lives += 1;  // Increase life
+                stringstream ss;
+                ss << "RegenBot " << symbol << " regenerated 1 life. Total lives: " << robot.lives;
+                return ss.str();
+            }
+        }
+        return "No matching robot found to regenerate.";
+    }
+
+    string getType() const  {
+        return "RegenBot";
     }
 };
 
