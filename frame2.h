@@ -1,6 +1,5 @@
 #ifndef FRAME2_H
 #define FRAME2_H
-
 #include <iostream>
 #include <vector>
 #include <cstdlib>
@@ -68,7 +67,7 @@ public:
                     if (decision == "fire") {
                         shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot, tbot->getSymbol());
 
-                        int robotSelection2 = rand() % 7;
+                        int robotSelection2 = rand() % 9;
                         switch (robotSelection2) {
                             case 0: robotChoices = "HideBot"; break;
                             case 1: robotChoices = "JumpBot"; break;
@@ -77,14 +76,67 @@ public:
                             case 4: robotChoices = "ThirtyShotBot"; break;
                             case 5: robotChoices = "ScoutBot"; break;
                             case 6: robotChoices = "TrackBot"; break;
+                            case 7: robotChoices = "AvoiderBot"; break;
+                            case 8: robotChoices = "RegenBot"; break;
                         }
 
                         cout << "Robot " << tbot->getSymbol() << " chooses upgrade: " << robotChoices << "!\n";
 
                         if (robotChoices == "HideBot") {
+
                             string result = tbot->HideAction(robot.detectedRobot, tbot->getSymbol());
                             cout << "[HIDE] " << tbot->getSymbol() << ": " << result << endl;
+
+                        } 
+                        else if ( robotChoices == "JumpBot"){
+                            cout << tbot->getSymbol() << " becomes JumpBot!" << endl; 
+                            JumpBot* jbot = new JumpBot();
+                            jbot -> setX(tbot->getX());
+                            jbot-> setY(tbot->getY());
+                            jbot -> setSymbol(tbot->getSymbol());
+
+                              auto it = std::find(bots.begin(), bots.end(), tbot);
+                              if (it != bots.end()) {
+                                 delete *it;
+                                  *it = jbot;
+                                }
+
+                                 string jumpResult = jbot->JumpAction(robot.detectedRobot, jbot->getSymbol());
+                                 cout << "[JUMP] " << jbot->getSymbol() << ": " << jumpResult << endl;
+                                 continue;
+                            }
+                        else if (robotChoices == "AvoiderBot") {
+                            cout << tbot->getSymbol() << " becomes AvoiderBot!" << endl;
+                            AvoiderBot* abot = new AvoiderBot();
+                            abot->setX(tbot->getX());
+                            abot->setY(tbot->getY());
+                            abot->setSymbol(tbot->getSymbol());
+
+                            auto it = std::find(bots.begin(), bots.end(), tbot);
+                            if (it != bots.end()) {
+                                delete *it;
+                                *it = abot;
+                             }
+                             string avoidResult = abot->AvoidAction(robot.detectedRobot, abot->getSymbol());
+                             cout << "[AVOID] " << abot->getSymbol() << ": " << avoidResult << endl;
+                             continue;
+                        } else if (robotChoices == "RegenBot"){
+                            cout << tbot->getSymbol() << " becomes RegenBot!" << endl;
+                            RegenBot* rbot = new RegenBot();
+                            rbot -> setX(tbot->getX());
+                            rbot -> setY(tbot->getY());
+                            rbot-> setSymbol(tbot->getSymbol());
+                            auto it = std::find(bots.begin(), bots.end(), tbot);
+                            if (it != bots.end()) {
+                                delete *it;
+                                *it = rbot;
+                             }
+
+                             string regenResult = rbot->generateHealthRobot(robot.detectedRobot,rbot->getSymbol());
+                             cout << "[REGEN] " << rbot->getSymbol() << ": " << regenResult << endl;
+                             continue;
                         }
+
                     } else if (decision == "move") {
                         tbot->MovetheBot();
                     } else if (decision == "look") {
@@ -111,10 +163,11 @@ public:
         }
     }
 
+
     ~Battlefield() {
         for (Robot* bot : bots)
             delete bot;
-    }
+    };
 };
 
 #endif // FRAME2_H

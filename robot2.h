@@ -6,6 +6,7 @@
 #include <vector>
 #include <sstream>
 #include <iostream>
+
 using namespace std;
 
 class Robot {
@@ -24,6 +25,8 @@ public:
         bool isHidden = false;
         int hidesLeft = 3;
         int hideTimer = 0; // NEW: for tracking hide duration
+        int x;
+        int y;
     };
 
     Robot() : x(1), y(1), symbol("R") {}
@@ -61,8 +64,12 @@ public:
         }
     }
 
-    vector<string> ReturnVectorRobotInitial() const { return robotInitialLineup; }
-    vector<RobotInfo> ReturnRobotDetecteds() const { return detectedRobot; }
+    vector<string> ReturnVectorRobotInitial() const {
+         return robotInitialLineup; 
+        }
+    vector<RobotInfo> ReturnRobotDetecteds() const { 
+        return detectedRobot; 
+    }
 };
 
 class MovingBot : public Robot {
@@ -86,11 +93,7 @@ public:
         }
     }
 
-    void JumpBot() {
-        cout << "[JUMP] " << getSymbol() << " jumps to a new location!" << endl;
-        x = rand() % 68 + 1;
-        y = rand() % 28 + 1;
-    }
+  
 };
 
 class ThinkingBot : public MovingBot {
@@ -116,8 +119,10 @@ public:
     string HideAction(vector<RobotInfo>& robots, const string& symbol) {
         for (auto& r : robots) {
             if (r.nameInitial == symbol) {
-                if (r.isHidden) return "Already hidden.";
-                if (r.hidesLeft <= 0) return "No hides left.";
+                if (r.isHidden) 
+                return "Already hidden.";
+                if (r.hidesLeft <= 0) 
+                return "No hides left.";
                 r.isHidden = true;
                 r.hidesLeft--;
                 r.hideTimer = 3; // NEW: set duration
@@ -128,6 +133,9 @@ public:
         }
         return "Robot not found.";
     }
+
+
+   
 
     void UpdateHideStatus(vector<RobotInfo>& robots) {
         if (hideTimer > 0) {
@@ -148,9 +156,101 @@ public:
 };
 
 
-class JumpBot{
-    private: 
-      
+class JumpBot : public ThinkingBot{
+
+    private:
+       int updatePos;
+
+
+    public:
+        string JumpAction(vector<RobotInfo>& robots, const string& symbol){
+         for (auto& r : robots){
+            if ( r.nameInitial == symbol){
+                updatePos = rand () % 10;
+
+                switch (updatePos){
+                    case 0:
+                      r.x += 2;
+                      r.y += 4;
+                      break;
+                    case 1:
+                      r.x += 4;
+                      r.y += 12;
+                      break;
+                    case 2:
+                      r.x += 6;
+                      r.y += 3;
+                      break;
+                    case 3:
+                      r.x += 8;
+                      r.y += 20;
+                      break;
+                    case 4:
+                      r.x += 10;
+                      r.y += 19;
+                      break;
+                }
+
+                setX(r.x);
+                setY(r.y);
+                return "Jumped to (" + to_string(r.x) + ", " + to_string(r.y) + ")";
+
+         }
+    }; 
+            return "Robot not found.";
+
 };
+};
+
+class AvoiderBot : public MovingBot {
+public:
+    AvoiderBot() {
+        setSymbol("A");  // Symbol for AvoiderBot
+    }
+
+    string AvoidAction(vector<RobotInfo>& robots, const string& symbol) {
+        for (const auto& r : robots) {
+            if (r.nameInitial != symbol) {
+                int dx = r.x - getX();
+                int dy = r.y - getY();
+
+                if (abs(dx) <= 2 && abs(dy) <= 2) {
+                    if (abs(dx) > abs(dy)) {
+                        if (dx > 0) setX(getX() - 1);  // move left
+                        else setX(getX() + 1);         // move right
+                    } else {
+                        if (dy > 0) setY(getY() - 1);  // move up
+                        else setY(getY() + 1);         // move down
+                    }
+                    return "Avoided nearby robot.";
+                }
+            }
+        }
+
+        MovetheBot();  // fallback
+        return "No nearby bot, moved randomly.";
+    }
+};
+
+
+class RegenBot : public ThinkingBot {
+public:
+    string generateHealthRobot(vector<Robot::RobotInfo>& robots, const string& symbol) {
+        for (auto& robot : robots) {
+            if (robot.nameInitial == symbol) {
+                robot.lives += 1;  // Increase life
+                stringstream ss;
+                ss << "RegenBot " << symbol << " regenerated 1 life. Total lives: " << robot.lives;
+                return ss.str();
+            }
+        }
+        return "No matching robot found to regenerate.";
+    }
+
+    string getType() const  {
+        return "RegenBot";
+    }
+};
+
 
 #endif // ROBOT2_H
