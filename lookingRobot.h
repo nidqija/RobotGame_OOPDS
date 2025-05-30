@@ -34,11 +34,15 @@ public:
     }
 };
 
-class ScoutBot {
+class ScoutBot : public ThinkingBot {
 private:
     int scanNum = 3;
+    string decision;
 
 public:
+
+    ScoutBot() : scanNum(3) {}
+
     void ScoutAction(Robot* self, const vector<Robot::RobotInfo>& detectedRobot) {
 
         if (scanNum <= 0) {
@@ -56,6 +60,16 @@ public:
 
         cout << "Remaining number of scans: " << scanNum << "." << endl;
     }
+
+    /*void ThinkAction() override {
+        decision = "scout";
+    }
+
+    string getDecision() const override {
+        return decision;
+    }*/
+
+
 };
 
 

@@ -143,7 +143,21 @@ public:
                         }
 
                         else if (robotChoices == "ScoutBot"){
-                            scouter.ScoutAction(tbot, robot.detectedRobot);
+                            //scouter.ScoutAction(tbot, robot.detectedRobot);
+                                cout << tbot->getSymbol() << " becomes ScoutBot!" << endl;
+                                ScoutBot* sbot = new ScoutBot();
+                                sbot->setX(tbot->getX());
+                                sbot->setY(tbot->getY());
+                                sbot->setSymbol(tbot->getSymbol());
+
+                                auto it = std::find(bots.begin(), bots.end(), tbot);
+                                if (it != bots.end()) {
+                                    delete *it;
+                                    *it = sbot;
+                                }
+
+                                sbot->ScoutAction(sbot, robot.detectedRobot);
+                                
                             continue;
                         }
 
