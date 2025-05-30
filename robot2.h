@@ -228,7 +228,7 @@ public:
         }
 
         MovetheBot();  // fallback
-        return "No nearby bot, moved randomly.";
+        return "No bot nearaby, moving randomly.";
     }
 };
 
@@ -263,7 +263,7 @@ public:
         MovetheBot();
         MovetheBot();
         MovetheBot();
-        return "SpeedyBot zipped across the battlefield!";
+        return "Speedybot is becuming faster";
     }
 };
 
