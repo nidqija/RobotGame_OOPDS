@@ -67,7 +67,7 @@ public:
                     if (decision == "fire") {
                         shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot, tbot->getSymbol());
 
-                        int robotSelection2 = rand() % 9;
+                        int robotSelection2 = rand() % 10;
                         switch (robotSelection2) {
                             case 0: robotChoices = "HideBot"; break;
                             case 1: robotChoices = "JumpBot"; break;
@@ -78,6 +78,8 @@ public:
                             case 6: robotChoices = "TrackBot"; break;
                             case 7: robotChoices = "AvoiderBot"; break;
                             case 8: robotChoices = "RegenBot"; break;
+                            case 9: robotChoices = "SpeedyBot"; break;
+
                         }
 
                         cout << "Robot " << tbot->getSymbol() << " chooses upgrade: " << robotChoices << "!\n";
@@ -135,6 +137,22 @@ public:
                              string regenResult = rbot->generateHealthRobot(robot.detectedRobot,rbot->getSymbol());
                              cout << "[REGEN] " << rbot->getSymbol() << ": " << regenResult << endl;
                              continue;
+                        }
+                        else if (robotChoices == "SpeedyBot") {
+                            cout << tbot->getSymbol() << " becomes SpeedyBot!" << endl;
+                            SpeedyBot* sbot = new SpeedyBot();
+                            sbot->setX(tbot->getX());
+                            sbot->setY(tbot->getY());
+                            sbot->setSymbol(tbot->getSymbol());
+
+                            auto it = std::find(bots.begin(), bots.end(), tbot);
+                            if (it != bots.end()) {
+                                delete *it;
+                                *it = sbot;
+                            }
+                            string speedResult = sbot->SpeedAction();
+                            cout << "[SPEED] " << sbot->getSymbol() << ": " << speedResult << endl;
+                            continue;
                         }
 
                     } else if (decision == "move") {
