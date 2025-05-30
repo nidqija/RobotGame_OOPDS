@@ -252,5 +252,31 @@ public:
     }
 };
 
+class LongShotBot : public ThinkingBot {
+public:
+    string FireLongShot(vector<RobotInfo>& robots, const string& symbol) {
+        for (auto& target : robots) {
+            if (target.nameInitial != symbol && !target.isHidden) {
+                int dx = abd(getX() - target.x);
+                int dy = abs(getY() - target.y);
+                if ((dx + dy) <= 3) { //longshot condition
+                    int chance = rand() % 10;
+                    if (chance <= 6) {
+                        target.lives--;
+                        return "LongShotBot " + symbol + " hit " + target.nameInitial + " at (" + to_string(target.x) + ", " + to_string(target.y) + ").";
+                    } else {
+                        return "LongShotBot " + symbol + " missed " + target.nameInitial + " at (" + to_string(target.x) + ", " + to_string(target.y) + ")."; 
+                    }
+                }
+            }
+        }
+        return " No valid targets in rnage for long shot.";
+    }
+
+    string getType() const {
+        return "LongShotBot";
+    }
+};
+
 
 #endif // ROBOT2_H

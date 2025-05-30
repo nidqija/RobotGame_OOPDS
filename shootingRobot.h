@@ -8,6 +8,7 @@
 #include <vector>
 #include <sstream>
 #include <cstdlib>
+#include <cmath> 
 
 using namespace std;
 
@@ -49,33 +50,48 @@ public:
         inputFile.close();
     }
 
-    void startShooting(int targetX, int targetY, const string& targetName, vector<Robot::RobotInfo>& detectedRobots, const string& shooterInitial) {
-        int roll = rand() % 10;
-        bool hit = (roll <= 6);
+    bool isWithinRange(int shooterX, int shooterY, int targetX, int targetY, int range) {
+        return abs(shooterX - targetX) + abs(shooterY - targetY) <= range;
+    }
 
-        cout << "[THINK] Shot " << targetName << " at (" << targetX << "," << targetY << ") ";
+    void startShooting(int targetX, int targetY, const string& targetName, vector<Robot::RobotInfo>& detectedRobots, const string& shooterInitial, bool isLongShot = false) {
+        int shootRange = isLongShot ? 3 : 2; //longshotbot gets longer range
+        bool targetFound = false;
 
         for (auto& robot : detectedRobots) {
             if (robot.nameInitial == targetName) {
+                targetFound = true;
+
                 if (robot.isHidden) {
-                    cout << "FAILED. Robot is hidden. Shot ignored.\n";
+                    cout << "[THINK] Shot " << targetName << " at (" << robot.x << "." << robot.y << ") FAILED. Robot is hidden.\n";
                     return;
                 }
+                if (iswithinRange(shooterX, shooterY, robot.x, robot.y, shootRange)) {
+                    int roll = rand() % 10;
+                    bool hit = (roll <= 6); //70% hit chance
 
-                if (hit) {
-                    robot.lives--;
-                    cout << "HIT! Lives left: " << robot.lives << endl;
-                    if (robot.lives == 0) {
-                        cout << "[DESTROYED] " << targetName << " is destroyed!\n";
+                     cout << "[THINK] Shot " << targetName << " at (" << robot.x << "," << robot.y << ") ";
+
+                    if (hit) {
+                        robot.lives--;
+                        cout << "HIT! Lives left: " << robot.lives << endl;
+                        if (robot.lives == 0) {
+                            cout << "[DESTROYED] " << targetName << " is destroyed!\n";
+                        }
+                    } else {
+                         cout << "MISSED\n";
                     }
-
                 } else {
-                    cout << "MISSED\n";
+                    cout << "THINK " << targetName << " is out of range. No shot fired.\n"
                 }
                 break;
             }
         }
-    }
+
+        if (!targetFound) {
+            cout << "[WARNING] Target " << targetName << " not found in detected robots.\n";
+        }
+    }  
 
     string returnRobotChoices() const {
         return robotChoices;
