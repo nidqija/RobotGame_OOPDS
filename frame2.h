@@ -17,6 +17,7 @@ private:
     int extractedVal1 = 70, extractedVal2 = 30;
     ShootingBot shooter;
     LookingBot looker;
+    ScoutBot scouter;
     string robotChoices;
 
 public:
@@ -24,7 +25,7 @@ public:
 
     void delay(int milliseconds) {
         clock_t start_time = clock();
-        while (clock() < start_time + milliseconds * (CLOCKS_PER_SEC / 100)) {}
+        while (clock() < start_time + milliseconds * (CLOCKS_PER_SEC / 80)) {}
     }
 
     Battlefield() {
@@ -88,6 +89,7 @@ public:
                             cout << "[HIDE] " << tbot->getSymbol() << ": " << result << endl;
 
                         } 
+
                         else if ( robotChoices == "JumpBot"){
                             cout << tbot->getSymbol() << " becomes JumpBot!" << endl; 
                             JumpBot* jbot = new JumpBot();
@@ -104,7 +106,8 @@ public:
                                  string jumpResult = jbot->JumpAction(robot.detectedRobot, jbot->getSymbol());
                                  cout << "[JUMP] " << jbot->getSymbol() << ": " << jumpResult << endl;
                                  continue;
-                            }
+                        }
+
                         else if (robotChoices == "AvoiderBot") {
                             cout << tbot->getSymbol() << " becomes AvoiderBot!" << endl;
                             AvoiderBot* abot = new AvoiderBot();
@@ -120,7 +123,9 @@ public:
                              string avoidResult = abot->AvoidAction(robot.detectedRobot, abot->getSymbol());
                              cout << "[AVOID] " << abot->getSymbol() << ": " << avoidResult << endl;
                              continue;
-                        } else if (robotChoices == "RegenBot"){
+                        } 
+                        
+                        else if (robotChoices == "RegenBot"){
                             cout << tbot->getSymbol() << " becomes RegenBot!" << endl;
                             RegenBot* rbot = new RegenBot();
                             rbot -> setX(tbot->getX());
@@ -135,6 +140,10 @@ public:
                              string regenResult = rbot->generateHealthRobot(robot.detectedRobot,rbot->getSymbol());
                              cout << "[REGEN] " << rbot->getSymbol() << ": " << regenResult << endl;
                              continue;
+                        }
+
+                        else if (robotChoices == "ScoutBot"){
+                            scouter.ScoutAction(tbot, robot.detectedRobot);
                         }
 
                     } else if (decision == "move") {
