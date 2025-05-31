@@ -17,7 +17,6 @@ private:
     int extractedVal1 = 70, extractedVal2 = 30;
     ShootingBot shooter;
     LookingBot looker;
-    ScoutBot scouter;
     string robotChoices;
 
 public:
@@ -49,6 +48,7 @@ public:
 
         for (int step = 0; step < 100; ++step) {
             // Reset battlefield
+            robot.DetectRobot();  // refreh coords
             for (int y = 0; y < extractedVal2; ++y)
                 for (int x = 0; x < extractedVal1; ++x)
                     Grid[y][x] = ((y == 0 || y == extractedVal2 - 1 || x == 0 || x == extractedVal1 - 1) ? "*" : " ");
@@ -64,6 +64,12 @@ public:
                     // Decide and act
                     tbot->ThinkAction();
                     string decision = tbot->getDecision();
+
+                    for (Robot* bot : bots) {  //if any bot is a tcbot (tracker) itll print the log 
+                        if (TrackBot* tcbot = dynamic_cast<TrackBot*>(bot)) {
+                            tcbot->DisplayTrackedBots(robot.detectedRobot);
+                        }
+                    }
 
                     if (decision == "fire") {
                         bool destroyed = shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot, tbot->getSymbol());
@@ -229,6 +235,40 @@ public:
                         }
 
 
+                        else if (robotChoices == "TrackBot") {
+                            
+                            TrackBot* tcbot = dynamic_cast<TrackBot*>(tbot);
+
+                            if (tcbot) { //if already a trackbot
+                                
+                                cout << tbot->getSymbol() << " is already a TrackBot!" << endl;
+                                tcbot->TrackAction(tcbot, robot.detectedRobot);  //track
+                                tcbot->DisplayTrackedBots(robot.detectedRobot);  //display the trackings
+                            } 
+                            
+                            else { //new bot upgrades to trackbot
+                                
+                                cout << tbot->getSymbol() << " becomes TrackBot!" << endl;
+
+                                TrackBot* newTcbot = new TrackBot();
+                                newTcbot->setX(tbot->getX());
+                                newTcbot->setY(tbot->getY());
+                                newTcbot->setSymbol(tbot->getSymbol());
+
+                                //replaces bot in vector (no longer regular bot, its trackbot)
+                                auto it = find(bots.begin(), bots.end(), tbot);
+                                if (it != bots.end()) {
+                                    delete *it;
+                                    *it = newTcbot;
+                                }
+
+                                newTcbot->TrackAction(newTcbot, robot.detectedRobot);
+                                newTcbot->DisplayTrackedBots(robot.detectedRobot);
+                            }
+
+                            continue;
+                        }
+
 
                     } else if (decision == "move") {
                         tbot->MovetheBot();
@@ -260,7 +300,7 @@ public:
     ~Battlefield() {
         for (Robot* bot : bots)
             delete bot;
-    };
+    }
 };
 
 #endif // FRAME2_H
