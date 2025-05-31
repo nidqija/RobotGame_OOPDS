@@ -119,16 +119,30 @@ class TrackBot : public ThinkingBot {
         }
 
         void DisplayTrackedBots(const vector<Robot::RobotInfo>& detectedRobots) const {
+
+            cout << "[TRACKLOG] " << getSymbol() << "'s tracklog:" << endl;
+            
+            if (trackedBotSymbols.empty()) {
+                cout << "  No bots currently being tracked." << endl;
+                return;
+            }
+
             for (const auto& symbol : trackedBotSymbols) {
+                bool found = false;
                 for (const auto& r : detectedRobots) {
                     if (r.nameInitial == symbol) {
-                        cout << "[TRACKING] " << symbol << " at (" << r.PosInitX << ", " << r.PosIntY << ")" << endl;
+                        cout << "  [TRACKING] " << symbol << " at (" << r.PosInitX << ", " << r.PosIntY << ")" << endl;
+                        found = true;
                         break;
                     }
                 }
-            }
 
+                if (!found) {
+                    cout << "  [TRACKING] " << symbol << " is not visible right now." << endl;
+                }
+            }
         }
+
 
 };
 
