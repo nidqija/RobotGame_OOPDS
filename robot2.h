@@ -6,6 +6,7 @@
 #include <vector>
 #include <sstream>
 #include <iostream>
+#include <cstdlib>
 
 using namespace std;
 
@@ -21,13 +22,11 @@ public:
         string nameInitial;
         int PosInitX;
         int PosIntY;
-        int lives;
+        int lives = 3;
         bool isHidden = false;
         int hidesLeft = 3;
-        int hideTimer = 0; // NEW: for tracking hide duration
-        int x;
-        int y;
-        int upgradesUsed = 0;
+        int hideTimer = 0;
+        int x, y;
     };
 
     Robot() : x(1), y(1), symbol("R") {}
@@ -60,36 +59,39 @@ public:
                 iss >> tag >> robotName >> posinitx >> posinity;
                 string initial = robotName.substr(0, 1);
                 robotInitialLineup.push_back(initial);
-                detectedRobot.push_back({initial, posinitx, posinity, 3, false, 3, 0});
+                detectedRobot.push_back({initial, posinitx, posinity, 3, false, 3, 0, posinitx, posinity});
             }
         }
     }
 
     vector<string> ReturnVectorRobotInitial() const {
-         return robotInitialLineup; 
+        return robotInitialLineup;
+    }
+
+    vector<RobotInfo> ReturnRobotDetecteds() const {
+        return detectedRobot;
+    }
+
+    const RobotInfo* GetMyInfo() const {
+        for (const auto& rinfo : detectedRobot) {
+            if (rinfo.nameInitial == symbol) {
+                return &rinfo;
+            }
         }
-    vector<RobotInfo> ReturnRobotDetecteds() const { 
-        return detectedRobot; 
+        return nullptr;
     }
 
-    bool canUseUpgrade(RobotInfo& r) {
-        return r.upgradesUsed < 3;
-    }
-
-    void markUpgradeUsed(RobotInfo& r) {
-        r.upgradesUsed++;
+    int ReturnLives() const {
+        const RobotInfo* robotinfo = GetMyInfo();
+        return (robotinfo != nullptr) ? robotinfo->lives : 0;
     }
 };
 
+// -------------------- MovingBot --------------------
 class MovingBot : public Robot {
-protected:
-    int robotChoice;
-
 public:
-    MovingBot() : robotChoice(0) {}
-
     void MovetheBot() {
-        robotChoice = rand() % 8;
+        int robotChoice = rand() % 8;
         switch (robotChoice) {
             case 0: x -= 1; break;
             case 1: x += 1; break;
@@ -101,26 +103,26 @@ public:
             case 7: x -= 1; y += 1; break;
         }
     }
-
-  
 };
 
+// -------------------- ThinkingBot --------------------
 class ThinkingBot : public MovingBot {
 private:
     string decision;
-    int hideTimer = 0; // NEW: local timer
+    int hideTimer = 0;
 
 public:
     ThinkingBot() : decision("none") {}
 
     void ThinkAction() {
-        int thinkMode = rand() % 4;
+        int thinkMode = rand() % 3;
         switch (thinkMode) {
             case 0: decision = "move"; break;
             case 1: decision = "fire"; break;
             case 2: decision = "look"; break;
         }
-        cout << "[THINK] " << getSymbol() << " decided to " << decision << " at " << getX() << ", " << getY() << endl;
+        cout << "[THINK] " << getSymbol() << " decided to " << decision
+             << " at " << getX() << ", " << getY() << endl;
     }
 
     string getDecision() const { return decision; }
@@ -128,13 +130,13 @@ public:
     string HideAction(vector<RobotInfo>& robots, const string& symbol) {
         for (auto& r : robots) {
             if (r.nameInitial == symbol) {
-                if (r.isHidden) 
-                return "Already hidden.";
-                if (r.hidesLeft <= 0) 
-                return "No hides left.";
+                if (r.isHidden) return "Already hidden.";
+                if (r.hidesLeft <= 0) return "No hides left.";
+
                 r.isHidden = true;
                 r.hidesLeft--;
-                r.hideTimer = 3; // NEW: set duration
+                r.hideTimer = 3;
+
                 this->setHidden(true);
                 hideTimer = 3;
                 return "Now hiding for 3 turns.";
@@ -142,9 +144,6 @@ public:
         }
         return "Robot not found.";
     }
-
-
-   
 
     void UpdateHideStatus(vector<RobotInfo>& robots) {
         if (hideTimer > 0) {
@@ -164,40 +163,19 @@ public:
     }
 };
 
-
-class JumpBot : public ThinkingBot{
-
-    private:
-       int updatePos;
-
-
-    public:
-        string JumpAction(vector<RobotInfo>& robots, const string& symbol){
-         for (auto& r : robots){
-            if ( r.nameInitial == symbol){
-                updatePos = rand () % 10;
-
-                switch (updatePos){
-                    case 0:
-                      r.x += 2;
-                      r.y += 4;
-                      break;
-                    case 1:
-                      r.x += 4;
-                      r.y += 12;
-                      break;
-                    case 2:
-                      r.x += 6;
-                      r.y += 3;
-                      break;
-                    case 3:
-                      r.x += 8;
-                      r.y += 20;
-                      break;
-                    case 4:
-                      r.x += 10;
-                      r.y += 19;
-                      break;
+// -------------------- JumpBot --------------------
+class JumpBot : public ThinkingBot {
+public:
+    string JumpAction(vector<RobotInfo>& robots, const string& symbol) {
+        for (auto& r : robots) {
+            if (r.nameInitial == symbol) {
+                int updatePos = rand() % 5;
+                switch (updatePos) {
+                    case 0: r.x += 2; r.y += 4; break;
+                    case 1: r.x += 4; r.y += 12; break;
+                    case 2: r.x += 6; r.y += 3; break;
+                    case 3: r.x += 8; r.y += 20; break;
+                    case 4: r.x += 10; r.y += 19; break;
                 }
 
                 setX(r.x);
@@ -209,12 +187,9 @@ class JumpBot : public ThinkingBot{
     }
 };
 
+// -------------------- AvoiderBot --------------------
 class AvoiderBot : public MovingBot {
 public:
-    AvoiderBot() {
-        setSymbol("A");  // Symbol for AvoiderBot
-    }
-
     string AvoidAction(vector<RobotInfo>& robots, const string& symbol) {
         for (const auto& r : robots) {
             if (r.nameInitial != symbol) {
@@ -223,11 +198,9 @@ public:
 
                 if (abs(dx) <= 2 && abs(dy) <= 2) {
                     if (abs(dx) > abs(dy)) {
-                        if (dx > 0) setX(getX() - 1);  // move left
-                        else setX(getX() + 1);         // move right
+                        setX(getX() + (dx > 0 ? -1 : 1));
                     } else {
-                        if (dy > 0) setY(getY() - 1);  // move up
-                        else setY(getY() + 1);         // move down
+                        setY(getY() + (dy > 0 ? -1 : 1));
                     }
                     return "Avoided nearby robot.";
                 }
@@ -235,70 +208,38 @@ public:
         }
 
         MovetheBot();  // fallback
-        return "No bot nearaby, moving randomly.";
+        return "No bot nearby, moving randomly.";
     }
 };
 
-
+// -------------------- RegenBot --------------------
 class RegenBot : public ThinkingBot {
 public:
-    string generateHealthRobot(vector<Robot::RobotInfo>& robots, const string& symbol) {
-    for (auto& robot : robots) {
-        if (robot.nameInitial == symbol) {
-            if (!canUseUpgrade(robot)) return "Upgrade limit reached.";
+    string generateHealthRobot(vector<RobotInfo>& robots, const string& symbol) {
+        for (auto& robot : robots) {
+            if (robot.nameInitial == symbol) {
                 robot.lives += 1;
-                markUpgradeUsed(robot);
                 stringstream ss;
-                ss << "RegenBot " << symbol << " regenerated 1 life. Total lives: " << robot.lives << ". Upgrades used: " << robot.upgradesUsed;
+                ss << "RegenBot " << symbol << " regenerated 1 life. Total lives: " << robot.lives;
                 return ss.str();
             }
         }
         return "No matching robot found to regenerate.";
     }
 
-    string getType() const  {
+    string getType() const {
         return "RegenBot";
     }
 };
 
-class LongShotBot : public ThinkingBot {
-public:
-    string FireLongShot(vector<RobotInfo>& robots, const string& symbol) {
-        for (auto& target : robots) {
-            if (target.nameInitial != symbol && !target.isHidden) {
-                int dx = abs(getX() - target.x);
-                int dy = abs(getY() - target.y);
-                if ((dx + dy) <= 3) { //longshot condition
-                    int chance = rand() % 10;
-                    if (chance <= 6) {
-                        target.lives--;
-                        return "LongShotBot " + symbol + " hit " + target.nameInitial + " at (" + to_string(target.x) + ", " + to_string(target.y) + ").";
-                    } else {
-                        return "LongShotBot " + symbol + " missed " + target.nameInitial + " at (" + to_string(target.x) + ", " + to_string(target.y) + ")."; 
-                    }
-                }
-            }
-        }
-        return " No valid targets in range for long shot.";
-    }
-
-    string getType() const {
-        return "LongShotBot";
-    }
-};
-
+// -------------------- SpeedyBot --------------------
 class SpeedyBot : public MovingBot {
 public:
-    SpeedyBot() {
-        setSymbol("Z"); // Use "Z" or any unused symbol for visual identification
-    }
-
     string SpeedAction() {
-        // Move 3 times in one frame
         MovetheBot();
         MovetheBot();
         MovetheBot();
-        return "Speedybot is becoming faster";
+        return "SpeedyBot moved quickly!";
     }
 };
 
