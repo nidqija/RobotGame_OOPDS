@@ -7,6 +7,7 @@
 #include <sstream>
 #include <iostream>
 #include <cstdlib>
+#include "shootingRobot.h"
 
 using namespace std;
 
@@ -240,6 +241,32 @@ public:
         MovetheBot();
         MovetheBot();
         return "SpeedyBot moved quickly!";
+    }
+};
+
+// ---------------------LongShotBot-------------------
+class LongShotBot : public ShootingBot {
+public:
+    LongShotBot() {
+        ammo = 10;
+    }
+
+    bool startShooting(int shooterX, int shooterY, const string& targetName, vector<Robot::RobotInfo>& detectedRobots, const string& shooterInitial) {
+        return ShootingBot::startShooting(shooterX, shooterY, targetName, detectedRobots, shooterInitial, true);
+
+    }
+};
+
+//----------------------ThirtyShotBot-------------------
+class ThirtyShotBot : public ShootingBot {
+public: 
+    ThirtyShotBot() {
+        ammo = 30; 
+    }
+
+    bool startShooting(int shooterX, int shooterY, const string& targetName, vector<Robot::RobotInfo>& detectedRobots, const string& shooterInitial) {
+        return ShootingBot::startShooting(shooterX, shooterY, targetName, detectedRobots, shooterInitial, false);
+
     }
 };
 
