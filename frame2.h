@@ -14,7 +14,7 @@ class Battlefield {
 private:
     vector<Robot*> bots;
     vector<vector<string>> Grid;
-    int extractedVal1 = 70, extractedVal2 = 30;
+    int extractedVal1 = 30, extractedVal2 = 10;
     ShootingBot shooter;
     LookingBot looker;
     ScoutBot scouter;
