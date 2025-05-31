@@ -65,10 +65,9 @@ public:
                     tbot->ThinkAction();
                     string decision = tbot->getDecision();
 
-                    for (Robot* bot : bots) {  //if any bot is a tcbot (tracker) itll print the log 
-                        if (TrackBot* tcbot = dynamic_cast<TrackBot*>(bot)) {
-                            tcbot->DisplayTrackedBots(robot.detectedRobot);
-                        }
+                    //output tracklog evry round 
+                    if (TrackBot* tcbot = dynamic_cast<TrackBot*>(bot)) {
+                        tcbot->DisplayTrackedBots(robot.detectedRobot);
                     }
 
                     if (decision == "fire") {
@@ -243,7 +242,6 @@ public:
                                 
                                 cout << tbot->getSymbol() << " is already a TrackBot!" << endl;
                                 tcbot->TrackAction(tcbot, robot.detectedRobot);  //track
-                                tcbot->DisplayTrackedBots(robot.detectedRobot);  //display the trackings
                             } 
                             
                             else { //new bot upgrades to trackbot
@@ -263,7 +261,6 @@ public:
                                 }
 
                                 newTcbot->TrackAction(newTcbot, robot.detectedRobot);
-                                newTcbot->DisplayTrackedBots(robot.detectedRobot);
                             }
 
                             continue;
