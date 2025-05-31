@@ -24,6 +24,9 @@ private:
     int robotSelection2;
     string robotChoices;
 
+protected:
+    int ammo = 10;
+
 public:
     ShootingBot() {}
 
@@ -85,7 +88,6 @@ public:
                     }
                 } else {
                     cout << "THINK " << targetName << " is out of range. No shot fired.\n";
-                    
                 }
                 break;
             }
