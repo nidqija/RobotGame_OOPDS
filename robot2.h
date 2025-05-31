@@ -27,6 +27,7 @@ public:
         int hideTimer = 0; // NEW: for tracking hide duration
         int x;
         int y;
+        int upgradesUsed = 0;
     };
 
     Robot() : x(1), y(1), symbol("R") {}
@@ -69,6 +70,14 @@ public:
         }
     vector<RobotInfo> ReturnRobotDetecteds() const { 
         return detectedRobot; 
+    }
+
+    bool canUseUpgrade(RobotInfo& r) {
+        return r.upgradesUsed < 3;
+    }
+
+    void markUpgradeUsed(RobotInfo& r) {
+        r.upgradesUsed++;
     }
 };
 
@@ -194,12 +203,10 @@ class JumpBot : public ThinkingBot{
                 setX(r.x);
                 setY(r.y);
                 return "Jumped to (" + to_string(r.x) + ", " + to_string(r.y) + ")";
-
-         }
-    }; 
-            return "Robot not found.";
-
-};
+            }
+        }
+        return "Robot not found.";
+    }
 };
 
 class AvoiderBot : public MovingBot {
@@ -236,11 +243,13 @@ public:
 class RegenBot : public ThinkingBot {
 public:
     string generateHealthRobot(vector<Robot::RobotInfo>& robots, const string& symbol) {
-        for (auto& robot : robots) {
-            if (robot.nameInitial == symbol) {
-                robot.lives += 1;  // Increase life
+    for (auto& robot : robots) {
+        if (robot.nameInitial == symbol) {
+            if (!canUseUpgrade(robot)) return "Upgrade limit reached.";
+                robot.lives += 1;
+                markUpgradeUsed(robot);
                 stringstream ss;
-                ss << "RegenBot " << symbol << " regenerated 1 life. Total lives: " << robot.lives;
+                ss << "RegenBot " << symbol << " regenerated 1 life. Total lives: " << robot.lives << ". Upgrades used: " << robot.upgradesUsed;
                 return ss.str();
             }
         }
@@ -249,6 +258,32 @@ public:
 
     string getType() const  {
         return "RegenBot";
+    }
+};
+
+class LongShotBot : public ThinkingBot {
+public:
+    string FireLongShot(vector<RobotInfo>& robots, const string& symbol) {
+        for (auto& target : robots) {
+            if (target.nameInitial != symbol && !target.isHidden) {
+                int dx = abs(getX() - target.x);
+                int dy = abs(getY() - target.y);
+                if ((dx + dy) <= 3) { //longshot condition
+                    int chance = rand() % 10;
+                    if (chance <= 6) {
+                        target.lives--;
+                        return "LongShotBot " + symbol + " hit " + target.nameInitial + " at (" + to_string(target.x) + ", " + to_string(target.y) + ").";
+                    } else {
+                        return "LongShotBot " + symbol + " missed " + target.nameInitial + " at (" + to_string(target.x) + ", " + to_string(target.y) + ")."; 
+                    }
+                }
+            }
+        }
+        return " No valid targets in range for long shot.";
+    }
+
+    string getType() const {
+        return "LongShotBot";
     }
 };
 
@@ -263,7 +298,7 @@ public:
         MovetheBot();
         MovetheBot();
         MovetheBot();
-        return "Speedybot is becuming faster";
+        return "Speedybot is becoming faster";
     }
 };
 

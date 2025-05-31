@@ -66,8 +66,16 @@ public:
                     string decision = tbot->getDecision();
 
                     if (decision == "fire") {
-                        shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot, tbot->getSymbol());
+                        bool destroyed = shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot, tbot->getSymbol());
 
+                        if (destroyed) {
+                            auto it = std::find(bots.begin(), bots.end(), tbot);
+                            if (it != bots.end()) {
+                                delete *it;
+                                bots.erase(it);
+                                continue;
+                            }
+                        }
                         int robotSelection2 = rand() % 10;
                         switch (robotSelection2) {
                             case 0: robotChoices = "HideBot"; break;
