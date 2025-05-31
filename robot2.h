@@ -228,7 +228,7 @@ public:
         }
 
         MovetheBot();  // fallback
-        return "No nearby bot, moved randomly.";
+        return "No bot nearaby, moving randomly.";
     }
 };
 
@@ -252,5 +252,19 @@ public:
     }
 };
 
+class SpeedyBot : public MovingBot {
+public:
+    SpeedyBot() {
+        setSymbol("Z"); // Use "Z" or any unused symbol for visual identification
+    }
+
+    string SpeedAction() {
+        // Move 3 times in one frame
+        MovetheBot();
+        MovetheBot();
+        MovetheBot();
+        return "Speedybot is becuming faster";
+    }
+};
 
 #endif // ROBOT2_H

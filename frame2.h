@@ -17,6 +17,7 @@ private:
     int extractedVal1 = 70, extractedVal2 = 30;
     ShootingBot shooter;
     LookingBot looker;
+    ScoutBot scouter;
     string robotChoices;
 
 public:
@@ -24,7 +25,7 @@ public:
 
     void delay(int milliseconds) {
         clock_t start_time = clock();
-        while (clock() < start_time + milliseconds * (CLOCKS_PER_SEC / 100)) {}
+        while (clock() < start_time + milliseconds * (CLOCKS_PER_SEC / 80)) {}
     }
 
     Battlefield() {
@@ -66,9 +67,8 @@ public:
 
                     if (decision == "fire") {
                         shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot, tbot->getSymbol());
-                        
-                   
-                        int robotSelection2 = rand() % 9;
+
+                        int robotSelection2 = rand() % 10;
                         switch (robotSelection2) {
                             case 0: robotChoices = "HideBot"; break;
                             case 1: robotChoices = "JumpBot"; break;
@@ -79,6 +79,8 @@ public:
                             case 6: robotChoices = "TrackBot"; break;
                             case 7: robotChoices = "AvoiderBot"; break;
                             case 8: robotChoices = "RegenBot"; break;
+                            case 9: robotChoices = "SpeedyBot"; break;
+
                         }
 
                         cout << "Robot " << tbot->getSymbol() << " chooses upgrade: " << robotChoices << "!\n";
@@ -89,6 +91,7 @@ public:
                             cout << "[HIDE] " << tbot->getSymbol() << ": " << result << endl;
 
                         } 
+
                         else if ( robotChoices == "JumpBot"){
                             cout << tbot->getSymbol() << " becomes JumpBot!" << endl; 
                             JumpBot* jbot = new JumpBot();
@@ -105,7 +108,8 @@ public:
                                  string jumpResult = jbot->JumpAction(robot.detectedRobot, jbot->getSymbol());
                                  cout << "[JUMP] " << jbot->getSymbol() << ": " << jumpResult << endl;
                                  continue;
-                            }
+                        }
+
                         else if (robotChoices == "AvoiderBot") {
                             cout << tbot->getSymbol() << " becomes AvoiderBot!" << endl;
                             AvoiderBot* abot = new AvoiderBot();
@@ -121,13 +125,15 @@ public:
                              string avoidResult = abot->AvoidAction(robot.detectedRobot, abot->getSymbol());
                              cout << "[AVOID] " << abot->getSymbol() << ": " << avoidResult << endl;
                              continue;
-                        } else if (robotChoices == "RegenBot"){
+                        } 
+                        
+                        else if (robotChoices == "RegenBot"){
                             cout << tbot->getSymbol() << " becomes RegenBot!" << endl;
                             RegenBot* rbot = new RegenBot();
                             rbot -> setX(tbot->getX());
                             rbot -> setY(tbot->getY());
                             rbot-> setSymbol(tbot->getSymbol());
-                            auto it = std::find(bots.begin(), bots.end(), tbot);
+                            auto it = find(bots.begin(), bots.end(), tbot);
                             if (it != bots.end()) {
                                 delete *it;
                                 *it = rbot;
@@ -137,6 +143,51 @@ public:
                              cout << "[REGEN] " << rbot->getSymbol() << ": " << regenResult << endl;
                              continue;
                         }
+                        else if (robotChoices == "SpeedyBot") {
+                            cout << tbot->getSymbol() << " becomes SpeedyBot!" << endl;
+                            SpeedyBot* sbot = new SpeedyBot();
+                            sbot->setX(tbot->getX());
+                            sbot->setY(tbot->getY());
+                            sbot->setSymbol(tbot->getSymbol());
+
+                            auto it = std::find(bots.begin(), bots.end(), tbot);
+                            if (it != bots.end()) {
+                                delete *it;
+                                *it = sbot;
+                            }
+                            string speedResult = sbot->SpeedAction();
+                            cout << "[SPEED] " << sbot->getSymbol() << ": " << speedResult << endl;
+                            continue;
+                        }
+
+                        else if (robotChoices == "ScoutBot"){
+
+                            ScoutBot* sbot = dynamic_cast<ScoutBot*>(tbot);
+                            
+                            if (dynamic_cast<ScoutBot*>(tbot)) {
+                                cout << tbot->getSymbol() << " is already a ScoutBot!" << endl;
+                                sbot->ScoutAction(robot.detectedRobot);
+                            } 
+                            
+                            else {
+                                cout << tbot->getSymbol() << " becomes ScoutBot!" << endl;
+                                ScoutBot* newSbot = new ScoutBot();  
+                                newSbot->setX(tbot->getX());
+                                newSbot->setY(tbot->getY());
+                                newSbot->setSymbol(tbot->getSymbol());
+
+                                auto it = find(bots.begin(), bots.end(), tbot);
+                                if (it != bots.end()) {
+                                    delete *it;
+                                    *it = newSbot;
+                                }
+
+                                newSbot->ScoutAction(robot.detectedRobot); 
+                            }
+
+                            continue;
+                        }
+
 
                     } else if (decision == "move") {
                         tbot->MovetheBot();
@@ -169,6 +220,9 @@ public:
         for (Robot* bot : bots)
             delete bot;
     };
+
+
+    
 };
 
 #endif // FRAME2_H
