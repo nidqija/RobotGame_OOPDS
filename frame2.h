@@ -68,6 +68,7 @@ public:
                     if (decision == "fire") {
                         bool destroyed = shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot, tbot->getSymbol());
 
+                        // remove destroyed bots frm battlefield
                         if (destroyed) {
                             auto it = std::find(bots.begin(), bots.end(), tbot);
                             if (it != bots.end()) {
