@@ -74,6 +74,10 @@ public:
         cout << "[SCOUT] Full battlefield scan initiated by " << getSymbol() << "." << endl;
 
         for (const auto& r : detectedRobot) {
+
+            if (r.nameInitial == getSymbol() || r.isHidden)
+                continue;
+
             cout << "Enemy: " << r.nameInitial << " at (" << r.PosInitX << ", " << r.PosIntY << ")." << endl;
         }
 
