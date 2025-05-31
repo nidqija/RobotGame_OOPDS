@@ -243,4 +243,30 @@ public:
     }
 };
 
+// ---------------------LongShotBot-------------------
+class LongShotBot : public ShootingBot {
+public:
+    LongShotBot() {
+        ammo = 10;
+    }
+
+    bool startShooting(int shooterX, int shooterY, const string& targetName, vector<Robot::RobotInfo>& detectedRobots, const string& shooterInitial) override{
+        return ShootingBot::startShooting(shooterX, shooterY, targetName, detectedRobots, shooterInitial, true);
+
+    }
+};
+
+//----------------------ThirtyShotBot-------------------
+class ThirtyShotBot : public shootingBot {
+public: 
+    ThirtyShotBot() {
+        ammo = 30; 
+    }
+
+    bool startShooting(int shooterX, int shooterY, const string& targetName, vector<Robot::RobotInfo>& detectedRobots, const string& shooterInitial) override {
+        return ShootingBot::startShooting(shooterX, shooterY, targetName, detectedRobots, shooterInitial, false);
+
+    }
+};
+
 #endif // ROBOT2_H
