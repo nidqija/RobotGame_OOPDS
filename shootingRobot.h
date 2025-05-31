@@ -54,8 +54,8 @@ public:
         return abs(shooterX - targetX) + abs(shooterY - targetY) <= range;
     }
 
-    void startShooting(int targetX, int targetY, const string& targetName, vector<Robot::RobotInfo>& detectedRobots, const string& shooterInitial, bool isLongShot = false) {
-        int shootRange = isLongShot ? 3 : 2; //longshotbot gets longer range
+    bool startShooting(int shooterX, int shooterY, const string& targetName, vector<Robot::RobotInfo>& detectedRobots, const string& shooterInitial, bool isLongShot = false) {
+        int shootRange = isLongShot ? 3 : 2; //longer range for lngsht bot
         bool targetFound = false;
 
         for (auto& robot : detectedRobots) {
@@ -64,11 +64,12 @@ public:
 
                 if (robot.isHidden) {
                     cout << "[THINK] Shot " << targetName << " at (" << robot.x << "." << robot.y << ") FAILED. Robot is hidden.\n";
-                    return;
+                    return false;
                 }
-                if (iswithinRange(shooterX, shooterY, robot.x, robot.y, shootRange)) {
+
+                if (isWithinRange(shooterX, shooterY, robot.x, robot.y, shootRange)) {
                     int roll = rand() % 10;
-                    bool hit = (roll <= 6); //70% hit chance
+                    bool hit = (roll <= 6); //70% 
 
                      cout << "[THINK] Shot " << targetName << " at (" << robot.x << "," << robot.y << ") ";
 
@@ -77,12 +78,13 @@ public:
                         cout << "HIT! Lives left: " << robot.lives << endl;
                         if (robot.lives == 0) {
                             cout << "[DESTROYED] " << targetName << " is destroyed!\n";
+                            return true;
                         }
                     } else {
                          cout << "MISSED\n";
                     }
                 } else {
-                    cout << "THINK " << targetName << " is out of range. No shot fired.\n"
+                    cout << "THINK " << targetName << " is out of range. No shot fired.\n";
                 }
                 break;
             }
@@ -91,6 +93,8 @@ public:
         if (!targetFound) {
             cout << "[WARNING] Target " << targetName << " not found in detected robots.\n";
         }
+
+        return false;
     }  
 
     string returnRobotChoices() const {
