@@ -19,6 +19,7 @@ private:
     LookingBot looker;
     ScoutBot scouter;
     string robotChoices;
+    int numberOfSteps;
 
 public:
     Robot robot;
@@ -46,8 +47,19 @@ public:
 
     void PrintBattlefield() {
         Grid.resize(extractedVal2, vector<string>(extractedVal1, " "));
+        ifstream inputFile("input.txt");
+        string line;
+    
 
-        for (int step = 0; step < 100; ++step) {
+        while (getline(inputFile, line)) {
+            if (line.find("steps: ") != string::npos) {
+                istringstream iss(line);
+                string tag, robotName;
+                iss >> robotName >> numberOfSteps;
+            }
+        }
+        
+        for (int step = 0; step < numberOfSteps; ++step) {
             // Reset battlefield
             for (int y = 0; y < extractedVal2; ++y)
                 for (int x = 0; x < extractedVal1; ++x)
@@ -220,7 +232,23 @@ public:
                     cout << cell;
                 cout << endl;
             }
+
+
+
         }
+
+        cout << "\nSimulation Completed! Surviving Bots:\n";
+if (bots.empty()) {
+    cout << "No survivors.\n";
+} else {
+    for (Robot* bot : bots) {
+        cout << "- Player: " << bot->getSymbol() << " | Position: (" << bot->getX() << ", " << bot->getY() << ")";
+
+    
+        cout << endl;
+    }
+}
+        
     }
 
 
@@ -228,6 +256,11 @@ public:
         for (Robot* bot : bots)
             delete bot;
     };
+
+    
+
+
+    
 };
 
 #endif // FRAME2_H

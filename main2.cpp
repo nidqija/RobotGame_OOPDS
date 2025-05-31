@@ -18,7 +18,6 @@ int main() {
     srand(time(0));
     Battlefield game;
     game.PrintBattlefield();
-    game.delay(2000);
 
     return 0;
 }

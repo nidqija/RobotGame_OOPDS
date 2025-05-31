@@ -85,6 +85,7 @@ public:
                     }
                 } else {
                     cout << "THINK " << targetName << " is out of range. No shot fired.\n";
+                    
                 }
                 break;
             }
