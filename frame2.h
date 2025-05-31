@@ -66,8 +66,17 @@ public:
                     string decision = tbot->getDecision();
 
                     if (decision == "fire") {
-                        shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot, tbot->getSymbol());
+                        bool destroyed = shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot, tbot->getSymbol());
 
+                        // remove destroyed bots frm battlefield
+                        if (destroyed) {
+                            auto it = std::find(bots.begin(), bots.end(), tbot);
+                            if (it != bots.end()) {
+                                delete *it;
+                                bots.erase(it);
+                                continue;
+                            }
+                        }
                         int robotSelection2 = rand() % 10;
                         switch (robotSelection2) {
                             case 0: robotChoices = "HideBot"; break;
@@ -187,6 +196,38 @@ public:
 
                             continue;
                         }
+
+                        else if (robotChoices == "longShotBot") {
+                            cout << tbot->getSymbol() << "becomes LongShotBot!" << endl;
+                            LongShotBot* lshotBot = new LongShotBot();
+                            lshotBot->setX(tbot->getX());
+                            lshotBot->setY(tbot->getY());
+                            lshotBot->setSymbol(tbot->getSymbol());
+
+                            auto it = std::find(bots.begin(), bots.end(), tbot);
+                            if (it != bots.end()) {
+                                delete *it;
+                                *it = lshotBot;
+                            }
+                            continue;
+                            
+                        }
+
+                        else if (robotChoices == "ThirtyShotBot") {
+                            cout << tbot->getSymbol() << " becomes ThirtyShotBot!" << endl;
+                            ThirtyShotBot* tshotBot = new ThirtyShotBot();
+                            tshotBot->setX(tbot->getX());
+                            tshotBot->setY(tbot->getY());
+                            tshotBot->setSymbol(tbot->getSymbol());
+
+                            auto it = std::find(bots.begin(), bots.end(), tbot);
+                            if (it != bots.end()) {
+                                delete *it;
+                                *it = tshotBot;
+                            }
+                            continue;
+                        }
+
 
 
                     } else if (decision == "move") {
