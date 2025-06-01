@@ -1,3 +1,18 @@
+/* 
+FEQHAH DELILAH BINIT MOHD FAIZUL
+242UC244FY
+feqhah01@gmail.com
+013-6620012*/
+
+/*
+
+*/
+
+
+
+
+
+
 #include <iostream>
 #include <vector>
 #include <memory>
@@ -10,6 +25,9 @@
 #include "frame2.h"
 #include "shootingRobot.h"
 #include "lookingRobot.h"
+
+
+
 
 
 using namespace std;

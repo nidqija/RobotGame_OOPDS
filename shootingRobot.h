@@ -23,9 +23,7 @@ private:
     vector<TargetInfo> robotTargets;
     int robotSelection2;
     string robotChoices;
-
-protected:
-    int ammo = 10;
+     int shells = 30;  // For ThirtyShotBot
 
 public:
     ShootingBot() {}
@@ -88,6 +86,7 @@ public:
                     }
                 } else {
                     cout << "THINK " << targetName << " is out of range. No shot fired.\n";
+                    
                 }
                 break;
             }
@@ -103,6 +102,74 @@ public:
     string returnRobotChoices() const {
         return robotChoices;
     }
+
+
+
+    void ReturnShells(){
+        shells = 30;
+    }
+
+       bool semiAutoShoot(int shooterX, int shooterY, const string& targetName,
+                       vector<Robot::RobotInfo>& detectedRobots, const string& shooterInitial) 
+    {
+        for (int shot = 0; shot < 3; ++shot) {
+            if (shells <= 0) {
+                cout << "[SEMI-AUTO] No shells left to fire.\n";
+                return false;
+            }
+            shells--;
+
+            int roll = rand() % 10;
+            bool hit = (roll <= 6); // 70% chance
+
+            cout << "[SEMI-AUTO] Shot " << (shot + 1) << " at " << targetName << ": ";
+
+            for (auto& robot : detectedRobots) {
+                if (robot.nameInitial == targetName) {
+                    if (robot.isHidden) {
+                        cout << "FAILED. Robot is hidden.\n";
+                        return false;
+                    }
+
+                    if (!isWithinRange(shooterX, shooterY, robot.x, robot.y, 2)) { // assuming range 2
+                        cout << "Out of range.\n";
+                        return false;
+                    }
+
+                    if (hit) {
+                        robot.lives--;
+                        cout << "HIT! Lives left: " << robot.lives << endl;
+                        if (robot.lives <= 0) {
+                            cout << "[DESTROYED] " << targetName << " is destroyed!\n";
+                            return true; // target destroyed, stop firing
+                        }
+                    } else {
+                        cout << "MISSED\n";
+                    }
+                    break;
+                }
+            }
+        }
+        return false; // target not destroyed after 3 shots
+    }
+
+
+        bool startShootingWithShells(int shooterX, int shooterY, const string& targetName,
+                                vector<Robot::RobotInfo>& detectedRobots, const string& shooterInitial) 
+    {
+        if (shells <= 0) {
+            cout << "[THIRTYSHOT] No shells left to fire.\n";
+            return false;
+        }
+
+        shells--;
+
+        return startShooting(shooterX, shooterY, targetName, detectedRobots, shooterInitial);
+    }
 };
 
-#endif // SHOOTING_ROBOT_H
+    
+
+
+#endif // Reset shells to 30 for ThirtyShotBot
+ 
