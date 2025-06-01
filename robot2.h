@@ -36,6 +36,7 @@ public:
     int getY() const { return y; }
     void setX(int x_) { x = x_; }
     void setY(int y_) { y = y_; }
+    int setLives(int lives)  {return lives; }
 
     string getSymbol() const { return symbol; }
     void setSymbol(const string& s) { symbol = s; }
@@ -240,32 +241,6 @@ public:
         MovetheBot();
         MovetheBot();
         return "SpeedyBot moved quickly!";
-    }
-};
-
-// ---------------------LongShotBot-------------------
-class LongShotBot : public ShootingBot {
-public:
-    LongShotBot() {
-        ammo = 10;
-    }
-
-    bool startShooting(int shooterX, int shooterY, const string& targetName, vector<Robot::RobotInfo>& detectedRobots, const string& shooterInitial) override{
-        return ShootingBot::startShooting(shooterX, shooterY, targetName, detectedRobots, shooterInitial, true);
-
-    }
-};
-
-//----------------------ThirtyShotBot-------------------
-class ThirtyShotBot : public shootingBot {
-public: 
-    ThirtyShotBot() {
-        ammo = 30; 
-    }
-
-    bool startShooting(int shooterX, int shooterY, const string& targetName, vector<Robot::RobotInfo>& detectedRobots, const string& shooterInitial) override {
-        return ShootingBot::startShooting(shooterX, shooterY, targetName, detectedRobots, shooterInitial, false);
-
     }
 };
 

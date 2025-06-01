@@ -8,6 +8,8 @@
 #include "robot2.h"
 #include "shootingRobot.h"
 #include "lookingRobot.h"
+#include "LongShotBot.h"
+#include "ThirtyShotBot.h"
 using namespace std;
 
 class Battlefield {
@@ -17,7 +19,9 @@ private:
     int extractedVal1 = 70, extractedVal2 = 30;
     ShootingBot shooter;
     LookingBot looker;
+    ScoutBot scouter;
     string robotChoices;
+    int numberOfSteps;
 
 public:
     Robot robot;
@@ -45,10 +49,20 @@ public:
 
     void PrintBattlefield() {
         Grid.resize(extractedVal2, vector<string>(extractedVal1, " "));
+        ifstream inputFile("input.txt");
+        string line;
+    
 
-        for (int step = 0; step < 100; ++step) {
+        while (getline(inputFile, line)) {
+            if (line.find("steps: ") != string::npos) {
+                istringstream iss(line);
+                string tag, robotName;
+                iss >> robotName >> numberOfSteps;
+            }
+        }
+        
+        for (int step = 0; step < numberOfSteps; ++step) {
             // Reset battlefield
-            robot.DetectRobot();  // refreh coords
             for (int y = 0; y < extractedVal2; ++y)
                 for (int x = 0; x < extractedVal1; ++x)
                     Grid[y][x] = ((y == 0 || y == extractedVal2 - 1 || x == 0 || x == extractedVal1 - 1) ? "*" : " ");
@@ -73,7 +87,6 @@ public:
                     if (decision == "fire") {
                         bool destroyed = shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot, tbot->getSymbol());
 
-                        // remove destroyed bots frm battlefield
                         if (destroyed) {
                             auto it = std::find(bots.begin(), bots.end(), tbot);
                             if (it != bots.end()) {
@@ -94,6 +107,8 @@ public:
                             case 7: robotChoices = "AvoiderBot"; break;
                             case 8: robotChoices = "RegenBot"; break;
                             case 9: robotChoices = "SpeedyBot"; break;
+                            case 10 : robotChoices = "LongShotBot"; break;
+                            case 11 : robotChoices = "ThirtyShotBot"; break;
 
                         }
 
@@ -200,38 +215,41 @@ public:
                             }
 
                             continue;
-                        }
+                        }if (robotChoices == "LongShotBot") {
+    cout << tbot->getSymbol() << " upgrades to LongShotBot\n";
+    LongShotBot* lbot = new LongShotBot();
+    lbot->setX(tbot->getX());
+    lbot->setY(tbot->getY());
+    lbot->setSymbol("L");
 
-                        else if (robotChoices == "longShotBot") {
-                            cout << tbot->getSymbol() << "becomes LongShotBot!" << endl;
-                            LongShotBot* lshotBot = new LongShotBot();
-                            lshotBot->setX(tbot->getX());
-                            lshotBot->setY(tbot->getY());
-                            lshotBot->setSymbol(tbot->getSymbol());
+    auto it = std::find(bots.begin(), bots.end(), tbot);
+    if (it != bots.end()) {
+        delete *it;
+        *it = lbot;
+    }
 
-                            auto it = std::find(bots.begin(), bots.end(), tbot);
-                            if (it != bots.end()) {
-                                delete *it;
-                                *it = lshotBot;
-                            }
-                            continue;
-                            
-                        }
+    bool shot = lbot->Shoot(robot.detectedRobot);
+    cout << (shot ? "[LONGSHOT] Target destroyed!\n" : "[LONGSHOT] Shot fired.\n");
+    continue;
+}
+    
+if (robotChoices == "ThirtyShotBot") {
+    cout << tbot->getSymbol() << " upgrades to ThirtyShotBot\n";
+    ThirtyShotBot* tbotNew = new ThirtyShotBot();
+    tbotNew->setX(tbot->getX());
+    tbotNew->setY(tbot->getY());
+    tbotNew->setSymbol("T");
 
-                        else if (robotChoices == "ThirtyShotBot") {
-                            cout << tbot->getSymbol() << " becomes ThirtyShotBot!" << endl;
-                            ThirtyShotBot* tshotBot = new ThirtyShotBot();
-                            tshotBot->setX(tbot->getX());
-                            tshotBot->setY(tbot->getY());
-                            tshotBot->setSymbol(tbot->getSymbol());
+    auto it = std::find(bots.begin(), bots.end(), tbot);
+    if (it != bots.end()) {
+        delete *it;
+        *it = tbotNew;
+    }
 
-                            auto it = std::find(bots.begin(), bots.end(), tbot);
-                            if (it != bots.end()) {
-                                delete *it;
-                                *it = tshotBot;
-                            }
-                            continue;
-                        }
+    bool shot = tbotNew->Shoot(robot.detectedRobot);
+    cout << (shot ? "[THIRTYSHOT] Target destroyed!\n" : "[THIRTYSHOT] Shot fired.\n");
+    continue;
+}
 
 
                         else if (robotChoices == "TrackBot") {
@@ -242,6 +260,7 @@ public:
                                 
                                 cout << tbot->getSymbol() << " is already a TrackBot!" << endl;
                                 tcbot->TrackAction(tcbot, robot.detectedRobot);  //track
+                                tcbot->DisplayTrackedBots(robot.detectedRobot);  //display the trackings
                             } 
                             
                             else { //new bot upgrades to trackbot
@@ -261,6 +280,7 @@ public:
                                 }
 
                                 newTcbot->TrackAction(newTcbot, robot.detectedRobot);
+                                newTcbot->DisplayTrackedBots(robot.detectedRobot);
                             }
 
                             continue;
@@ -284,20 +304,40 @@ public:
             }
 
             delay(250);
-            system("cls"); // Use "clear" on macOS/Linux
             for (const auto& row : Grid) {
                 for (const auto& cell : row)
                     cout << cell;
                 cout << endl;
             }
+
+
+
         }
+
+        cout << "\nSimulation Completed! Surviving Bots:\n";
+if (bots.empty()) {
+    cout << "No survivors.\n";
+} else {
+    for (Robot* bot : bots) {
+        cout << "- Player: " << bot->getSymbol() << " | Position: (" << bot->getX() << ", " << bot->getY() << ")";
+
+    
+        cout << endl;
+    }
+}
+        
     }
 
 
     ~Battlefield() {
         for (Robot* bot : bots)
             delete bot;
-    }
+    };
+
+    
+
+
+    
 };
 
 #endif // FRAME2_H
