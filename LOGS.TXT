@@ -1,0 +1,2065 @@
+
+Game 1
+
+[LOAD] Target: Kidd at (10,10)
+[LOAD] Target: Jet at (11,10)
+[LOAD] Target: Alpha at (14,20)
+[LOAD] Target: Beta at (20,37)
+[LOAD] Target: Star at (10,40)
+[THINK] K decided to move at 10, 10
+[THINK] J decided to look at 11, 10
+[LOOK] J looking around (11,10).
+J stands here at (11,10).
+Enemy robot spotted at (10,10).
+[THINK] A decided to move at 14, 20
+[THINK] B decided to move at 20, 37
+[THINK] S decided to fire at 10, 40
+[THINK] Shot S at (10,40) HIT! Lives left: 2
+Robot S chooses upgrade: LongShotBot!
+S upgrades to LongShotBot
+[WARNING] Target Any not found in detected robots.
+[LONGSHOT] Shot fired.
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*        K J                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*             A                                                      *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                  B                                                 *
+**********************************************************************
+[THINK] K decided to look at 9, 10
+[LOOK] K looking around (9,10).
+K stands here at (9,10).
+Enemy robot spotted at (10,10).
+[THINK] J decided to fire at 11, 10
+[THINK] Shot J at (11,10) HIT! Lives left: 2
+Robot J chooses upgrade: ScoutBot!
+J becomes ScoutBot!
+[SCOUT] Full battlefield scan initiated by J.
+Enemy: K at (10, 10).
+Enemy: A at (14, 20).
+Enemy: B at (20, 37).
+Enemy: S at (10, 40).
+Remaining number of scans: 2.
+[THINK] A decided to move at 14, 19
+[THINK] B decided to look at 19, 28
+[LOOK] B looking around (19,28).
+B stands here at (19,28).
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*        K                                                           *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*            A                                                       *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*         L        B                                                 *
+**********************************************************************
+[THINK] K decided to fire at 9, 10
+[THINK] Shot K at (10,10) MISSED
+Robot K chooses upgrade: JumpBot!
+K becomes JumpBot!
+[JUMP] K: Jumped to (16, 13)
+[THINK] J decided to look at 11, 10
+[LOOK] J looking around (11,10).
+J stands here at (11,10).
+Enemy robot spotted at (10,10).
+[THINK] A decided to fire at 13, 20
+[THINK] Shot A at (14,20) HIT! Lives left: 2
+Robot A chooses upgrade: ScoutBot!
+A becomes ScoutBot!
+[SCOUT] Full battlefield scan initiated by A.
+Enemy: K at (10, 10).
+Enemy: J at (11, 10).
+Enemy: B at (20, 37).
+Enemy: S at (10, 40).
+Remaining number of scans: 2.
+[THINK] B decided to move at 19, 28
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          J                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*         L         B                                                *
+**********************************************************************
+[THINK] K decided to move at 16, 13
+[THINK] J decided to move at 11, 10
+[THINK] A decided to look at 13, 20
+[LOOK] A looking around (13,20).
+A stands here at (13,20).
+Enemy robot spotted at (14,20).
+[THINK] B decided to move at 20, 28
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          J                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*              K                                                     *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*            A                                                       *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*         L          B                                               *
+**********************************************************************
+[THINK] K decided to fire at 15, 14
+[THINK] Shot K at (16,13) HIT! Lives left: 2
+Robot K chooses upgrade: HideBot!
+[HIDE] K: Now hiding for 3 turns.
+[THINK] J decided to move at 11, 9
+[THINK] A decided to move at 13, 20
+[THINK] B decided to fire at 21, 28
+THINK B is out of range. No shot fired.
+Robot B chooses upgrade: SemiAutoBot!
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*         J                                                          *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*             A                                                      *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*         L          B                                               *
+**********************************************************************
+[THINK] J decided to fire at 10, 10
+[THINK] Shot J at (11,10) HIT! Lives left: 1
+Robot J chooses upgrade: ScoutBot!
+J is already a ScoutBot!
+[SCOUT] Full battlefield scan initiated by J.
+Enemy: A at (14, 20).
+Enemy: B at (20, 37).
+Enemy: S at (10, 40).
+Remaining number of scans: 1.
+[THINK] A decided to fire at 14, 20
+[THINK] Shot A at (14,20) MISSED
+Robot A chooses upgrade: TrackBot!
+[THINK] B decided to move at 21, 28
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*             A                                                      *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                    B                                               *
+*         L                                                          *
+**********************************************************************
+[THINK] J decided to look at 10, 10
+[LOOK] J looking around (10,10).
+J stands here at (10,10).
+Enemy robot spotted at (11,10).
+[THINK] A decided to move at 14, 20
+[THINK] B decided to fire at 21, 27
+THINK B is out of range. No shot fired.
+Robot B chooses upgrade: RegenBot!
+B becomes RegenBot!
+[REGEN] B: RegenBot B regenerated 1 life. Total lives: 4
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*         J                                                          *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*            A                                                       *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*         L                                                          *
+**********************************************************************
+[REVEAL] K is now visible again!
+[THINK] K decided to move at 15, 14
+[THINK] J decided to look at 10, 10
+[LOOK] J looking around (10,10).
+J stands here at (10,10).
+Enemy robot spotted at (11,10).
+[THINK] A decided to look at 13, 19
+[LOOK] A looking around (13,19).
+A stands here at (13,19).
+Enemy robot spotted at (14,20).
+[THINK] B decided to move at 21, 27
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*         J                                                          *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*             K                                                      *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*            A                                                       *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                   B                                                *
+*                                                                    *
+*         L                                                          *
+**********************************************************************
+[THINK] K decided to move at 14, 15
+[THINK] J decided to move at 10, 10
+[THINK] A decided to move at 13, 19
+[THINK] B decided to fire at 20, 26
+THINK B is out of range. No shot fired.
+Robot B chooses upgrade: ThirtyShotBot!
+B upgrades to ThirtyShotBot
+[WARNING] Target Any not found in detected robots.
+[THIRTYSHOT] Shot fired.
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*        J                                                           *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*              K                                                     *
+*                                                                    *
+*                                                                    *
+*           A                                                        *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*         L                                                          *
+**********************************************************************
+[THINK] K decided to fire at 15, 15
+THINK K is out of range. No shot fired.
+Robot K chooses upgrade: AvoiderBot!
+K becomes AvoiderBot!
+[AVOID] K: No bot nearby, moving randomly.
+[THINK] J decided to look at 9, 9
+[LOOK] J looking around (9,9).
+J stands here at (9,9).
+Enemy robot spotted at (10,10).
+[THINK] A decided to fire at 12, 18
+THINK A is out of range. No shot fired.
+Robot A chooses upgrade: TrackBot!
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*        J                                                           *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*           A                                                        *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                   T                                                *
+*                                                                    *
+*         L                                                          *
+**********************************************************************
+
+Simulation Completed! Surviving Bots:
+- Player: K | Position: (14, 15)
+- Player: J | Position: (9, 9)
+- Player: A | Position: (12, 18)
+- Player: T | Position: (20, 26)
+- Player: L | Position: (10, 28)
+
+
+
+
+
+
+
+Game 2
+
+[LOAD] Target: Kidd at (10,10)
+[LOAD] Target: Jet at (11,10)
+[LOAD] Target: Alpha at (14,20)
+[LOAD] Target: Beta at (20,37)
+[LOAD] Target: Star at (10,40)
+[THINK] K decided to fire at 10, 10
+[THINK] Shot K at (10,10) HIT! Lives left: 2
+Robot K chooses upgrade: ScoutBot!
+K becomes ScoutBot!
+[SCOUT] Full battlefield scan initiated by K.
+Enemy: J at (11, 10).
+Enemy: A at (14, 20).
+Enemy: B at (20, 37).
+Enemy: S at (10, 40).
+Remaining number of scans: 2.
+[THINK] J decided to fire at 11, 10
+[THINK] Shot J at (11,10) HIT! Lives left: 2
+Robot J chooses upgrade: RegenBot!
+J becomes RegenBot!
+[REGEN] J: RegenBot J regenerated 1 life. Total lives: 3
+[THINK] A decided to move at 14, 20
+[THINK] B decided to fire at 20, 37
+[THINK] Shot B at (20,37) MISSED
+Robot B chooses upgrade: AvoiderBot!
+B becomes AvoiderBot!
+[AVOID] B: No bot nearby, moving randomly.
+[THINK] S decided to fire at 10, 40
+[THINK] Shot S at (10,40) HIT! Lives left: 2
+Robot S chooses upgrade: AvoiderBot!
+S becomes AvoiderBot!
+[AVOID] S: No bot nearby, moving randomly.
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*            A                                                       *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+**********************************************************************
+[THINK] K decided to fire at 10, 10
+[THINK] Shot K at (10,10) HIT! Lives left: 1
+Robot K chooses upgrade: SemiAutoBot!
+[THINK] J decided to move at 11, 10
+[THINK] A decided to move at 13, 19
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*         K                                                          *
+*          J                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*             A                                                      *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*        S          B                                                *
+**********************************************************************
+[THINK] K decided to move at 10, 10
+[THINK] J decided to look at 11, 11
+[LOOK] J looking around (11,11).
+J stands here at (11,11).
+Enemy robot spotted at (10,10).
+Enemy robot spotted at (11,10).
+[THINK] A decided to look at 14, 19
+[LOOK] A looking around (14,19).
+A stands here at (14,19).
+Enemy robot spotted at (14,20).
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          K                                                         *
+*          J                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*             A                                                      *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*        S          B                                                *
+**********************************************************************
+[THINK] K decided to fire at 11, 10
+[THINK] Shot K at (10,10) HIT! Lives left: 0
+[DESTROYED] K is destroyed!
+[THINK] A decided to move at 14, 19
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*              A                                                     *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*        S          B                                                *
+**********************************************************************
+[THINK] J decided to look at 11, 11
+[LOOK] J looking around (11,11).
+J stands here at (11,11).
+Enemy robot spotted at (10,10).
+Enemy robot spotted at (11,10).
+[THINK] A decided to look at 15, 19
+[LOOK] A looking around (15,19).
+A stands here at (15,19).
+Enemy robot spotted at (14,20).
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          J                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*              A                                                     *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*        S          B                                                *
+**********************************************************************
+[THINK] J decided to move at 11, 11
+[THINK] A decided to fire at 15, 19
+[THINK] Shot A at (14,20) HIT! Lives left: 2
+Robot A chooses upgrade: ThirtyShotBot!
+A upgrades to ThirtyShotBot
+[WARNING] Target Any not found in detected robots.
+[THIRTYSHOT] Shot fired.
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*         J                                                          *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*        S          B                                                *
+**********************************************************************
+[THINK] J decided to fire at 10, 10
+[THINK] Shot J at (11,10) HIT! Lives left: 2
+Robot J chooses upgrade: ScoutBot!
+J becomes ScoutBot!
+[SCOUT] Full battlefield scan initiated by J.
+Enemy: K at (10, 10).
+Enemy: A at (14, 20).
+Enemy: B at (20, 37).
+Enemy: S at (10, 40).
+Remaining number of scans: 2.
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*              T                                                     *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*        S          B                                                *
+**********************************************************************
+[THINK] J decided to fire at 10, 10
+[THINK] Shot J at (11,10) HIT! Lives left: 1
+Robot J chooses upgrade: SemiAutoBot!
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*         J                                                          *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*              T                                                     *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*        S          B                                                *
+**********************************************************************
+[THINK] J decided to move at 10, 10
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*        J                                                           *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*              T                                                     *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*        S          B                                                *
+**********************************************************************
+[THINK] J decided to move at 9, 11
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*       J                                                            *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*              T                                                     *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*        S          B                                                *
+**********************************************************************
+
+Simulation Completed! Surviving Bots:
+- Player: J | Position: (8, 12)
+- Player: T | Position: (15, 19)
+- Player: B | Position: (20, 28)
+- Player: S | Position: (9, 28)
+PS C:\Users\User\Documents\Raziq_Projects\Robot_OOPDS> .\a.exe
+[LOAD] Target: Kidd at (10,10)
+[LOAD] Target: Jet at (11,10)
+[LOAD] Target: Alpha at (14,20)
+[LOAD] Target: Beta at (20,37)
+[LOAD] Target: Star at (10,40)
+[THINK] K decided to look at 10, 10
+[LOOK] K looking around (10,10).
+K stands here at (10,10).
+Enemy robot spotted at (11,10).
+[THINK] J decided to fire at 11, 10
+[THINK] Shot J at (11,10) HIT! Lives left: 2
+Robot J chooses upgrade: JumpBot!
+J becomes JumpBot!
+[JUMP] J: Jumped to (21, 29)
+[THINK] A decided to look at 14, 20
+[LOOK] A looking around (14,20).
+A stands here at (14,20).
+[THINK] B decided to look at 20, 37
+[LOOK] B looking around (20,37).
+B stands here at (20,37).
+[THINK] S decided to look at 10, 40
+[LOOK] S looking around (10,40).
+S stands here at (10,40).
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*         K                                                          *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*             A                                                      *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*         S         B                                                *
+**********************************************************************
+[THINK] K decided to fire at 10, 10
+[THINK] Shot K at (10,10) MISSED
+Robot K chooses upgrade: AvoiderBot!
+K becomes AvoiderBot!
+[AVOID] K: No bot nearby, moving randomly.
+[THINK] J decided to look at 21, 29
+[LOOK] J looking around (21,29).
+J stands here at (21,29).
+[THINK] A decided to move at 14, 20
+[THINK] B decided to move at 20, 28
+[THINK] S decided to look at 10, 28
+[LOOK] S looking around (10,28).
+S stands here at (10,28).
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*              A                                                     *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*         S          B                                               *
+**********************************************************************
+[THINK] J decided to look at 21, 28
+[LOOK] J looking around (21,28).
+J stands here at (21,28).
+[THINK] A decided to move at 15, 21
+[THINK] B decided to look at 21, 28
+[LOOK] B looking around (21,28).
+B stands here at (21,28).
+[THINK] S decided to fire at 10, 28
+THINK S is out of range. No shot fired.
+Robot S chooses upgrade: HideBot!
+[HIDE] S: Now hiding for 3 turns.
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          K                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*             A                                                      *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                    B                                               *
+**********************************************************************
+[THINK] J decided to look at 21, 28
+[LOOK] J looking around (21,28).
+J stands here at (21,28).
+[THINK] A decided to look at 14, 21
+[LOOK] A looking around (14,21).
+A stands here at (14,21).
+Enemy robot spotted at (14,20).
+[THINK] B decided to fire at 21, 28
+THINK B is out of range. No shot fired.
+Robot B chooses upgrade: JumpBot!
+B becomes JumpBot!
+[JUMP] B: Jumped to (26, 40)
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          K                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*             A                                                      *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                    J                                               *
+**********************************************************************
+[THINK] J decided to fire at 21, 28
+[THINK] Shot J at (21,29) HIT! Lives left: 1
+Robot J chooses upgrade: HideBot!
+[HIDE] J: Now hiding for 3 turns.
+[THINK] A decided to move at 14, 21
+[THINK] B decided to look at 26, 40
+[LOOK] B looking around (26,40).
+B stands here at (26,40).
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          K                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*            A                                                       *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                         B                                          *
+**********************************************************************
+[THINK] A decided to move at 13, 22
+[THINK] B decided to look at 26, 28
+[LOOK] B looking around (26,28).
+B stands here at (26,28).
+[REVEAL] S is now visible again!
+[THINK] S decided to move at 10, 28
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          K                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*            A                                                       *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          S              B                                          *
+**********************************************************************
+[THINK] A decided to look at 13, 21
+[LOOK] A looking around (13,21).
+A stands here at (13,21).
+Enemy robot spotted at (14,20).
+[THINK] B decided to look at 26, 28
+[LOOK] B looking around (26,28).
+B stands here at (26,28).
+[THINK] S decided to move at 11, 28
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          K                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*            A                                                       *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*           S             B                                          *
+**********************************************************************
+[REVEAL] J is now visible again!
+[THINK] J decided to look at 21, 28
+[LOOK] J looking around (21,28).
+J stands here at (21,28).
+[THINK] A decided to look at 13, 21
+[LOOK] A looking around (13,21).
+A stands here at (13,21).
+Enemy robot spotted at (14,20).
+[THINK] B decided to fire at 26, 28
+THINK B is out of range. No shot fired.
+Robot B chooses upgrade: LongShotBot!
+B upgrades to LongShotBot
+[WARNING] Target Any not found in detected robots.
+[LONGSHOT] Shot fired.
+[THINK] S decided to fire at 12, 28
+THINK S is out of range. No shot fired.
+Robot S chooses upgrade: SemiAutoBot!
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          K                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*            A                                                       *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*           S        J                                               *
+**********************************************************************
+[THINK] J decided to fire at 21, 28
+[THINK] Shot J at (21,29) HIT! Lives left: 0
+[DESTROYED] J is destroyed!
+[THINK] S decided to look at 12, 28
+[LOOK] S looking around (12,28).
+S stands here at (12,28).
+[THINK] S decided to move at 12, 28
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          K                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*           SS            L                                          *
+**********************************************************************
+[THINK] A decided to move at 13, 21
+[THINK] S decided to fire at 13, 28
+THINK S is out of range. No shot fired.
+Robot S chooses upgrade: ScoutBot!
+S becomes ScoutBot!
+[SCOUT] Full battlefield scan initiated by S.
+Enemy: K at (10, 10).
+Enemy: J at (11, 10).
+Enemy: A at (14, 20).
+Enemy: B at (20, 37).
+Remaining number of scans: 2.
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          K                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*           A                                                        *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                         L                                          *
+**********************************************************************
+
+Simulation Completed! Surviving Bots:
+- Player: K | Position: (11, 9)
+- Player: A | Position: (12, 21)
+- Player: L | Position: (26, 28)
+- Player: S | Position: (13, 28)
+
+
+Game 3
+
+[LOAD] Target: Kidd at (10,10)
+[LOAD] Target: Jet at (11,10)
+[LOAD] Target: Alpha at (14,20)
+[LOAD] Target: Beta at (20,37)
+[LOAD] Target: Star at (10,40)
+[THINK] K decided to look at 10, 10
+[LOOK] K looking around (10,10).
+K stands here at (10,10).
+Enemy robot spotted at (11,10).
+[THINK] J decided to fire at 11, 10
+[THINK] Shot J at (11,10) HIT! Lives left: 2
+Robot J chooses upgrade: JumpBot!
+J becomes JumpBot!
+[JUMP] J: Jumped to (21, 29)
+[THINK] A decided to look at 14, 20
+[LOOK] A looking around (14,20).
+A stands here at (14,20).
+[THINK] B decided to look at 20, 37
+[LOOK] B looking around (20,37).
+B stands here at (20,37).
+[THINK] S decided to look at 10, 40
+[LOOK] S looking around (10,40).
+S stands here at (10,40).
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*         K                                                          *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*             A                                                      *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*         S         B                                                *
+**********************************************************************
+[THINK] K decided to fire at 10, 10
+[THINK] Shot K at (10,10) MISSED
+Robot K chooses upgrade: AvoiderBot!
+K becomes AvoiderBot!
+[AVOID] K: No bot nearby, moving randomly.
+[THINK] J decided to look at 21, 29
+[LOOK] J looking around (21,29).
+J stands here at (21,29).
+[THINK] A decided to move at 14, 20
+[THINK] B decided to move at 20, 28
+[THINK] S decided to look at 10, 28
+[LOOK] S looking around (10,28).
+S stands here at (10,28).
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*              A                                                     *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*         S          B                                               *
+**********************************************************************
+[THINK] J decided to look at 21, 28
+[LOOK] J looking around (21,28).
+J stands here at (21,28).
+[THINK] A decided to move at 15, 21
+[THINK] B decided to look at 21, 28
+[LOOK] B looking around (21,28).
+B stands here at (21,28).
+[THINK] S decided to fire at 10, 28
+THINK S is out of range. No shot fired.
+Robot S chooses upgrade: HideBot!
+[HIDE] S: Now hiding for 3 turns.
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          K                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*             A                                                      *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                    B                                               *
+**********************************************************************
+[THINK] J decided to look at 21, 28
+[LOOK] J looking around (21,28).
+J stands here at (21,28).
+[THINK] A decided to look at 14, 21
+[LOOK] A looking around (14,21).
+A stands here at (14,21).
+Enemy robot spotted at (14,20).
+[THINK] B decided to fire at 21, 28
+THINK B is out of range. No shot fired.
+Robot B chooses upgrade: JumpBot!
+B becomes JumpBot!
+[JUMP] B: Jumped to (26, 40)
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          K                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*             A                                                      *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                    J                                               *
+**********************************************************************
+[THINK] J decided to fire at 21, 28
+[THINK] Shot J at (21,29) HIT! Lives left: 1
+Robot J chooses upgrade: HideBot!
+[HIDE] J: Now hiding for 3 turns.
+[THINK] A decided to move at 14, 21
+[THINK] B decided to look at 26, 40
+[LOOK] B looking around (26,40).
+B stands here at (26,40).
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          K                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*            A                                                       *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                         B                                          *
+**********************************************************************
+[THINK] A decided to move at 13, 22
+[THINK] B decided to look at 26, 28
+[LOOK] B looking around (26,28).
+B stands here at (26,28).
+[REVEAL] S is now visible again!
+[THINK] S decided to move at 10, 28
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          K                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*            A                                                       *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          S              B                                          *
+**********************************************************************
+[THINK] A decided to look at 13, 21
+[LOOK] A looking around (13,21).
+A stands here at (13,21).
+Enemy robot spotted at (14,20).
+[THINK] B decided to look at 26, 28
+[LOOK] B looking around (26,28).
+B stands here at (26,28).
+[THINK] S decided to move at 11, 28
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          K                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*            A                                                       *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*           S             B                                          *
+**********************************************************************
+[REVEAL] J is now visible again!
+[THINK] J decided to look at 21, 28
+[LOOK] J looking around (21,28).
+J stands here at (21,28).
+[THINK] A decided to look at 13, 21
+[LOOK] A looking around (13,21).
+A stands here at (13,21).
+Enemy robot spotted at (14,20).
+[THINK] B decided to fire at 26, 28
+THINK B is out of range. No shot fired.
+Robot B chooses upgrade: LongShotBot!
+B upgrades to LongShotBot
+[WARNING] Target Any not found in detected robots.
+[LONGSHOT] Shot fired.
+[THINK] S decided to fire at 12, 28
+THINK S is out of range. No shot fired.
+Robot S chooses upgrade: SemiAutoBot!
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          K                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*            A                                                       *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*           S        J                                               *
+**********************************************************************
+[THINK] J decided to fire at 21, 28
+[THINK] Shot J at (21,29) HIT! Lives left: 0
+[DESTROYED] J is destroyed!
+[THINK] S decided to look at 12, 28
+[LOOK] S looking around (12,28).
+S stands here at (12,28).
+[THINK] S decided to move at 12, 28
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          K                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*           SS            L                                          *
+**********************************************************************
+[THINK] A decided to move at 13, 21
+[THINK] S decided to fire at 13, 28
+THINK S is out of range. No shot fired.
+Robot S chooses upgrade: ScoutBot!
+S becomes ScoutBot!
+[SCOUT] Full battlefield scan initiated by S.
+Enemy: K at (10, 10).
+Enemy: J at (11, 10).
+Enemy: A at (14, 20).
+Enemy: B at (20, 37).
+Remaining number of scans: 2.
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          K                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*           A                                                        *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                         L                                          *
+**********************************************************************
+
+Simulation Completed! Surviving Bots:
+- Player: K | Position: (11, 9)
+- Player: A | Position: (12, 21)
+- Player: L | Position: (26, 28)
+- Player: S | Position: (13, 28)
+PS C:\Users\User\Documents\Raziq_Projects\Robot_OOPDS> .\a.exe      
+[LOAD] Target: Kidd at (10,10)
+[LOAD] Target: Jet at (11,10)
+[LOAD] Target: Alpha at (14,20)
+[LOAD] Target: Beta at (20,37)
+[LOAD] Target: Star at (10,40)
+[THINK] K decided to look at 10, 10
+[LOOK] K looking around (10,10).
+K stands here at (10,10).
+Enemy robot spotted at (11,10).
+[THINK] J decided to move at 11, 10
+[THINK] A decided to fire at 14, 20
+[THINK] Shot A at (14,20) HIT! Lives left: 2
+Robot A chooses upgrade: TrackBot!
+[THINK] B decided to look at 20, 37
+[LOOK] B looking around (20,37).
+B stands here at (20,37).
+[THINK] S decided to move at 10, 40
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*         K                                                          *
+*         J                                                          *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*             A                                                      *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          S        B                                                *
+**********************************************************************
+[THINK] K decided to move at 10, 10
+[THINK] J decided to fire at 10, 11
+[THINK] Shot J at (11,10) MISSED
+Robot J chooses upgrade: SpeedyBot!
+J becomes SpeedyBot!
+[SPEED] J: SpeedyBot moved quickly!
+[THINK] A decided to move at 14, 20
+[THINK] B decided to fire at 20, 28
+THINK B is out of range. No shot fired.
+Robot B chooses upgrade: LongShotBot!
+B upgrades to LongShotBot
+[WARNING] Target Any not found in detected robots.
+[LONGSHOT] Shot fired.
+[THINK] S decided to move at 11, 28
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          K                                                         *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*             A                                                      *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*         S                                                          *
+*                                                                    *
+**********************************************************************
+[THINK] K decided to look at 11, 10
+[LOOK] K looking around (11,10).
+K stands here at (11,10).
+Enemy robot spotted at (10,10).
+[THINK] A decided to fire at 14, 21
+[THINK] Shot A at (14,20) MISSED
+Robot A chooses upgrade: ThirtyShotBot!
+A upgrades to ThirtyShotBot
+[WARNING] Target Any not found in detected robots.
+[THIRTYSHOT] Shot fired.
+[THINK] S decided to move at 10, 27
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          K                                                         *
+*                                                                    *
+*           J                                                        *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*        S          L                                                *
+**********************************************************************
+[THINK] K decided to fire at 11, 10
+[THINK] Shot K at (10,10) MISSED
+Robot K chooses upgrade: TrackBot!
+[THINK] S decided to look at 9, 28
+[LOOK] S looking around (9,28).
+S stands here at (9,28).
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          K                                                         *
+*                                                                    *
+*           J                                                        *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*             T                                                      *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*        S          L                                                *
+**********************************************************************
+[THINK] K decided to fire at 11, 10
+[THINK] Shot K at (10,10) HIT! Lives left: 2
+Robot K chooses upgrade: ThirtyShotBot!
+K upgrades to ThirtyShotBot
+[WARNING] Target Any not found in detected robots.
+[THIRTYSHOT] Shot fired.
+[THINK] S decided to look at 9, 28
+[LOOK] S looking around (9,28).
+S stands here at (9,28).
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*           J                                                        *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*             T                                                      *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*        S          L                                                *
+**********************************************************************
+[THINK] S decided to look at 9, 28
+[LOOK] S looking around (9,28).
+S stands here at (9,28).
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          T                                                         *
+*                                                                    *
+*           J                                                        *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*             T                                                      *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*        S          L                                                *
+**********************************************************************
+[THINK] S decided to fire at 9, 28
+THINK S is out of range. No shot fired.
+Robot S chooses upgrade: ScoutBot!
+S becomes ScoutBot!
+[SCOUT] Full battlefield scan initiated by S.
+Enemy: K at (10, 10).
+Enemy: J at (11, 10).
+Enemy: A at (14, 20).
+Enemy: B at (20, 37).
+Remaining number of scans: 2.
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          T                                                         *
+*                                                                    *
+*           J                                                        *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*             T                                                      *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                   L                                                *
+**********************************************************************
+[THINK] S decided to move at 9, 28
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          T                                                         *
+*                                                                    *
+*           J                                                        *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*             T                                                      *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*        S          L                                                *
+**********************************************************************
+[THINK] S decided to look at 9, 28
+[LOOK] S looking around (9,28).
+S stands here at (9,28).
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          T                                                         *
+*                                                                    *
+*           J                                                        *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*             T                                                      *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*        S          L                                                *
+**********************************************************************
+[THINK] S decided to move at 9, 28
+**********************************************************************
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*          T                                                         *
+*                                                                    *
+*           J                                                        *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*             T                                                      *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*                                                                    *
+*        S          L                                                *
+**********************************************************************
+
+Simulation Completed! Surviving Bots:
+- Player: T | Position: (11, 10)
+- Player: J | Position: (12, 12)
+- Player: T | Position: (14, 21)
+- Player: L | Position: (20, 28)
+- Player: S | Position: (9, 28)

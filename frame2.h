@@ -79,6 +79,11 @@ public:
                     tbot->ThinkAction();
                     string decision = tbot->getDecision();
 
+                    //output tracklog evry round 
+                    if (TrackBot* tcbot = dynamic_cast<TrackBot*>(bot)) {
+                        tcbot->DisplayTrackedBots(robot.detectedRobot);
+                    }
+
                     if (decision == "fire") {
                         bool destroyed = shooter.startShooting(tbot->getX(), tbot->getY(), tbot->getSymbol(), robot.detectedRobot, tbot->getSymbol());
 
@@ -247,9 +252,39 @@ if (robotChoices == "ThirtyShotBot") {
 }
 
 
+                        else if (robotChoices == "TrackBot") {
+                            
+                            TrackBot* tcbot = dynamic_cast<TrackBot*>(tbot);
 
-                    
+                            if (tcbot) { //if already a trackbot
+                                
+                                cout << tbot->getSymbol() << " is already a TrackBot!" << endl;
+                                tcbot->TrackAction(tcbot, robot.detectedRobot);  //track
+                                tcbot->DisplayTrackedBots(robot.detectedRobot);  //display the trackings
+                            } 
+                            
+                            else { //new bot upgrades to trackbot
+                                
+                                cout << tbot->getSymbol() << " becomes TrackBot!" << endl;
 
+                                TrackBot* newTcbot = new TrackBot();
+                                newTcbot->setX(tbot->getX());
+                                newTcbot->setY(tbot->getY());
+                                newTcbot->setSymbol(tbot->getSymbol());
+
+                                //replaces bot in vector (no longer regular bot, its trackbot)
+                                auto it = find(bots.begin(), bots.end(), tbot);
+                                if (it != bots.end()) {
+                                    delete *it;
+                                    *it = newTcbot;
+                                }
+
+                                newTcbot->TrackAction(newTcbot, robot.detectedRobot);
+                                newTcbot->DisplayTrackedBots(robot.detectedRobot);
+                            }
+
+                            continue;
+                        }
 
 
                     } else if (decision == "move") {
@@ -269,7 +304,6 @@ if (robotChoices == "ThirtyShotBot") {
             }
 
             delay(250);
-            system("cls"); // Use "clear" on macOS/Linux
             for (const auto& row : Grid) {
                 for (const auto& cell : row)
                     cout << cell;
